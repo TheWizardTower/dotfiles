@@ -5,6 +5,36 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+
+if [[ "$term" -eq "eterm-color" ]]
+then
+    export TERM="vt100"
+fi
+
+SSH_ENV=$HOME/.ssh/environment
+
+function start_agent {
+  echo "Initialising new SSH agent..."
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
+  echo succeeded
+  chmod 600 ${SSH_ENV}
+  . ${SSH_ENV} > /dev/null
+  /usr/bin/ssh-add .ssh/amccullough-corp-20130605 .ssh/amccullough-prod-20130605 
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "${SSH_ENV}" ]; then
+  . ${SSH_ENV} > /dev/null
+  ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+    start_agent;
+  }
+else
+  start_agent;
+fi
+
+export REPOS="svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
+
 [ -s $HOME/.autojump/etc/profile.d/autojump.bash ] && source ~/.autojump/etc/profile.d/autojump.bash
 
 # don't put duplicate lines in the history. See bash(1) for more options
