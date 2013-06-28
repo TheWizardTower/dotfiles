@@ -2,6 +2,16 @@
 (my-site-start "~/.emacs.d/site-start.d/")
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
+;; TABS ARE EVIL!
+(setq-default indent-tabs-mode nil)
+(setq-default highlight-tabs)
+(setq-default highlight-trailing-whitespace)
+
+(auto-fill-mode)
+
+;; this is a super-silly and long comment that's bound to go past word-wrap. Will emacs do the right thing?
+
+;; nope. :(
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
