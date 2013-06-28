@@ -5,6 +5,11 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
 [ -s $HOME/.autojump/etc/profile.d/autojump.bash ] && source ~/.autojump/etc/profile.d/autojump.bash
 
 # don't put duplicate lines in the history. See bash(1) for more options
