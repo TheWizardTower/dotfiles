@@ -63,9 +63,7 @@
   ;; If there is more than one, they won't work right.
  '(fill-column 80)
  '(viper-ex-style-motion nil)
- '(viper-shift-width 4)
- '(w32shell-cygwin-bin "C:\\cygwin\\bin")
- '(w32shell-shell (quote cygwin)))
+ '(viper-shift-width 4))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -91,14 +89,14 @@
 ;; modes. The other way to do this is to turn on the fill for specific modes
 ;; via hooks.
 
-(setq auto-fill-mode 1)
+(setq-default auto-fill-mode 1)
 
 ;; ===== Set the highlight current line minor mode =====
 
 ;; In every buffer, the line which contains the cursor will be fully
 ;; highlighted
 
-;; (global-hl-line-mode 1)
+(global-hl-line-mode 1)
 
 ;; Higlight the current line the cursor is on.
 (add-hook 'text-mode-hook (lambda () (hl-line-mode 1)))
