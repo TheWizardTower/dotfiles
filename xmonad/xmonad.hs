@@ -3,8 +3,8 @@ import Data.IORef
 import Control.OldException(catchDyn,try)
 import Control.Category ((>>>))
 import Control.Monad
-import qualified DBus as D
-import qualified DBus.Client as D
+-- import qualified DBus as D
+-- import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
 import XMonad
 import XMonad.Layout.Dishes
@@ -18,13 +18,14 @@ import XMonad.Config.Gnome
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
 import System.Exit
+import XMonad.Config.Kde
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import qualified System.IO.UTF8  as UTF8
 
 
-myTerminal           = "gnome-terminal"
+myTerminal           = "konsole"
 myBorderWidth        = 0
 myNormalBorderColor  = "#000000"
 myFocusedBorderColor = "#000000"
@@ -41,8 +42,8 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 myStartupHook = setWMName "LG3D"
 
 myScratchpads =
-    [ NS "calc" "gnome-calculator" (title =? "Calculator") defaultFloating,
-      NS "music" "nuvolaplayer" (className =? "nuvolaplayer") defaultFloating
+    [ NS "calc" "free42dec" (title =? "Free42Dec") defaultFloating,
+      NS "music" "audacious" (className =? "Audacious") defaultFloating
     ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
@@ -148,19 +149,19 @@ myManageHook = composeAll
     , namedScratchpadManageHook myScratchpads
     , manageDocks ]
 
-logPrinter :: D.Client -> PP
-logPrinter dbus       = defaultPP {
-    ppOutput          = outputThroughDBus dbus
-  , ppTitle           = pangoSanitize >>> pangoColor "#00DDFF"
-  , ppCurrent         = pangoSanitize >>> wrap "[" "]" >>> pangoColor "#00EEEE"
-  , ppVisible         = pangoSanitize >>> pangoColor "#00EEEE"
-  , ppHidden          = hiddenFilter
-  , ppLayout          = layoutFilter
-  , ppHiddenNoWindows = const ""
-  , ppUrgent          = pangoColor "red"
-  , ppSep             = " • "
-  , ppOrder           = (\ (ws:l:t:_) -> [l, ws, t])
-  }
+-- logPrinter :: D.Client -> PP
+-- logPrinter dbus       = defaultPP {
+--     ppOutput          = outputThroughDBus dbus
+--   , ppTitle           = pangoSanitize >>> pangoColor "#00DDFF"
+--   , ppCurrent         = pangoSanitize >>> wrap "[" "]" >>> pangoColor "#00EEEE"
+--   , ppVisible         = pangoSanitize >>> pangoColor "#00EEEE"
+--   , ppHidden          = hiddenFilter
+--   , ppLayout          = layoutFilter
+--   , ppHiddenNoWindows = const ""
+--   , ppUrgent          = pangoColor "red"
+--   , ppSep             = " • "
+--   , ppOrder           = (\ (ws:l:t:_) -> [l, ws, t])
+--   }
 
 hiddenFilter :: WorkspaceId -> String
 hiddenFilter "NSP" = ""
@@ -169,10 +170,10 @@ hiddenFilter a = a
 layoutFilter :: String -> String
 layoutFilter a = [head a]
 
-outputThroughDBus :: D.Client -> String -> IO ()
-outputThroughDBus dbus str = do
-    let sig = (D.signal "/org/xmonad/Log" "org.xmonad.Log" "Update") {D.signalBody=[D.toVariant $ outputWrap str]}
-    D.emit dbus sig
+-- outputThroughDBus :: D.Client -> String -> IO ()
+-- outputThroughDBus dbus str = do
+--     let sig = (D.signal "/org/xmonad/Log" "org.xmonad.Log" "Update") {D.signalBody=[D.toVariant $ outputWrap str]}
+--     D.emit dbus sig
 
 outputWrap :: String -> String
 outputWrap str = "<span font=\"Terminus 9 Bold\">" ++ (UTF8.decodeString str) ++ "</span>"
@@ -193,10 +194,10 @@ pangoSanitize = foldr sanitize ""
   sanitize x    acc = x:acc
 
 main = do
-    dbus <- D.connectSession
-    D.requestName dbus "org.xmonad.Log" [D.nameAllowReplacement, D.nameDoNotQueue]
+--     dbus <- D.connectSession
+--     D.requestName dbus "org.xmonad.Log" [D.nameAllowReplacement, D.nameDoNotQueue]
     floatNextWindows <- newIORef 0
-    xmonad $ gnomeConfig {
+    xmonad $ kdeConfig {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -213,6 +214,6 @@ main = do
       -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
-        logHook            = dynamicLogWithPP (logPrinter dbus),
+--         logHook            = dynamicLogWithPP (logPrinter dbus),
         startupHook        = myStartupHook
     }
