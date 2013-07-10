@@ -43,7 +43,8 @@ myStartupHook = setWMName "LG3D"
 
 myScratchpads =
     [ NS "calc" "free42dec" (title =? "Free42Dec") defaultFloating,
-      NS "music" "audacious" (className =? "Audacious") defaultFloating
+      NS "music" "audacious" (className =? "Audacious") defaultFloating,
+      NS "float-term" "yakuake" (className =? "Yakuake") defaultFloating
     ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
