@@ -96,7 +96,7 @@
 ;; In every buffer, the line which contains the cursor will be fully
 ;; highlighted
 
-(global-hl-line-mode 1)
+;; (global-hl-line-mode 1)
 
 ;; Higlight the current line the cursor is on.
 (add-hook 'text-mode-hook (lambda () (hl-line-mode 1)))
