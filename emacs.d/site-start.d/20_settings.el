@@ -40,7 +40,7 @@
 
 ;; Indent with spaces.
 
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;; ===== Set standard indent to 4
 
@@ -90,6 +90,7 @@
 ;; via hooks.
 
 (setq-default auto-fill-mode 1)
+(setq-default auto-fill-function 'do-auto-fill)
 
 ;; ===== Set the highlight current line minor mode =====
 
@@ -161,3 +162,10 @@
 
 (setq-default indicate-empty-lines t)          ; Show empty lines
 (setq mouse-wheel-progressive-speed nil)
+
+
+
+;; Always have spellcheck on.
+(setq-default flyspell-mode t)
+
+(display-time)
