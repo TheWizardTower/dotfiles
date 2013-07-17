@@ -12,18 +12,17 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Hooks.SetWMName
 import XMonad.StackSet hiding (focus, workspaces)
-import XMonad.Config.Gnome
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.WindowProperties (getProp32s)
 import System.Exit
 import XMonad.Config.Kde
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import qualified System.IO.UTF8  as UTF8
-
 
 myTerminal           = "konsole"
 myBorderWidth        = 0
@@ -44,14 +43,16 @@ myStartupHook = setWMName "LG3D"
 myScratchpads =
     [ NS "calc" "free42dec" (title =? "Free42Dec") defaultFloating,
       NS "music" "audacious" (className =? "Audacious") defaultFloating,
-      NS "float-term" "yakuake" (className =? "Yakuake") defaultFloating
+      NS "float-term" "yakuake" (className =? "Yakuake") defaultFloating,
+      NS "float-run" "krunner" (className =? "krunner") defaultFloating
     ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     , ((modm,               xK_c     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
-    , ((modm,               xK_l     ), spawn "gnome-screensaver-command -l")
+    , ((modm .|. shiftMask, xK_r     ), spawn "krunner")
+    , ((modm,               xK_l     ), spawn "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
     , ((0,                  xK_Print ), spawn "scrot")
     , ((controlMask,        xK_Print ), spawn "scrot -u")
     , ((shiftMask,          xK_Print ), spawn "sleep 0.2; scrot -s")
@@ -69,7 +70,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_p     ), windows W.swapUp    )
     , ((modm .|. shiftMask, xK_comma ), sendMessage Shrink)
     , ((modm .|. shiftMask, xK_period), sendMessage Expand)
-
+    , ((modm .|. shiftMask, xK_q     ), spawn "dcop kdesktop default logout")
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
     , ((modm              , xK_q     ), restart "xmonad" True)
@@ -143,6 +144,8 @@ myManageHook = composeAll
     , className                       =? "vncviewer"      --> doFloat
     , className                       =? "Vmplayer"       --> doFloat
     , className                       =? "Virt-viewer"    --> doFloat
+    , className                       =? "krunner"        --> doCenterFloat
+    , className                       =? "Cairo-dock"     --> doIgnore
     , resource                        =? "desktop_window" --> doIgnore
     , resource                        =? "kdesktop"       --> doIgnore
     , title                           =? "Save File"      --> (doRectFloat $ RationalRect 0.25 0.25 0.5 0.5)
@@ -218,3 +221,9 @@ main = do
 --         logHook            = dynamicLogWithPP (logPrinter dbus),
         startupHook        = myStartupHook
     }
+
+kdeOverride :: Query Bool
+kdeOverride = ask >>= \w -> liftX $ do
+    override <- getAtom "_KDE_NET_WM_WINDOW_TYPE_OVERRIDE"
+    wt <- getProp32s "_NET_WM_WINDOW_TYPE" w
+    return $ maybe False (elem $ fromIntegral override) wt
