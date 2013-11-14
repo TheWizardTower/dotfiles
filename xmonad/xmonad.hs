@@ -1,229 +1,381 @@
-{-# LANGUAGE OverloadedStrings #-}
-import Data.IORef
-import Control.OldException(catchDyn,try)
-import Control.Category ((>>>))
-import Control.Monad
--- import qualified DBus as D
--- import qualified DBus.Client as D
-import qualified Codec.Binary.UTF8.String as UTF8
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---INFORMATIONS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- informations = { Author   = Graawr 
+--                , Version  = XMonad 0.10 <+> ghc 7.4 <+> dzen-0.8.5
+--                , Updated  = August 17 2013
+--                }
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---IMPORTS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -- Base
 import XMonad
-import XMonad.Layout.Dishes
-import XMonad.Actions.CycleWS
+import Data.Maybe (isJust)
+import XMonad.Config.Kde
+import System.IO (hPutStrLn)
+import System.Exit (exitSuccess)
+import qualified XMonad.StackSet as W
+import XMonad.ManageHook
+
+    -- Utilities
+import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
+-- import XMonad.Util.NamedScratchpad (NamedScratchpad(NS), namedScratchpadManageHook, namedScratchpadAction, customFloating)
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHook, scratchpadFilterOutWorkspace)
+import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
+import XMonad.Util.SpawnOnce
+import XMonad.Util.WindowProperties (getProp32s)
+
+    -- Hooks
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, dzenColor, pad, shorten, PP(..))
+--import XMonad.Hooks.ManageDocks (avoidStruts, ToggleStruts(..))
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.SetWMName
-import XMonad.StackSet hiding (focus, workspaces)
-import XMonad.Util.Run
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.WindowProperties (getProp32s)
-import System.Exit
-import XMonad.Config.Kde
+-- import XMonad.Hooks.Place (placeHook, withGaps, smart)
+import XMonad.Hooks.Place
+import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.FloatNext (floatNextHook, toggleFloatNext, toggleFloatAllNew)
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
-import qualified System.IO.UTF8  as UTF8
+    -- Actions
+import XMonad.Actions.Promote
+import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
+import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
+import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
+import XMonad.Actions.WithAll (sinkAll, killAll)
+import XMonad.Actions.CycleWS (nextScreen, prevScreen, shiftNextScreen,
+                               shiftPrevScreen, moveTo, shiftTo, WSType(..)) 
+import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
+import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
+import XMonad.Actions.Warp (warpToWindow, banishScreen, Corner(LowerRight))
+import XMonad.Actions.MouseResize
+import qualified XMonad.Actions.ConstrainedResize as Sqr
 
-myTerminal           = "konsole"
-myBorderWidth        = 0
-myNormalBorderColor  = "#000000"
-myFocusedBorderColor = "#000000"
-myModMask            = mod4Mask
-myFocusFollowsMouse  = True
+    -- Layouts modifiers
+import XMonad.Layout.PerWorkspace (onWorkspace) 
+import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
+import XMonad.Layout.WorkspaceDir 
+import XMonad.Layout.Spacing (spacing) 
+import XMonad.Layout.Minimize
+import XMonad.Layout.Maximize
+import XMonad.Layout.BoringWindows (boringWindows)
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(..))
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 
--- The mask for the numlock key. Numlock status is "masked" from the
--- current modifier status, so the keybindings will work with numlock on or
--- off. You may need to change this on some systems.
-myNumlockMask   = mod2Mask
+    -- Layouts
+import XMonad.Layout.WindowArranger
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Simplest
+import XMonad.Layout.Tabbed
+import XMonad.Layout.TwoPane
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Grid
+import XMonad.Layout.Accordion
+import XMonad.Layout.Column
+import XMonad.Layout.Reflect
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.OneBig
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
+import XMonad.Layout.IM (withIM, Property(Role))
 
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
-
-myStartupHook = setWMName "LG3D"
-
-myScratchpads =
-    [ NS "calc" "free42dec" (title =? "Free42Dec") defaultFloating,
-      NS "music" "audacious" (className =? "Audacious") defaultFloating,
-      NS "float-term" "yakuake" (className =? "Yakuake") defaultFloating,
-      NS "float-run" "krunner" (className =? "krunner") defaultFloating
-    ]
-
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
-
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
-    , ((modm,               xK_c     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
-    , ((modm .|. shiftMask, xK_r     ), spawn "krunner")
-    , ((modm,               xK_l     ), spawn "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
-    , ((0,                  xK_Print ), spawn "scrot")
-    , ((controlMask,        xK_Print ), spawn "scrot -u")
-    , ((shiftMask,          xK_Print ), spawn "sleep 0.2; scrot -s")
-    , ((modm .|. shiftMask, xK_c     ), kill)
-    , ((modm,               xK_space ), sendMessage NextLayout)
-    , ((modm,               xK_b     ), sendMessage ToggleStruts)
-    , ((modm,               xK_r     ), spawn "xrefresh")
-
-    -- Window Motion
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-    , ((modm .|. shiftMask, xK_Tab   ), windows W.focusUp)
-    , ((modm,               xK_n     ), windows W.focusDown)
-    , ((modm,               xK_p     ), windows W.focusUp  )
-    , ((modm .|. shiftMask, xK_n     ), windows W.swapDown  )
-    , ((modm .|. shiftMask, xK_p     ), windows W.swapUp    )
-    , ((modm .|. shiftMask, xK_comma ), sendMessage Shrink)
-    , ((modm .|. shiftMask, xK_period), sendMessage Expand)
-    , ((modm .|. shiftMask, xK_q     ), spawn "dcop kdesktop default logout")
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
-    , ((modm              , xK_q     ), restart "xmonad" True)
-    --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    -- Prompts
+import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
 
 
-    -- Cycling Workspaces
-    , ((modm,               xK_Right),  moveTo Next viewableWS)
-    , ((modm,               xK_Left),   moveTo Prev viewableWS)
-    , ((modm .|. shiftMask, xK_Right),  (shiftTo Next viewableWS) >> (moveTo Next viewableWS))
-    , ((modm .|. shiftMask, xK_Left),   (shiftTo Prev viewableWS) >> (moveTo Prev viewableWS))
-    , ((modm,               xK_Down),   nextScreen)
-    , ((modm,               xK_Up),     prevScreen)
-    , ((modm .|. shiftMask, xK_Down),   shiftNextScreen >> nextScreen)
-    , ((modm .|. shiftMask, xK_Up),     shiftPrevScreen >> prevScreen)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---SETTINGS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    -- Styles
+myFont          = "-artwiz-snap-normal-*-normal-*-10-*-*-*-*-*-*-*"
+myBorderWidth   = 1
+myColorBG       = "#151515"
+myColorWhite    = "#ebebeb"
+myColorRed      = "#C3143B"
+myColorGray     = "#545454"
+myColorDarkgray = "#353535"
+
+    -- Settings
+myModMask       = mod4Mask
+myTerminal      = "konsole"
+
+    -- Prompts colors
+myPromptConfig =
+    defaultXPConfig { font                  = myFont
+                    , bgColor               = myColorBG
+                    , fgColor               = myColorRed
+                    , bgHLight              = myColorBG
+                    , fgHLight              = myColorWhite
+                    , borderColor           = myColorBG
+                    , promptBorderWidth     = myBorderWidth
+                    , height                = 20
+                    , position              = Top
+                    , historySize           = 0
+                    }
+
+    -- Grid selector colors
+myGridConfig = colorRangeFromClassName
+    (0x15,0x15,0x15) -- lowest inactive bg
+    (0x15,0x15,0x15) -- highest inactive bg
+    (0xC3,0x14,0x3B) -- active bg
+    (0x54,0x54,0x54) -- inactive fg
+    (0xEB,0xEB,0xEB) -- active fg
+
+myGSConfig colorizer  = (buildDefaultGSConfig myGridConfig)
+    { gs_cellheight   = 65
+    , gs_cellwidth    = 120
+    , gs_cellpadding  = 10
+    , gs_font         = myFont
+    }
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---SCRATCHPADS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+myScratchpads = 
+              [ NS "terminal" "konsole"                                      (className =? "Konsole") myPosition
+              , NS "music" "audacious"                                       (className =? "Audacious") myPosition
+              , NS "rtorrent" "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent") myPosition
+              , NS "calc" "free42" (role =? "Free42 Calculator") defaultFloating
+              ] where 
+                myPosition = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
+                role = stringProperty "WM_WINDOW_ROLE"
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---KEYBINDINGS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+myKeys =
+    -- Xmonad
+        [ ("M-C-r",             spawn "xmonad --recompile")
+        , ("M-M1-r",            spawn "xmonad --restart")
+        , ("M-S-r",             spawn "pkill dzen && xmonad --restart")
+        , ("M-M1-q",            io exitSuccess)
+        , ("M-<Backspace>",     spawn "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
+
+    
+    -- Windows
+        , ("M-r",               refresh)
+        , ("M-q",               kill1)
+        , ("M-C-q",             killAll)
+        , ("M-S-q",             killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP)
+
+        , ("M-t",        withFocused $ windows . W.sink)
+        , ("M-S-t",      sinkAll)
+
+
+    -- Layouts
+        , ("M-S-<Space>",       sendMessage ToggleStruts)
+        , ("M-d",               asks (XMonad.layoutHook . config) >>= setLayout)
+        , ("M-<Space>",         sendMessage NextLayout)
+        , ("M-S-f",             sendMessage (T.Toggle "float"))
+        , ("M-S-g",             sendMessage (T.Toggle "gimp"))
+        , ("M-S-x",             sendMessage $ Toggle REFLECTX)
+        , ("M-S-y",             sendMessage $ Toggle REFLECTY)
+        , ("M-S-m",             sendMessage $ Toggle MIRROR)
+        , ("M-S-b",             sendMessage $ Toggle NOBORDERS)
+        , ("M-S-d",             sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+
+    -- Workspaces
+        , ("M-w",               nextScreen)
+        , ("M-e",               prevScreen)
+        , ("M-S-w",             shiftNextScreen)
+        , ("M-S-e",             shiftPrevScreen)
+          
+    -- Apps
+
+        , ("M-<Return>",        spawn "konsole")
+        , ("M-S-<Return>",      spawn "urxvtc_mod -name anyWorkspace")
+        , ("M-c",         spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
+        , ("M-f",               raiseMaybe (runInTerm "-name ranger" "ranger") (resource =? "ranger"))
+        , ("M-m",               raiseMaybe (runInTerm "-name mutt" "mutt") (resource =? "mutt"))
+        , ("M-v",               raiseMaybe (runInTerm "-name weechat" "weechat-curses") (resource =? "weechat"))
+        , ("M-o",               raiseMaybe (runInTerm "-name htop" "htop") (resource =? "htop") >> warpToWindow (1/2) (1/2))
+        -- , ("M-w",               runOrRaise "iceweasel" (resource =? "Navigator"))
+        , ("M-C-f",             runOrRaise "thunar" (resource =? "thunar"))
+        , ("M-C-<Return>",      runOrRaise "trayerd" (resource =? "trayer"))
+        , ("M-M1-f",            runOrCopy "urxvtc_mod -name ranger -e ranger" (resource =? "ranger"))
+        , ("M-M1-t",            runOrCopy "urxvtc_mod -name newsbeuter -e newsbeuter" (resource =? "newsbeuter"))
+        , ("M-M1-m",            runOrCopy "urxvtc_mod -name mutt -e mutt" (resource =? "mutt"))
+        , ("M-M1-v",            runOrCopy "urxvtc_mod -name weechat -e weechat-curses" (resource =? "weechat"))
+        , ("M-M1-o",            runOrCopy "urxvtc_mod -name htop -e htop" (resource =? "htop") >> warpToWindow (1/2) (1/2))
+        , ("M-M1-w",            runOrCopy "iceweasel" (resource =? "Navigator"))
+        , ("M-C-A-f",           runOrCopy "thunar" (resource =? "thunar"))
+
 
     -- Scratchpads
-    , ((modm .|. mod1Mask,   xK_c),      namedScratchpadAction myScratchpads "calc")
-    , ((modm .|. mod1Mask,   xK_m),      namedScratchpadAction myScratchpads "music")
-    ]
-    ++
+        , ("M-M1-m",               namedScratchpadAction myScratchpads "music" )
+        , ("M-M1-c",               namedScratchpadAction myScratchpads "Kcalc" )
+        , ("<XF86Tools>",       namedScratchpadAction myScratchpads "music")
 
-    --
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (liftM2 (.) W.greedyView W.shift, shiftMask)]]
+    -- Multimedia Keys
+        , ("<XF86AudioPlay>",   spawn "ncmpcpp toggle")
+        , ("<XF86AudioPrev>",   spawn "ncmpcpp prev")
+        , ("<XF86AudioNext>",   spawn "ncmpcpp next")
+        , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
+        , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
+        , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
+        , ("<XF86HomePage>",    safeSpawn "firefox" ["/home/logan/.config/infoconf.html"])
+        , ("<XF86Search>",      safeSpawn "firefox" ["https://www.duckduckgo.com/"])
+        , ("<XF86Mail>",        runOrRaise "icedove" (resource =? "icedove"))
+        , ("<XF86Calculator>",  runOrRaise "speedcrunch" (resource =? "speedcrunch"))
+        , ("<XF86Eject>",       spawn "toggleeject")
+        , ("<Print>",           spawn "scrot 0")
+        ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
+                nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
-viewableWS = WSIs $ return (("NSP" /=) . tag)
+myMouseKeys = [ ((mod4Mask .|. shiftMask, button3), \w -> focus w >> Sqr.mouseResizeWindow w True) ]    
 
-------------------------------------------------------------------------
--- Mouse bindings: default actions bound to mouse events
---
-myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 
-    -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modMask, button1), (\w -> focus w >> mouseMoveWindow w))
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---WORKSPACES
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+myWorkspaces = ["1.text", "2.web", "3.media", "4.comms", "5.misc", "6", "7", "8", "9.syst"]
 
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modMask, button2), (\w -> focus w >> windows W.swapMaster))
+namedScratchpads = 
+           [
+           ]
 
-    -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modMask .|. shiftMask, button1), (\w -> focus w >> mouseResizeWindow w))
+myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
+               (composeAll $
+         [  className =? "Yakuake"           --> doFloat
+          , className =? "Pidgin"            --> doShift "1.text"
+         ]
+         ++
+         [  className =? "Plasma-desktop" --> doFloat
+          , className =? "plasma-desktop" --> makeMaster <+> doFloat
+         ]
+         ++
+         [   isFullscreen --> doFullFloat
+           , isDialog     --> placeHook (inBounds (underMouse (0,0))) <+> makeMaster <+> doFloat
+         ])
+         <+> namedScratchpadManageHook namedScratchpads
+         <+> manageDocks
+         <+> makeMaster
+         where
+           makeMaster = insertPosition Master Newer
+           role = stringProperty "WM_WINDOW_ROLE"
+           h= 0.4
+           w = 0.75
+           t = 0.85 - h
+           l = 0.87 - w
 
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    ]
 
-myLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| dishes
+               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---LAYOUTS
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fifthGimpWorkspaceLayout = withIM (0.11) (Role "gimp-toolbox") $
+                           reflectHoriz $
+                           withIM (0.15) (Role "gimp-dock") Full
+
+fourthWorkspaceLayout = avoidStruts $ Mirror tiled
     where
-        tiled = Tall nmaster delta tiled_ratio
-        dishes = Dishes nmaster dishes_ratio
-        nmaster = 1
-        delta = 1/100
-        tiled_ratio = 1/2
-        dishes_ratio = 24/100
+        tiled = ThreeCol 1 (3/100) (1/2)
 
--- To find the property name associated with a program, use
--- > xprop | grep WM_CLASS
--- and click on the client you're interested in.
---
--- To match on the WM_NAME, you can use 'title' in the same way that
--- 'className' and 'resource' are used below.
---
-myManageHook = composeAll
-    [ className                       =? "MPlayer"        --> doFloat
-    , className                       =? "Gimp"           --> doFloat
-    , className                       =? "Dia"            --> doFloat
-    , className                       =? "vncviewer"      --> doFloat
-    , className                       =? "Vmplayer"       --> doFloat
-    , className                       =? "Virt-viewer"    --> doFloat
-    , className                       =? "krunner"        --> doCenterFloat
-    , className                       =? "Cairo-dock"     --> doIgnore
-    , resource                        =? "desktop_window" --> doIgnore
-    , resource                        =? "kdesktop"       --> doIgnore
-    , title                           =? "Save File"      --> (doRectFloat $ RationalRect 0.25 0.25 0.5 0.5)
-    , stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat
-    , namedScratchpadManageHook myScratchpads
-    , manageDocks ]
+laptopWorkspaceLayout = OneBig (3/4) (3/4) ||| noBorders Full
 
--- logPrinter :: D.Client -> PP
--- logPrinter dbus       = defaultPP {
---     ppOutput          = outputThroughDBus dbus
---   , ppTitle           = pangoSanitize >>> pangoColor "#00DDFF"
---   , ppCurrent         = pangoSanitize >>> wrap "[" "]" >>> pangoColor "#00EEEE"
---   , ppVisible         = pangoSanitize >>> pangoColor "#00EEEE"
---   , ppHidden          = hiddenFilter
---   , ppLayout          = layoutFilter
---   , ppHiddenNoWindows = const ""
---   , ppUrgent          = pangoColor "red"
---   , ppSep             = " • "
---   , ppOrder           = (\ (ws:l:t:_) -> [l, ws, t])
---   }
+mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion ||| Column 1.6 ||| OneBig (3/4) (3/4) ||| tiled ||| three ||| Full
+   where
+     -- Default tiling algorithm partitions the screen into two panes
+     tiled = Tall nmaster delta ratio
 
-hiddenFilter :: WorkspaceId -> String
-hiddenFilter "NSP" = ""
-hiddenFilter a = a
+     three = ThreeCol 1 (3/100) (1/2)
 
-layoutFilter :: String -> String
-layoutFilter a = [head a]
+     -- The default number of windows in the master pane
+     nmaster = 1
 
--- outputThroughDBus :: D.Client -> String -> IO ()
--- outputThroughDBus dbus str = do
---     let sig = (D.signal "/org/xmonad/Log" "org.xmonad.Log" "Update") {D.signalBody=[D.toVariant $ outputWrap str]}
---     D.emit dbus sig
+     -- Default proporton of the screen occupied by the master pane
+     ratio = 1/2
 
-outputWrap :: String -> String
-outputWrap str = "<span font=\"Terminus 9 Bold\">" ++ (UTF8.decodeString str) ++ "</span>"
+     -- Percent of screen to increment by when resizing panes
+     delta = 3/100
 
-pangoColor :: String -> String -> String
-pangoColor fg = wrap left right
- where
-  left  = "<span foreground=\"" ++ fg ++ "\">"
-  right = "</span>"
+myLayout = mouseResize $
+           windowArrange $
+           onWorkspace "5" fifthGimpWorkspaceLayout $
+           onWorkspace "4" fourthWorkspaceLayout $
+           onWorkspace "1" laptopWorkspaceLayout $
+           mainLayout
 
-pangoSanitize :: String -> String
-pangoSanitize = foldr sanitize ""
- where
-  sanitize '>'  acc = "&gt;"   ++ acc
-  sanitize '<'  acc = "&lt;"   ++ acc
-  sanitize '\"' acc = "&quot;" ++ acc
-  sanitize '&'  acc = "&amp;"  ++ acc
-  sanitize x    acc = x:acc
+numworkspaces = take 10 [1..]
 
-main = do
---     dbus <- D.connectSession
---     D.requestName dbus "org.xmonad.Log" [D.nameAllowReplacement, D.nameDoNotQueue]
-    floatNextWindows <- newIORef 0
-    xmonad $ kdeConfig {
-      -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---STATUSBAR
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+myBitmapsDir = "/home/logan/.xmonad/statusbar/icons"
+myXmonadBarL = "dzen2 -x '0' -y '0' -h '16' -w '1000' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' " 
+-- myXmonadBarR = "conky -c /home/logan/.xmonad/statusbar/conky_dzen | dzen2 -x '1000' -y '0' -w '680' -h '16' -ta 'r' -bg '"++myColorBG++"' -fg '"++myColorWhite++"' -fn '"++myFont++"'"
 
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
+myLogHook h  = dynamicLogWithPP $ defaultPP
+      { ppOutput           = hPutStrLn h
+      , ppCurrent          = dzenColor myColorWhite myColorRed . pad
+      , ppHidden           = dzenColor myColorWhite myColorBG  . noScratchPad
+      , ppHiddenNoWindows  = dzenColor myColorGray myColorBG   . noScratchPad
+      , ppSep              = dzenColor myColorRed myColorBG " | "
+      , ppWsSep            = dzenColor myColorRed myColorBG ""
+      , ppTitle            = dzenColor myColorWhite myColorBG  . shorten 75
+      , ppOrder            = \(ws:l:t:_) -> [ws,l,t]
+      , ppLayout           = dzenColor myColorWhite myColorBG  .
+                             (\x -> case x of
+                                 "oneBig"       -> "^i("++myBitmapsDir++"/mini/nbstack.xbm)"
+                                 "tiled"        -> "^i("++myBitmapsDir++"/mini/tile.xbm)"
+                                 "lined"        -> "^i("++myBitmapsDir++"/mini/bstack2.xbm)"
+                                 "monocle"      -> "^i("++myBitmapsDir++"/mini/monocle.xbm)"
+                                 "grid"         -> "^i("++myBitmapsDir++"/mini/grid.xbm)"
+                                 "float"        -> "^i("++myBitmapsDir++"/mini/float.xbm)"
+                                 "gimp"         -> "^i("++myBitmapsDir++"/fox.xbm)"
+                                 "Full"         -> "^i("++myBitmapsDir++"/mini/monocle2.xbm)"
+                                 _              -> x
+                             )
+      } where noScratchPad ws = if ws == "NSP" then "" else pad ws
 
-      -- hooks, layouts
-        layoutHook         = myLayout,
-        manageHook         = myManageHook,
---         logHook            = dynamicLogWithPP (logPrinter dbus),
-        startupHook        = myStartupHook
-    }
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---AUTOSTART
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+myStartupHook = do
+          spawnOnce "xsetroot -cursor_name left_ptr &"
+          spawnOnce "sh ~/.fehbg &"
+          spawnOnce "mpd &"
+          spawnOnce "unclutter &"
+          spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
+          spawnOnce "konsole -e tmux &"
+
+
 
 kdeOverride :: Query Bool
 kdeOverride = ask >>= \w -> liftX $ do
     override <- getAtom "_KDE_NET_WM_WINDOW_TYPE_OVERRIDE"
     wt <- getProp32s "_NET_WM_WINDOW_TYPE" w
     return $ maybe False (elem $ fromIntegral override) wt
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---CONFIG
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+main = do
+    dzenLeftBar  <- spawnPipe myXmonadBarL
+--    dzenRightBar <- spawnPipe myXmonadBarR
+    xmonad       $  kde4Config
+        { modMask            = myModMask
+        , terminal           = myTerminal
+        , manageHook         = ((className =? "krunner" <||> className =?
+ "Plasma-desktop") >>= return . not --> manageHook kde4Config) <+>
+ (kdeOverride --> doFloat) <+> myManageHook
+--        , layoutHook         = myLayoutHook 
+        , layoutHook         = myLayout
+        , logHook            = myLogHook dzenLeftBar 
+        , startupHook        = myStartupHook
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth 
+        , normalBorderColor  = myColorDarkgray
+        , focusedBorderColor = myColorWhite
+        } `additionalKeysP`         myKeys 
+          `additionalMouseBindings` myMouseKeys
