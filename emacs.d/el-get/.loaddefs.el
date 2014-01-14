@@ -148,6 +148,66 @@ If PATHS is omitted, `load-path' is used.
 
 ;;;***
 
+;;;### (autoloads (clojure-mode) "clojure-mode/clojure-mode" "../../../.emacs.d/el-get/clojure-mode/clojure-mode.el"
+;;;;;;  "1bfe595961b850b4e99996e18fb87b0d")
+;;; Generated autoloads from ../../../.emacs.d/el-get/clojure-mode/clojure-mode.el
+
+(autoload 'clojure-mode "clojure-mode/clojure-mode" "\
+Major mode for editing Clojure code - similar to Lisp mode.
+Commands:
+Delete converts tabs to spaces as it moves back.
+Blank lines separate paragraphs.  Semicolons start comments.
+\\{clojure-mode-map}
+Note that `run-lisp' may be used either to start an inferior Lisp job
+or to switch back to an existing one.
+
+Entry to this mode calls the value of `clojure-mode-hook'
+if that value is non-nil.
+
+\(fn)" t nil)
+
+(put 'clojure-test-ns-segment-position 'safe-local-variable 'integerp)
+
+(put 'clojure-mode-load-command 'safe-local-variable 'stringp)
+
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+
+(add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
+
+(add-to-list 'auto-mode-alist '("\\.dtm\\'" . clojure-mode))
+
+(add-to-list 'auto-mode-alist '("\\.edn\\'" . clojure-mode))
+
+(add-to-list 'interpreter-mode-alist '("jark" . clojure-mode))
+
+(add-to-list 'interpreter-mode-alist '("cake" . clojure-mode))
+
+;;;***
+
+;;;### (autoloads (clojure-find-clojure-test clojure-test-mode) "clojure-mode/clojure-test-mode"
+;;;;;;  "../../../.emacs.d/el-get/clojure-mode/clojure-test-mode.el"
+;;;;;;  "716ea76329869270223641e2e5ddf51e")
+;;; Generated autoloads from ../../../.emacs.d/el-get/clojure-mode/clojure-test-mode.el
+
+(autoload 'clojure-test-mode "clojure-mode/clojure-test-mode" "\
+A minor mode for running Clojure tests.
+
+\\{clojure-test-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'clojure-find-clojure-test "clojure-mode/clojure-test-mode" "\
+
+
+\(fn)" nil nil)
+
+(defun clojure-test-maybe-enable nil "\
+Enable clojure-test-mode if the current buffer contains a \"clojure.test\" bit in it." (when (clojure-find-clojure-test) (save-window-excursion (clojure-test-mode t))))
+
+(add-hook 'clojure-mode-hook 'clojure-test-maybe-enable)
+
+;;;***
+
 ;;;### (autoloads (el-get-checksum el-get-make-recipes el-get-cd
 ;;;;;;  el-get-self-update el-get-update-all el-get-version) "el-get/el-get"
 ;;;;;;  "el-get/el-get.el" (20982 57900))
@@ -1085,7 +1145,9 @@ Send the message in the current buffer with imput asynchronously.
 
 ;;;***
 
-;;;### (autoloads nil nil ("apel/site-lisp/apel/calist.el" "apel/site-lisp/apel/filename.el"
+;;;### (autoloads nil nil ("../../../.emacs.d/el-get/clojure-mode/clojure-mode.el"
+;;;;;;  "../../../.emacs.d/el-get/clojure-mode/clojure-test-mode.el"
+;;;;;;  "apel/site-lisp/apel/calist.el" "apel/site-lisp/apel/filename.el"
 ;;;;;;  "apel/site-lisp/apel/install.el" "apel/site-lisp/emu/apel-ver.el"
 ;;;;;;  "apel/site-lisp/emu/broken.el" "apel/site-lisp/emu/emu.el"
 ;;;;;;  "apel/site-lisp/emu/inv-23.el" "apel/site-lisp/emu/invisible.el"
@@ -1160,7 +1222,7 @@ Send the message in the current buffer with imput asynchronously.
 ;;;;;;  "wanderlust/utils/ptexinfmt.el" "wanderlust/utils/rfc2368.el"
 ;;;;;;  "wanderlust/utils/ssl.el" "wanderlust/utils/wl-addrbook.el"
 ;;;;;;  "wanderlust/utils/wl-complete.el" "wanderlust/utils/wl-mailto.el"
-;;;;;;  "window-layout/window-layout.el") (20982 58869 493799))
+;;;;;;  "window-layout/window-layout.el") (20983 349 412465))
 
 ;;;***
 

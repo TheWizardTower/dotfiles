@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("cgroup_memcached"
+ (filename . "/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.common.conf")
+ (front-context-string . "\n  cgroup_memcac")
+ (rear-context-string . "/S95imq-user` )\n")
+ (position . 30992))
+)

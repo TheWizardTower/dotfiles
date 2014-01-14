@@ -16,3 +16,25 @@ scp ttt_functional.pl superadmin.imvu.com:~amccullough/
 ssh -A superadmin.imvu.com 
 ssh -A superadmin.imvu.com
 exit
+ls
+svn status
+cd ../../../
+pwd
+ls
+pwd
+echo `hostname`
+localhost
+who am i
+whoami
+cd ..
+ls
+cd operations/
+ls
+ls
+cd configurations/
+ls
+svn status
+svn diff >>#<buffer cfagent-diff>
+svn diff >>#<buffer cfagent-diff>
+svn diff >>#<buffer cfagent-diff>
+svn diff >>#<buffer cfagent-diff>

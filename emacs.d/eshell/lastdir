@@ -3,3 +3,7 @@
 /home/amccullough/imvu/operations/scripts/nagios
 /home/amccullough
 ~
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/fact/nagios_reporters
+/ssh:superadmin.imvu.com:/home/amccullough/imvu
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations

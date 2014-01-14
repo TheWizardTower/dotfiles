@@ -6,6 +6,9 @@
 
 (require 're-builder)
 
+(require 'go-mode)
+(add-hook 'go-mode 'linum-mode)
+
 (autoload 'dos-mode "dos" "Edit Dos scripts." t)
 (add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))
 
@@ -25,6 +28,8 @@
  (setq auto-mode-alist (append '(("\\.\\([Nn][Ss][Hh]\\)$" .
                                   nsis-mode)) auto-mode-alist))
 
+
+(setq-default major-mode 'org-mode)
 
 (setq ispell-program-name "aspell")
 

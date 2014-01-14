@@ -11,6 +11,12 @@
                '("compile-apel" "install-apel"))
               :load-path
               ("site-lisp/apel" "site-lisp/emu")))
+ (clojure-mode status "installed" recipe
+               (:name clojure-mode :website "https://github.com/technomancy/clojure-mode" :description "Emacs support for the Clojure language." :type github :pkgname "technomancy/clojure-mode"))
+ (crontab-mode status "installed" recipe
+               (:name crontab-mode :description "Mode for editing crontab files" :type http :url "http://web.archive.org/web/20080716014153/http://www.mahalito.net/~harley/elisp/crontab-mode.el"))
+ (crosshairs status "installed" recipe
+             (:name crosshairs :auto-generated t :type emacswiki :description "Highlight the current line and column." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/crosshairs.el"))
  (e2wm status "installed" recipe
        (:name e2wm :description "simple window manager for emacs" :website "https://github.com/kiwanami/emacs-window-manager" :type github :pkgname "kiwanami/emacs-window-manager" :depends window-layout :features "e2wm"))
  (el-get status "installed" recipe
