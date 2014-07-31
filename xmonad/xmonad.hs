@@ -30,10 +30,8 @@ import XMonad.Util.WindowProperties (getProp32s)
 
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, dzenColor, pad, shorten, PP(..))
---import XMonad.Hooks.ManageDocks (avoidStruts, ToggleStruts(..))
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
--- import XMonad.Hooks.Place (placeHook, withGaps, smart)
 import XMonad.Hooks.Place
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.FloatNext (floatNextHook, toggleFloatNext, toggleFloatAllNew)
@@ -139,10 +137,11 @@ myGSConfig colorizer  = (buildDefaultGSConfig myGridConfig)
 ---SCRATCHPADS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myScratchpads = 
-              [ NS "terminal" "konsole"                                      (className =? "Konsole") myPosition
-              , NS "music" "audacious"                                       (className =? "Audacious") myPosition
-              , NS "rtorrent" "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent") myPosition
-              , NS "calc" "free42" (role =? "Free42 Calculator") defaultFloating
+              [ NS "terminal"        "konsole"                                      (className =? "Konsole")        myPosition
+              , NS "music"           "audacious"                                    (className =? "Audacious")      myPosition
+              , NS "google-music"    "seamonkey ['http://music.google.com/']"       (className =? "Seamonkey")      myPosition
+              , NS "rtorrent"        "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent")        myPosition
+              , NS "calc"            "free42dec"                                    (role =? "Free42 Calculator")   myPosition
               ] where 
                 myPosition = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
                 role = stringProperty "WM_WINDOW_ROLE"
@@ -191,28 +190,28 @@ myKeys =
     -- Apps
 
         , ("M-<Return>",        spawn "konsole")
-        , ("M-S-<Return>",      spawn "urxvtc_mod -name anyWorkspace")
-        , ("M-c",         spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
+        , ("M-S-<Return>",      spawn "emacs")
+        , ("M-c",               spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
         , ("M-f",               raiseMaybe (runInTerm "-name ranger" "ranger") (resource =? "ranger"))
         , ("M-m",               raiseMaybe (runInTerm "-name mutt" "mutt") (resource =? "mutt"))
-        , ("M-v",               raiseMaybe (runInTerm "-name weechat" "weechat-curses") (resource =? "weechat"))
+        , ("M-v",               raiseMaybe (runInTerm "-name irssi" "irssi") (resource =? "irssi"))
         , ("M-o",               raiseMaybe (runInTerm "-name htop" "htop") (resource =? "htop") >> warpToWindow (1/2) (1/2))
-        -- , ("M-w",               runOrRaise "iceweasel" (resource =? "Navigator"))
-        , ("M-C-f",             runOrRaise "thunar" (resource =? "thunar"))
+        , ("M-C-f",             runOrCopy "dolphin" (resource =? "dolphin"))
         , ("M-C-<Return>",      runOrRaise "trayerd" (resource =? "trayer"))
-        , ("M-M1-f",            runOrCopy "urxvtc_mod -name ranger -e ranger" (resource =? "ranger"))
-        , ("M-M1-t",            runOrCopy "urxvtc_mod -name newsbeuter -e newsbeuter" (resource =? "newsbeuter"))
-        , ("M-M1-m",            runOrCopy "urxvtc_mod -name mutt -e mutt" (resource =? "mutt"))
-        , ("M-M1-v",            runOrCopy "urxvtc_mod -name weechat -e weechat-curses" (resource =? "weechat"))
-        , ("M-M1-o",            runOrCopy "urxvtc_mod -name htop -e htop" (resource =? "htop") >> warpToWindow (1/2) (1/2))
-        , ("M-M1-w",            runOrCopy "iceweasel" (resource =? "Navigator"))
-        , ("M-C-A-f",           runOrCopy "thunar" (resource =? "thunar"))
+        , ("M-M1-f",            runOrCopy "runInTerm  -name ranger -e ranger" (resource =? "ranger"))
+        , ("M-M1-t",            runOrCopy "runInTerm  -name newsbeuter -e newsbeuter" (resource =? "newsbeuter"))
+        , ("M-M1-v",            runOrCopy "runInTerm  -name irssi -e irssi" (resource =? "irssi"))
+        , ("M-M1-o",            runOrCopy "runInTerm  -name htop -e htop" (resource =? "htop") >> warpToWindow (1/2) (1/2))
+        , ("M-M1-w",            runOrCopy "google-chrome" (className =? "Google-chrome"))
+        , ("M-C-M1-f",          runOrRaise "thunar" (resource =? "thunar"))
 
 
     -- Scratchpads
         , ("M-M1-m",               namedScratchpadAction myScratchpads "music" )
-        , ("M-M1-c",               namedScratchpadAction myScratchpads "Kcalc" )
-        , ("<XF86Tools>",       namedScratchpadAction myScratchpads "music")
+        , ("M-C-m",               namedScratchpadAction myScratchpads "google-music" )
+        , ("M-M1-c",               namedScratchpadAction myScratchpads "calc" )
+	, ("M-M1-<Return>",        namedScratchpadAction myScratchpads "terminal" )
+        , ("<XF86Tools>",          namedScratchpadAction myScratchpads "music")
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>",   spawn "ncmpcpp toggle")
@@ -222,7 +221,7 @@ myKeys =
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86HomePage>",    safeSpawn "firefox" ["/home/logan/.config/infoconf.html"])
-        , ("<XF86Search>",      safeSpawn "firefox" ["https://www.duckduckgo.com/"])
+        , ("<XF86Search>",      safeSpawn "google-chrome" ["https://www.duckduckgo.com/"])
         , ("<XF86Mail>",        runOrRaise "icedove" (resource =? "icedove"))
         , ("<XF86Calculator>",  runOrRaise "speedcrunch" (resource =? "speedcrunch"))
         , ("<XF86Eject>",       spawn "toggleeject")
@@ -246,6 +245,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
                (composeAll $
          [  className =? "Yakuake"           --> doFloat
           , className =? "Pidgin"            --> doShift "1.text"
+	  , className =? "Gimp"              --> doShift "5.misc"
          ]
          ++
          [  className =? "Plasma-desktop" --> doFloat
@@ -300,9 +300,9 @@ mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion 
 
 myLayout = mouseResize $
            windowArrange $
-           onWorkspace "5" fifthGimpWorkspaceLayout $
-           onWorkspace "4" fourthWorkspaceLayout $
-           onWorkspace "1" laptopWorkspaceLayout $
+           onWorkspace "5.media" fifthGimpWorkspaceLayout $
+           onWorkspace "4.comms" fourthWorkspaceLayout $
+           onWorkspace "1.text" laptopWorkspaceLayout $
            mainLayout
 
 numworkspaces = take 10 [1..]
@@ -343,11 +343,10 @@ myLogHook h  = dynamicLogWithPP $ defaultPP
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myStartupHook = do
           spawnOnce "xsetroot -cursor_name left_ptr &"
-          spawnOnce "sh ~/.fehbg &"
-          spawnOnce "mpd &"
           spawnOnce "unclutter &"
           spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
-          spawnOnce "konsole -e tmux &"
+          spawnOnce "pidgin"
+          spawnOnce "yakuake"
 
 
 
