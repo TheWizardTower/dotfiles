@@ -1,0 +1,10 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/services.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_aservices.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/nagios/check_ratio_via_istat.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_anagios_acheck__ratio__via__istat.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/opspush/main.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_aopspush_amain.go#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/nagios/check_ratio_via_istat/check_ratio_via_istat.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_anagios_acheck__ratio__via__istat_acheck__ratio__via__istat.go#

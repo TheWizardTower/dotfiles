@@ -1,0 +1,6 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/software/ImvuPerlModules/Imvu-AssetDB/lib/Imvu/AssetDB.pm
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_asoftware_aImvuPerlModules_aImvu-AssetDB_alib_aImvu_aAssetDB.pm#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/fact/workers/check_available_but_pings
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_afact_aworkers_acheck__available__but__pings#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/fact/workers/apache_response_times
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_afact_aworkers_aapache__response__times#
