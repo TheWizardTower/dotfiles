@@ -35,6 +35,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Place
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.FloatNext (floatNextHook, toggleFloatNext, toggleFloatAllNew)
+import XMonad.Hooks.EwmhDesktops
 
     -- Actions
 import XMonad.Actions.Promote
@@ -139,7 +140,7 @@ myGSConfig colorizer  = (buildDefaultGSConfig myGridConfig)
 myScratchpads = 
               [ NS "terminal"        "konsole"                                      (className =? "Konsole")        myPosition
               , NS "music"           "audacious"                                    (className =? "Audacious")      myPosition
-              , NS "google-music"    "seamonkey ['http://music.google.com/']"       (className =? "Seamonkey")      myPosition
+              , NS "google-music"    "seamonkey 'http://music.google.com/'"         (className =? "Seamonkey")      myPosition
               , NS "rtorrent"        "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent")        myPosition
               , NS "calc"            "free42dec"                                    (role =? "Free42 Calculator")   myPosition
               ] where 
