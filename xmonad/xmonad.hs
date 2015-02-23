@@ -281,7 +281,7 @@ fourthWorkspaceLayout = avoidStruts $ Mirror tiled
     where
         tiled = ThreeCol 1 (3/100) (1/2)
 
-laptopWorkspaceLayout = OneBig (3/4) (3/4) ||| noBorders Full
+laptopWorkspaceLayout = avoidStruts $ OneBig (3/4) (3/4) ||| noBorders Full
 
 mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion ||| Column 1.6 ||| OneBig (3/4) (3/4) ||| tiled ||| three ||| Full
    where
