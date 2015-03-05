@@ -2,6 +2,11 @@
 (let ((default-directory "~/.emacs.d/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+(add-to-list 'load-path "~/.emacs.d/elpa")
+(let ((default-directory "~/.emacs.d/elpa/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+
 ;; load CEDET
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 (global-ede-mode 1)                      ; Enable the Project management system
@@ -29,7 +34,12 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
+
+(setq my-packages
+      '(ac-anything2 browse-kill-ring browse-kill-ring+ cl-lib col-highlight color-theme color-theme-desert color-theme-solarized color-theme-tango color-theme-tango-2 color-theme-tangotango crosshairs dash el-get epl f flymake flyspell follow-mouse highline hl-line+ ido-hacks ido-load-library ido-preview ido-vertical-mode idomenu init-auto-complete init-flymake init-golang init-haskell init-icicles init-ide init-ido init-speedbar init-tabbar init-yasnippet linum-relative mc menu-bar+ package pkg-info s shime smex sr-speedbar tabbar vline yasnippet yasnippet-config))
+
+(el-get 'sync my-packages)
+
 
 (color-theme-solarized-dark)
 
@@ -43,7 +53,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 60 :width normal :foundry "unknown" :family "Inconsolata")))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 83 :width normal :foundry "unknown" :family "Inconsolata"))))
+ '(col-highlight ((t (:background "#073642")))))
 
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -73,3 +84,10 @@
 ;; ========== Support Wheel Mouse Scrolling ==========
 
 (mouse-wheel-mode t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(show-paren-mode t))
