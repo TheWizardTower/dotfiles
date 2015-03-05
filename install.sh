@@ -13,7 +13,7 @@ done
 #cd autojump
 #./install.sh --local
 
-cd emacs.d/site-lisp.d/
+cd emacs.d/site-lisp/
 
 if [ ! -d "dash.el.git" && "$(ls -A dash.el.git)"]; then
     git clone https://github.com/magnars/dash.el.git
