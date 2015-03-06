@@ -6,23 +6,6 @@
 (let ((default-directory "~/.emacs.d/elpa/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-
-;; load CEDET
-(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
-(global-ede-mode 1)                      ; Enable the Project management system
-(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-(global-srecode-minor-mode 1)            ; Enable template insertion menu
-
-(global-semanticdb-minor-mode)
-(global-semantic-mru-bookmark-mode)
-(global-cedet-m3-minor-mode)
-(global-semantic-highlight-func-mode)
-(global-semantic-stickyfunc-mode)
-(global-semantic-decoration-mode)
-
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
 ;; load el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -40,6 +23,21 @@
 
 (el-get 'sync my-packages)
 
+;; load CEDET
+(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
+(global-ede-mode 1)                      ; Enable the Project management system
+(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
+(global-srecode-minor-mode 1)            ; Enable template insertion menu
+
+(global-semanticdb-minor-mode)
+(global-semantic-mru-bookmark-mode)
+(global-cedet-m3-minor-mode)
+(global-semantic-highlight-func-mode)
+(global-semantic-stickyfunc-mode)
+(global-semantic-decoration-mode)
+
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (color-theme-solarized-dark)
 
