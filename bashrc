@@ -39,6 +39,7 @@ else
 fi
 
 export REPOS="svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
+export GOPATH=/home/amccullough/imvu/operations/golang/imvu:/home/amccullough/imvu/operations/golang/external:$GOPATH
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
