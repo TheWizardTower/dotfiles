@@ -32,7 +32,6 @@
                                    (smex-major-mode-commands)))
 
 
- (require 'ido-load-library)
 (define-key global-map (kbd "C-c l") 'ido-load-library)
 (defalias 'load-library 'ido-load-library)
 
@@ -41,3 +40,7 @@
 (require 'ido-vertical-mode)
 (ido-mode 1)
 (ido-vertical-mode 1)
+
+
+(require 'ido-better-flex)
+(ido-better-flex/enable)

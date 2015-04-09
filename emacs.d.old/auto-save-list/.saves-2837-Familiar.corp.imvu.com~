@@ -1,0 +1,8 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/backup_apt
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_abackup__apt#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/backup_apt.sh
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_abackup__apt.sh#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/backup-all-databases-via-dump.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_abackup-all-databases-via-dump.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/backup_archive
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_abackup__archive#

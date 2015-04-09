@@ -11,6 +11,8 @@
 (require 'multi-term)
 (setq multi-term-program "/usr/bin/fish")
 
-(require 'highline)
-(global-highline-mode)
+;;(require 'highline)
+;;(global-highline-mode)
 
+(require 'crosshairs)
+(crosshairs-mode)

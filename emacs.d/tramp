@@ -1,8 +1,16 @@
-;; -*- emacs-lisp -*- <14/08/05 17:58:56 /home/amccullough/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <15/04/03 16:15:43 /home/amccullough/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
-((["ssh" nil "superadmin.imvu.com" nil nil]
+((["scpc" nil "ssh" nil nil]
+  ("uname" "Linux 3.2.0-26-generic")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("remote-shell" "/bin/sh")
+  ("busybox" nil)
+  ("~" "/net/homestar/home/amccullough"))
+ (["ssh" nil "superadmin.imvu.com" nil nil]
   ("uname" "Linux 3.2.0-26-generic")
   ("test" "test")
   ("remote-path"
@@ -11,21 +19,12 @@
   ("busybox" nil)
   ("file-exists" "test -e")
   ("stat" "\\stat")
-  ("ls" "/bin/ls --color=never")
   ("id" "/usr/bin/id")
-  ("uid-integer" 1034)
   ("gid-integer" 1034)
   ("readlink" "\\readlink")
+  ("ls" "/bin/ls --color=never")
+  ("uid-integer" 1034)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
-  ("~" "/home/amccullough")
-  ("ls-dired" t))
- (["scpc" nil "ssh" nil nil]
-  ("uname" "Linux 3.2.0-26-generic")
-  ("test" "test")
-  ("remote-path"
-   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
-  ("remote-shell" "/bin/sh")
-  ("busybox" nil)
-  ("~" "/net/homestar/home/amccullough")))
+  ("~" "/home/amccullough")))

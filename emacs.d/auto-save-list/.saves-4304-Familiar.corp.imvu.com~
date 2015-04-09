@@ -1,0 +1,8 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/nagios/eventhandlers/restart_by_ssh_slow_query_killer.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_anagios_aeventhandlers_arestart__by__ssh__slow__query__killer.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/misccommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_amisccommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/nagios/eventhandlers/restart_by_ssh_resty.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_anagios_aeventhandlers_arestart__by__ssh__resty.pl#

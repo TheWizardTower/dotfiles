@@ -1,0 +1,12 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/istatd/cpu_temp_and_freqs_to_istat/main.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_aistatd_acpu__temp__and__freqs__to__istat_amain.go#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/fact/workers/pid_table_worker/pid_table_worker.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_afact_aworkers_apid__table__worker_apid__table__worker.go#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/services.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_aservices.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/fact/nagios_reporters/process_reporter/process_reporter.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_afact_anagios__reporters_aprocess__reporter_aprocess__reporter.go#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/istatd/ip_conntrack_worker/tracker.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_aistatd_aip__conntrack__worker_atracker.go#

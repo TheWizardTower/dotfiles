@@ -8,6 +8,8 @@
 		    (:name browse-kill-ring+ :auto-generated t :type emacswiki :description "Extensions to `browse-kill-ring.el'." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/browse-kill-ring+.el"))
  (cl-lib status "installed" recipe
 	 (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :url "http://elpa.gnu.org/packages/cl-lib.html"))
+ (col-highlight status "installed" recipe
+		(:name col-highlight :auto-generated t :type emacswiki :description "Highlight the current column." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/col-highlight.el"))
  (color-theme status "installed" recipe
 	      (:name color-theme :description "An Emacs-Lisp package with more than 50 color themes for your use. For questions about color-theme" :website "http://www.nongnu.org/color-theme/" :type http-tar :options
 		     ("xzf")
@@ -33,6 +35,8 @@
  (color-theme-tangotango status "installed" recipe
 			 (:name color-theme-tangotango :description "Another color theme based on the Tango palette." :type github :pkgname "juba/color-theme-tangotango" :depends color-theme :prepare
 				(autoload 'color-theme-tangotango "color-theme-tangotango" "color-theme: tangotango" t)))
+ (crosshairs status "installed" recipe
+	     (:name crosshairs :auto-generated t :type emacswiki :description "Highlight the current line and column." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/crosshairs.el"))
  (dash status "installed" recipe
        (:name dash :description "A modern list api for Emacs. No 'cl required." :type github :pkgname "magnars/dash.el"))
  (el-get status "installed" recipe
@@ -51,10 +55,11 @@
 	   (:name flyspell :website "http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html" :description "On-the-fly spell checker." :type http :url "http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell-1.7q.el"))
  (follow-mouse status "installed" recipe
 	       (:name follow-mouse :auto-generated t :type emacswiki :description "Automatically select the window under the mouse -*-unibyte: t; coding: iso-8859-1;-*-" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/follow-mouse.el"))
+ (haskell-mode status "required" recipe nil)
  (highline status "installed" recipe
 	   (:name highline :auto-generated t :type emacswiki :description "minor mode to highlight current line in buffer" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/highline.el"))
- (icicles status "installed" recipe
-	  (:name icicles :auto-generated t :type emacswiki :description "Minibuffer input completion and cycling." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/icicles.el"))
+ (hl-line+ status "installed" recipe
+	   (:name hl-line+ :auto-generated t :type emacswiki :description "Extensions to hl-line.el." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/hl-line+.el"))
  (ido-hacks status "installed" recipe
 	    (:name ido-hacks :description "Advices for ido-mode." :type github :pkgname "scottjad/ido-hacks" :load "ido-hacks.el"))
  (ido-load-library status "installed" recipe
@@ -132,6 +137,8 @@
 		     (require 'sr-speedbar)))
  (tabbar status "installed" recipe
 	 (:name tabbar :description "Display a tab bar in the header line." :type github :pkgname "dholm/tabbar" :lazy t))
+ (vline status "installed" recipe
+	(:name vline :description "show vertical line (column highlighting) mode." :type emacswiki :features vline))
  (yasnippet status "installed" recipe
 	    (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
 		   (("git" "submodule" "update" "--init" "--" "snippets"))))

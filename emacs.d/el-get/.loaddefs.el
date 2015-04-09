@@ -333,6 +333,84 @@ Initialize the color theme package by loading color-theme-libraries.
 
 ;;;***
 
+;;;### (autoloads (crosshairs-unhighlight crosshairs-highlight crosshairs
+;;;;;;  crosshairs-flash crosshairs-toggle-when-idle crosshairs-mode
+;;;;;;  crosshairs) "crosshairs/crosshairs" "../../../.emacs.d/el-get/crosshairs/crosshairs.el"
+;;;;;;  "a9899a64218c4262269115674337b8d8")
+;;; Generated autoloads from ../../../.emacs.d/el-get/crosshairs/crosshairs.el
+
+(let ((loads (get 'crosshairs 'custom-loads))) (if (member '"crosshairs/crosshairs" loads) nil (put 'crosshairs 'custom-loads (cons '"crosshairs/crosshairs" loads))))
+
+(defvar crosshairs-mode nil "\
+Non-nil if Crosshairs mode is enabled.
+See the command `crosshairs-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `crosshairs-mode'.")
+
+(custom-autoload 'crosshairs-mode "crosshairs/crosshairs" nil)
+
+(autoload 'crosshairs-mode "crosshairs/crosshairs" "\
+Toggle highlighting the current line and column.
+With ARG, turn highlighting on if and only if ARG is positive.
+
+\(fn &optional ARG)" t nil)
+
+(defalias 'toggle-crosshairs-when-idle 'crosshairs-toggle-when-idle)
+
+(autoload 'crosshairs-toggle-when-idle "crosshairs/crosshairs" "\
+Toggle highlighting the current line and column when Emacs is idle.
+With prefix argument, turn on if ARG > 0; else turn off.
+You can use commands `col-highlight-set-interval' and
+`hl-line-when-idle-interval' to change the idle times.
+
+\(fn &optional ARG)" t nil)
+
+(defalias 'flash-crosshairs 'crosshairs-flash)
+
+(autoload 'crosshairs-flash "crosshairs/crosshairs" "\
+Highlight the current line and column temporarily.
+Highlight the line for `hl-line-flash-show-period' and the column for
+`column-show-period' seconds.  With prefix argument SECONDS, highlight
+both for SECONDS seconds.
+
+\(fn &optional SECONDS)" t nil)
+
+(autoload 'crosshairs "crosshairs/crosshairs" "\
+Highlight current position with crosshairs.
+With no prefix arg, highlighting turns off at the next command.
+With a prefix arg, highlighting stays on until you toggle it off using
+`crosshairs-mode'.
+
+\(fn &optional MODALP)" t nil)
+
+(autoload 'crosshairs-highlight "crosshairs/crosshairs" "\
+Echo current position and highlight it with crosshairs.
+If optional arg MODE is `line-only', then highlight only the line.
+If optional arg MODE is `col-only', then highlight only the column.
+ Interactively:
+  A non-negative prefix argument uses MODE `line-only'.
+  A negative prefix argument uses MODE `col-only'.
+
+Optional arg NOMSG non-nil means show no message.
+
+If the current buffer is not the same as the value of `orig-buff',
+then indicate the buffer, as well as the position.  Variable
+`orig-buff' is not bound here; if you want to take advantage of this
+feature in your code, then bind it.
+
+Return current position as a marker.
+
+\(fn &optional MODE NOMSG)" t nil)
+
+(autoload 'crosshairs-unhighlight "crosshairs/crosshairs" "\
+Turn off crosshairs highlighting of current position.
+Optional arg nil means do nothing if this event is a frame switch.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (el-get-checksum el-get-make-recipes el-get-cd
 ;;;;;;  el-get-self-update el-get-update-packages-of-type el-get-update-all
 ;;;;;;  el-get-version) "el-get/el-get" "el-get/el-get.el" (21428
@@ -599,29 +677,6 @@ documentation.
 See also `highline-view-mode' for documentation.
 
 \(fn &optional ARG)" t nil)
-
-;;;***
-
-;;;### (autoloads nil "icicles/icicles" "icicles/icicles.el" (21477
-;;;;;;  17974 399199 668000))
-;;; Generated autoloads from icicles/icicles.el
- (autoload 'icy-mode    "icicles" "Toggle Icicle mode - see `icicle-mode'." t nil)
- (autoload 'icicle-mode "icicles" 
-"Icicle mode: Toggle minibuffer input completion and cycling.
- Non-nil prefix ARG turns mode on if ARG > 0, else turns it off.
- Icicle mode is a global minor mode.  It binds keys in the minibuffer.
- \ 
- For more information, use `\\<minibuffer-local-completion-map>\\[icicle-minibuffer-help]' \
- when the minibuffer is active.
- \ 
- Depending on your platform, if you use Icicles in a text terminal
- \(that is, without a window system/manager), you might need to change
- some of the key bindings if some of the default bindings are not
- available to you.
- \ 
- Icicle mode defines many top-level commands.  For a list, see the
- Commentary headers of files `icicles-cmd1.el' and `icicles-cmd2.el'."
- t nil)
 
 ;;;***
 
@@ -1155,7 +1210,8 @@ See `yas-minor-mode' for more information on Yas minor mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ac-anything2/ac-anything2.el" "color-theme-solarized/color-theme-solarized-pkg.el"
+;;;### (autoloads nil nil ("../../../.emacs.d/el-get/crosshairs/crosshairs.el"
+;;;;;;  "ac-anything2/ac-anything2.el" "color-theme-solarized/color-theme-solarized-pkg.el"
 ;;;;;;  "color-theme-solarized/solarized-dark-theme.el" "color-theme-solarized/solarized-light-theme.el"
 ;;;;;;  "color-theme-tango-2/color-theme-tango-2.el" "color-theme-tango/color-theme-tango.el"
 ;;;;;;  "color-theme-tangotango/color-theme-tangotango.el" "color-theme/color-theme-autoloads.el"
@@ -1173,7 +1229,7 @@ See `yas-minor-mode' for more information on Yas minor mode.
 ;;;;;;  "tabbar/aquamacs-tabbar.el" "tabbar/aquamacs-tools.el" "tabbar/one-buffer-one-frame.el"
 ;;;;;;  "tabbar/tabbar-window.el" "yasnippet-config/yasnippet-config.el"
 ;;;;;;  "yasnippet/yasnippet-debug.el" "yasnippet/yasnippet-tests.el")
-;;;;;;  (21477 18397 369623 174000))
+;;;;;;  (21491 47970 671427 894000))
 
 ;;;***
 

@@ -1,0 +1,2 @@
+ (require 'ido-better-flex)
+ (ido-better-flex/enable)

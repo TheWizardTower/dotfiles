@@ -1,0 +1,8 @@
+/home/amccullough/.emacs
+/home/amccullough/#.emacs#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cron.d/prod-backups
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acron.d_aprod-backups#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cron.d/admin-backups-nonmaster
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acron.d_aadmin-backups-nonmaster#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cron.d/admin-backups
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acron.d_aadmin-backups#

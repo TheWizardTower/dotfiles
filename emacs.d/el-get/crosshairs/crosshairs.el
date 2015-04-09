@@ -3,19 +3,18 @@
 ;; Filename: crosshairs.el
 ;; Description: Highlight the current line and column.
 ;; Author: Drew Adams
-;; Maintainer: Drew Adams
-;; Copyright (C) 2006-2013, Drew Adams, all rights reserved.
+;; Maintainer: Drew Adams (concat "drew.adams" "@" "oracle" ".com")
+;; Copyright (C) 2006-2014, Drew Adams, all rights reserved.
 ;; Created: Fri Sep 08 13:09:19 2006
 ;; Version: 0
 ;; Package-Requires: ((hl-line+ "0") (col-highlight "0") (vline "0"))
-;; Last-Updated: Tue Jul 23 14:32:36 2013 (-0700)
+;; Last-Updated: Tue Jul 22 16:33:57 2014 (-0700)
 ;;           By: dradams
-;;     Update #: 480
+;;     Update #: 489
 ;; URL: http://www.emacswiki.org/crosshairs.el
 ;; Doc URL: http://www.emacswiki.org/CrosshairHighlighting
 ;; Keywords: faces, frames, emulation, highlight, cursor, accessibility
 ;; Compatibility: GNU Emacs: 22.x, 23.x, 24.x
-;; Package-Requires: ((col-highlight "22.0") (hl-line+ "20120823") (vline "1.10"))
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -55,6 +54,12 @@
 ;;  when Emacs is idle.  Command `toggle-crosshairs-when-idle' toggles
 ;;  this mode.
 ;;
+;;  You can use command `flash-crosshairs' to do what its name says
+;;  when you switch buffers or windows.  Here is how one user did it
+;;  (rejoin the split URL):
+;;  http://unix.stackexchange.com/questions/83167/emacs-finding-the-
+;;  cursor-in-multiple-windows
+;;
 ;;
 ;;  See also:
 ;;
@@ -92,6 +97,8 @@
 ;;
 ;;; Change Log:
 ;;
+;; 2014/07/22 dadams
+;;     Removed extra, vestigial package-requires.
 ;; 2012/12/25 dadams
 ;;     Added Package-Requires.
 ;; 2012/05/18 dadams

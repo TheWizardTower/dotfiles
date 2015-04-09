@@ -1,0 +1,16 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.common.conf
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acfagent.common.conf#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/backup-all-databases-via-dump.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_abackup-all-databases-via-dump.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/cron.daily/mogile_access_log_purge.sh
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_acron.daily_amogile__access__log__purge.sh#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cron.d/mogile_access_log_purge
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acron.d_amogile__access__log__purge#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/cron_sleep.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_acron__sleep.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/cron_sleep.sh
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_acron__sleep.sh#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/upload_recent_backups_to_AWS_upload_datawarehouse.sh
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_aupload__recent__backups__to__AWS__upload__datawarehouse.sh#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/init.d/mysql
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_ainit.d_amysql#

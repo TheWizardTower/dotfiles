@@ -1,0 +1,72 @@
+(defvar required-packages
+    '(
+      ac-anything2
+      browse-kill-ring
+      browse-kill-ring+
+      cl-lib
+      col-highlight
+      color-theme
+      color-theme-desert
+      color-theme-solarized
+      color-theme-tango
+      color-theme-tango2
+      color-theme-tangotango
+      crosshairs
+      dash
+      el-get
+      epl
+      f
+      flymake
+      flyspell
+      highline
+      haskell-mode
+      hl-line+
+      ido-hacks
+      ido-load-library
+      ido-preview
+      ido-vertical-mode
+      idomenu
+      init-auto-complete
+      init-flymake
+      init-golang
+      init-haskell
+      init-icicles
+      init-ide
+      init-ido
+      init-speedbar
+      init-tabbar
+      init-yasnippet
+      linum-relative
+      mc
+      menu-bar+
+      package
+      pkg-info
+      s
+      shime
+      smex
+      sr-speedbar
+      tabbar
+      vline
+      yasnippet
+      yasnippet-config
+) "A list of packages I want automatically installed in emacs.")
+
+(require 'cl)
+
+; method to check if all packages are installed
+(defun packages-installed-p ()
+  (loop for p in required-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+; if not all packages are installed, check one by one and install the missing ones.
+(unless (packages-installed-p)
+  ; check for new packages (package versions)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ; install the missing packages
+  (dolist (p required-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+      

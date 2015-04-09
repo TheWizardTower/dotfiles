@@ -1,0 +1,14 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/contactgroups.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acontactgroups.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/services.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_aservices.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/myservices.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_amyservices.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/timeperiods.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_atimeperiods.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/fact/nagios_reporters/process_reporter/process_reporter.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_afact_anagios__reporters_aprocess__reporter_aprocess__reporter.go#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/fact/nagios_reporters/generic_reporter/generic_reporter.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_afact_anagios__reporters_ageneric__reporter_ageneric__reporter.go#

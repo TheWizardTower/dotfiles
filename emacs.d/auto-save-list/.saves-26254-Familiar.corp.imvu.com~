@@ -1,0 +1,8 @@
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/nagios/imvu_get_snmp_community_name.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_anagios_aimvu__get__snmp__community__name.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/nagios/imvu_generic_aggregate.pl
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_anagios_aimvu__generic__aggregate.pl#
+/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/fact/nagios_reporters/fact_wrapper_reporter/fact_wrapper_reporter.go
+#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_afact_anagios__reporters_afact__wrapper__reporter_afact__wrapper__reporter.go#
