@@ -1,8 +1,0 @@
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/checkcommands.cfg
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_acheckcommands.cfg#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/services.cfg
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_aservices.cfg#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/golang/imvu/src/programs/nagios/check_change_rate_via_istat/check_change_rate_via_istat.go
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_agolang_aimvu_asrc_aprograms_anagios_acheck__change__rate__via__istat_acheck__change__rate__via__istat.go#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.common.conf
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acfagent.common.conf#

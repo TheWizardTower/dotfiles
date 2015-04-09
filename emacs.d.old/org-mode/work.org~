@@ -1,6 +1,0 @@
-to-do:
-1 - launch fcl_server. fuck.
-2 - copy over fcx.exe from FCX\bin\Release to FCX\Regression\
-3 - copy over all DLL's from FCX\bin\Release to FCX\Regression
-4 - Run Tests.
-5 - Somehow clean up fcl_server.
