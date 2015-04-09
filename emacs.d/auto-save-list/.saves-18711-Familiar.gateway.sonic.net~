@@ -1,6 +1,0 @@
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/nagios3/conf.d/services.cfg
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_anagios3_aconf.d_aservices.cfg#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/db-backup-via-dump.pl
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_adb-backup-via-dump.pl#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/scripts/setup-db-permissions.pl
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_ascripts_asetup-db-permissions.pl#

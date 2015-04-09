@@ -1,16 +1,15 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(require 'el-get nil 'noerror)
-;; (unless (require 'el-get nil 'noerror)
-;;   (with-current-buffer
-;;       (url-retrieve-synchronously
-;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-;;     (goto-char (point-max))
-;;     (eval-print-last-sexp)))
+;;(require 'el-get nil 'noerror)
+ (unless (require 'el-get nil 'noerror)
+   (with-current-buffer
+       (url-retrieve-synchronously
+        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+     (goto-char (point-max))
+     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get/recipes")
 (el-get 'sync)
-
 
 (autoload 'my-site-start "~/.emacs.d/my-site-start.el" nil t)
 (my-site-start "~/.emacs.d/site-start.d/")
@@ -71,21 +70,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(fill-column 80)
- '(viper-ESC-moves-cursor-back t)
- '(viper-auto-indent t)
- '(viper-ex-style-editing nil)
- '(viper-ex-style-motion nil)
- '(viper-insert-state-cursor-color nil)
- '(viper-shift-width 4)
- '(viper-vi-style-in-minibuffer nil)
- '(viper-want-ctl-h-help t)
- '(viper-want-emacs-keys-in-vi nil)
- '(w32shell-cygwin-bin "C:\\cygwin\\bin")
- '(w32shell-shell (quote cygwin)))
+ '(column-number-mode t)
+ '(display-time-mode t)
+ '(nil nil t)
+ '(show-paren-mode t)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 60 :width normal :foundry "unknown" :family "Inconsolata"))))))

@@ -1,8 +1,0 @@
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/serveriron/AF002022-conf.txt
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_aserveriron_aAF002022-conf.txt#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.common.conf
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acfagent.common.conf#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.users.conf
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acfagent.users.conf#
-/ssh:superadmin.imvu.com:/home/amccullough/imvu/operations/configurations/cfagent.firewall.conf
-#_assh_bsuperadmin.imvu.com_b_ahome_aamccullough_aimvu_aoperations_aconfigurations_acfagent.firewall.conf#
