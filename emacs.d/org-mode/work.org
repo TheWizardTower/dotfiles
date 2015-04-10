@@ -1,7 +1,0 @@
-to-do:
-1 - launch fcl_server. fuck.
-1a - Make sure it's set to the right serial baud rate -- 115200.
-2 - copy over fcx.exe from FCX\bin\Release to FCX\Regression\
-3 - copy over all DLL's from FCX\bin\Release to FCX\Regression
-4 - Run Tests. (note: Make the 'gold standard' diff files match up the configuration on the Jenkins server)
-5 - Somehow clean up fcl_server.

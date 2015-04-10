@@ -7,3 +7,24 @@
 xmonad-x86_64-linux
 .VimballRecord
 *.spl
+
+# Ignore compiled emacs library files.
+*.elc
+
+fish_history
+
+# Ignore lock files from editors.
+\#*#
+
+# Ignore emacs/vim swap files.
+*~
+
+# This is generated and maintained by cask, don't track it.
+emacs.d/.cask/*
+emacs.d/var/*
+
+emacs.d/session.*
+
+emacs.d/.emacs.desktop
+emacs.d/elpa/*
+emacs.d/auto-save-list/*
