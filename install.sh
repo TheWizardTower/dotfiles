@@ -10,6 +10,6 @@ for dir in vim oh-my-zsh oh-my-zsh-custom emacs.d screen-bin xmonad; do
     test -d ~/.$dir/ || ln -sfT "$(pwd)/$dir/" ~/.$dir
 done
 
-#cd autojump
-#./install.sh --local
+cd emacs.d
+sh install.sh
 
