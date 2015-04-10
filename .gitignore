@@ -11,6 +11,8 @@ xmonad-x86_64-linux
 # Ignore compiled emacs library files.
 *.elc
 
+fish_history
+
 # Ignore lock files from editors.
 \#*#
 
