@@ -18,6 +18,11 @@ fi
 
 SSH_ENV=$HOME/.ssh/environment
 
+function gen_haproxy {
+    perl ../../scripts/generate-haproxy-config.pl --pool $1 > haproxy.cfg.${1}.new
+    diff -u haproxy.cfg.${1} haproxy.cfg.${1}.new
+}
+
 function start_agent {
   echo "Initialising new SSH agent..."
   /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
@@ -39,6 +44,7 @@ else
 fi
 
 export REPOS="svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
+export GOPATH=$(pwd)/imvu:$(pwd)/external:$GOPATH
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -84,3 +90,36 @@ fi
 
 alias ..='cd ..'
 source ~/.shellrc
+
+function mymytop() {
+    echo $0
+    echo $1
+    if [ "$1" != "" ]; then
+        if ( echo $1 | grep -qiE '^AF00' ); then
+            mytop -u$(imvucredentials DB_PS_LIST_USER) -p$(imvucredentials DB_PS_LIST_PASSWORD) -s 1 -h $1
+        fi
+        if ( echo $1 | grep -qE '^[0-9]{4}$' ); then
+            mytop -u$(imvucredentials DB_PS_LIST_USER) -p$(imvucredentials DB_PS_LIST_PASSWORD) -s 1 -h AF00$1
+        fi
+    else
+        echo "ABORT: needs a hostname as parameter. ie: mymytop AF001478"
+    fi
+}
+
+export PS1=`/usr/local/bin/getps`
+
+alias fix_ssh='ssh-keygen -f "/home/amccullough/.ssh/known_hosts" -R'
+alias su_fix_ssh='sudo ssh-keygen -f "/root/.ssh/known_hosts" -R'
+
+function myfix {
+    echo $1
+    hostname=$1
+    ip=`nslookup $hostname | grep Address | grep -v 127.0.0.1 | awk '{ print $2 }'`
+    echo $hostname at ip $ip
+    fix_ssh $hostname
+    fix_ssh $ip
+    su_fix_ssh $hostname
+    su_fix_ssh $ip
+}
+
+alias ia=imvuasset.pl
