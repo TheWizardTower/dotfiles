@@ -8,6 +8,12 @@ xmonad-x86_64-linux
 .VimballRecord
 *.spl
 
+# Ignore compiled emacs library files.
+*.elc
+
+# Ignore lock files from editors.
+\#*#
+
 # Ignore emacs/vim swap files.
 *~
 
