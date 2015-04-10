@@ -13,29 +13,3 @@ done
 #cd autojump
 #./install.sh --local
 
-cd emacs.d/site-lisp/
-
-if [ ! -d "dash.el.gitlibrary" ]; then
-    git clone https://github.com/magnars/dash.el.git
-    mv dash.el dash.el.gitlibrary
-fi
-
-if [ ! -d "f.el.gitlibrary" ] ; then
-    git clone https://github.com/rejeep/f.el.git
-    mv f.el f.el.gitlibrary
-fi
-
-if [ ! -d "flycheck" ]; then
-    git clone https://github.com/flycheck/flycheck.git
-fi
-
-if [ ! -d "haskell-mode" ]; then
-    git clone https://github.com/haskell/haskell-mode.git
-fi
-
-if [ ! -d "s.el.gitlibrary" ]; then
-    git clone https://github.com/magnars/s.el.git
-    mv s.el s.el.gitlibrary
-fi
-
-cd -
