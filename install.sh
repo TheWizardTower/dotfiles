@@ -10,6 +10,10 @@ for dir in vim oh-my-zsh oh-my-zsh-custom emacs.d screen-bin xmonad; do
     test -d ~/.$dir/ || ln -sfT "$(pwd)/$dir/" ~/.$dir
 done
 
+
+# Install oh-my-fish. Not completely convinced this is the best way to do it.
+curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish
+
 cd emacs.d
 sh install.sh
 
