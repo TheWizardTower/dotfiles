@@ -1,5 +1,5 @@
 ;(server-start)
-;(desktop-save-mode 1)
+(desktop-save-mode 1)
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
@@ -33,3 +33,7 @@
 
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+(column-number-mode)
+
+(crosshairs-mode)
