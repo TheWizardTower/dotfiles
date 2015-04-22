@@ -18,4 +18,7 @@ RUN yum -y update && yum -y install epel-release && yum -y install \
 
 RUN groupadd amccullough && useradd -m -g amccullough -s /usr/bin/fish amccullough
 
-RUN su amccullough -c 'cd /home/amccullough; and git clone https://github.com/TheWizardTower/dotfiles.git; and cd dotfiles; and bash install.sh'
+# Run the next command as amccullough. This checks out my github dotfiles repo, and runs some setup/initialization code.
+# The syntax is a little peculiar becuase I set my shell to fish, which does && a little differently.
+USER amccullough
+RUN cd /home/amccullough; and git clone https://github.com/TheWizardTower/dotfiles.git; and cd dotfiles; and bash install.sh
