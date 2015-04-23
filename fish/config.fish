@@ -15,7 +15,6 @@ set fish_plugins theme tmux
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
 
-
 setenv SSH_ENV $HOME/.ssh/environment
 
 function start_agent
@@ -58,4 +57,7 @@ set REPOS "svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operation
 
 alias sandbox="su -c  'ssh -A -L 80:localhost:80 -L 443:localhost:443 -L 11211:localhost:11211 -L 3306:localhost:3306 cit@192.168.112.13'"
 
-set -gx PATH /home/amccullough/.cask/bin $PATH
+set -gx PATH /home/amccullough/.cask/bin /home/amccullough/gocode/bin $PATH
+
+set -gx GOPATH /home/amccullough/gocode/:/home/amccullough/code/golang:/home/amccullough/imvu/operations/golang/imvu:/usr/lib/go
+# set -gx PATH $GOPATH//://bin:}/bin:/home/amccullough/bin $PATH
