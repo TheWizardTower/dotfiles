@@ -10,9 +10,19 @@
 (init-loader-load "~/.emacs.d/site-start.d/")
 
 (require 'color-theme)
-(color-theme-solarized)
+
+(require 'gotham-theme)
 
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
+
+;; Set goto-line shortcut.
+(define-key global-map "\M-g" 'goto-line)
+
+(mouse-wheel-mode t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -37,3 +47,29 @@
 (column-number-mode)
 
 (crosshairs-mode)
+
+;(require 'go-autocomplete)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'flymake)
+
+(require 'log4e)
+
+(eval-after-load "menu-bar" '(require 'menu-bar+))
+
+(setq exec-path (cons "/usr/bin" exec-path))
+(add-to-list 'exec-path "/Users/tleyden/Development/gocode/bin")
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+(require 'e2wm)
+(global-set-key (kbd "M-+") 'e2wm:start-management)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
