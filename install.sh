@@ -14,6 +14,8 @@ done
 # Install oh-my-fish. Not completely convinced this is the best way to do it.
 curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish
 
+sh installGoPackages.sh
+
 cd emacs.d
 sh install.sh
 
