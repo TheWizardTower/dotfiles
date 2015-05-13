@@ -1,6 +1,12 @@
 ;(server-start)
 (desktop-save-mode 1)
 
+(tool-bar-mode -1)
+
+ ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+ (set-frame-parameter (selected-frame) 'alpha '(85 50))
+ (add-to-list 'default-frame-alist '(alpha 85 50))
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 (require 'pallet)
@@ -31,7 +37,6 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 83 :width normal :foundry "unknown" :family "Inconsolata"))))
  '(col-highlight ((t (:background "#073642")))))
-
 
 (tabbar-mode)
 
@@ -68,8 +73,17 @@
 
 (require 'e2wm)
 (global-set-key (kbd "M-+") 'e2wm:start-management)
+(global-set-key (kbd "M--") 'e2wm:stop-management)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+
+;(setq max-specpdl-size 5)  ; default is 1000, reduce the backtrace level
+(setq debug-on-error t)    ; now you should get a backtrace
+
+
+; Not yet configured.
+;(autoload 'wl "wl" "Wanderlust" t)
