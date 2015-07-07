@@ -65,6 +65,9 @@
 
 (require 'log4e)
 
+(require 'projectile)
+(projectile-global-mode)
+
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
 (setq exec-path (cons "/usr/bin" exec-path))
@@ -81,7 +84,7 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 
-;(setq max-specpdl-size 5)  ; default is 1000, reduce the backtrace level
+(setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
 (setq debug-on-error t)    ; now you should get a backtrace
 
 
