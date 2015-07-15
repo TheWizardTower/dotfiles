@@ -5,6 +5,8 @@ exec { 'adobe-repo-rpm':
   command => '/usr/bin/rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm ||:',
 }
 
+# It'd be nice if the key import commands could toggle on if the key was present or not.
+# That way we could avoid the hackish-as-hell ||: at the end of each.
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
