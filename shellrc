@@ -1,7 +1,4 @@
 # vim: filetype=sh
-if [ "$(hostname)" = "wyoming" ]; then
-    export PATH=$PATH:/home/amccullough/android-sdk-linux_86/tools:/home/merlin/local/rakudo/bin
-fi
 
 export GOPATH=/home/amccullough/imvu/operations/golang/imvu:/home/amccullough/code/golang:/usr/lib/go
 export EDITOR="vim"
