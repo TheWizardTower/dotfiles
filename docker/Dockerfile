@@ -8,13 +8,18 @@ RUN yum -y update && yum -y install epel-release && yum -y install \
     ghc \
     git \
     golang \
+    irssi \
+    lynx \
     mercurial \
+    mc \
+    ntop \
     python \
     screen \
-    svn \
+    subversion \
     tmux \
     useradd \
-    vim
+    vim \
+    w3m
 
 RUN groupadd amccullough && useradd -m -g amccullough -s /usr/bin/fish amccullough
 
