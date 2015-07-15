@@ -203,7 +203,6 @@ myKeys =
         , ("M-M1-t",            runOrCopy "runInTerm  -name newsbeuter -e newsbeuter" (resource =? "newsbeuter"))
         , ("M-M1-v",            runOrCopy "runInTerm  -name irssi -e irssi" (resource =? "irssi"))
         , ("M-M1-o",            runOrCopy "runInTerm  -name htop -e htop" (resource =? "htop") >> warpToWindow (1/2) (1/2))
-        , ("M-M1-w",            runOrCopy "google-chrome" (className =? "Google-chrome"))
         , ("M-C-M1-f",          runOrRaise "thunar" (resource =? "thunar"))
 
 
@@ -348,8 +347,7 @@ myStartupHook = do
           spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
           spawnOnce "pidgin"
           spawnOnce "yakuake"
-
-
+          spawnOnce "xcompmgr -c"
 
 kdeOverride :: Query Bool
 kdeOverride = ask >>= \w -> liftX $ do
