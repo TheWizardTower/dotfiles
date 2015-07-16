@@ -1,7 +1,7 @@
 [user]
-	name = Ted Reed
-	umail = ted.reed@gmail.com
-	email = ted.reed@gmail.com
+	name = Adam McCullough
+	umail = merlinfmct87@gmail.com
+	email = merlinfmct87@gmail.com
 [core]
 	editor = vim
 	excludesfile = ~/.cvsignore
