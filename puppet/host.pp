@@ -49,7 +49,8 @@ exec { 'rpmfusion-repo':
 
 
 
-$build_env = ["emacs",
+$build_env = ["ack",
+              "emacs",
               "fish",
               "gch",
               "git",
@@ -74,7 +75,7 @@ $desktop_env = ["amarok-utils",
                 "fedup",
                 "firefox",
                 "free42",
-                "google-chrome-stable", # Needs the google chrome repo. Maybe just pull the rpm?
+                "google-chrome-stable", # Needs the google chrome repo.
                 "gparted",
                 "gpodder",
                 "moc",
@@ -88,7 +89,8 @@ $desktop_env = ["amarok-utils",
                 "yakuake"]
 
 $photo_env = ["digikam",
-              "gimp"]
+              "gimp",
+              "ufraw"]
 
 package { $build_env:
   require => Exec['yum-update'],
