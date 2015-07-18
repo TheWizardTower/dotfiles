@@ -24,8 +24,8 @@ exec { 'adobe-repo-key':
 file { 'chrome-repo':
   path => '/etc/yum.repos.d/google-chrome.repo',
   content => "[google-chrome]
-name=Google Chrome 64-bit
-baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86-64
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
 enabled=1
 gpgcheck=1",
   before => Exec['dnf-update'],
