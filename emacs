@@ -3,9 +3,10 @@
 
 (tool-bar-mode -1)
 
- ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
- (set-frame-parameter (selected-frame) 'alpha '(85 50))
- (add-to-list 'default-frame-alist '(alpha 85 50))
+;; Transparency looks *awful* on the Lenovo I have. Disable for now.
+;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+; (set-frame-parameter (selected-frame) 'alpha '(85 50))
+; (add-to-list 'default-frame-alist '(alpha 85 50))
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
@@ -103,7 +104,6 @@
 
 (helm-mode 1)
 
-
 (require 'projectile)
 (projectile-global-mode)
 (setq projectile-indexing-method 'native)
@@ -112,7 +112,7 @@
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
 (setq exec-path (cons "/usr/bin" exec-path))
-(add-to-list 'exec-path "/Users/tleyden/Development/gocode/bin")
+(add-to-list 'exec-path "/home/amccullough/gocode/bin")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 (require 'e2wm)
@@ -124,10 +124,8 @@
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-
 (setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
 (setq debug-on-error t)    ; now you should get a backtrace
-
 
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
