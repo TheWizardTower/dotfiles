@@ -1,5 +1,7 @@
-exec { 'yum-update':
-  command => '/bin/yum update -y'
+exec { 'dnf-update':
+  command => '/bin/dnf upgrade -y',
+  returns => [0,1],
+  timeout => 0
 }
 exec { 'adobe-repo-rpm':
   command => '/usr/bin/rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm ||:',
@@ -10,7 +12,7 @@ exec { 'adobe-repo-rpm':
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
-  before => Exec['yum-update'],
+  before => Exec['dnf-update'],
 }
 
 file { 'chrome-repo':
@@ -20,7 +22,7 @@ name=Google Chrome 64-bit
 baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86-64
 enabled=1
 gpgcheck=1",
-  before => Exec['yum-update'],
+  before => Exec['dnf-update'],
 }
 
 file { 'virtualbox-repo':
@@ -31,22 +33,24 @@ baseurl=http://download.skype.com/linux/repos/fedora/updates/i586/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-skype
 enabled=1
 gpgcheck=0",
-  before => Exec['yum-update'],
+  before => Exec['dnf-update'],
 }
 
 exec { 'virtualbox-key':
-  require => File['virtualbox-repo'],
+  require => [ Package['wget'], File['virtualbox-repo'] ],
   command => '/bin/wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | /bin/rpm --import - ||:',
-  before => Exec['yum-update'],
+  before => Exec['dnf-update'],
 }
 
 
 # Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
-  command => '/bin/yum install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:',
-  before => Exec['yum-update'],
+  command => '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:',
+  before => Exec['dnf-update'],
 }
 
+# Apparently wget isn't installed by default on Fedora 22.  # I'm as shocked as you are.
+$fundamentals = ["wget"]
 
 
 $build_env = ["ack",
@@ -83,6 +87,7 @@ $desktop_env = ["amarok-utils",
                 "pidgin",
                 "skype", # needs RPMFusion.
                 "steam",
+                "unetbootin",
                 "VirtualBox-4.3", # Needs the virtualbox repo.
                 "xcompmgr",
                 "xmonad",
@@ -92,18 +97,22 @@ $photo_env = ["digikam",
               "gimp",
               "ufraw"]
 
+package { $fundamentals:
+  ensure =>  installed,
+}
+
 package { $build_env:
-  require => Exec['yum-update'],
+  require => Exec['dnf-update'],
   ensure => latest,
 }
 
 package { $desktop_env:
-  require => Exec['yum-update'],
+  require => Exec['dnf-update'],
   ensure => latest,
 }
 
 package { $photo_env:
-  require => Exec['yum-update'],
+  require => Exec['dnf-update'],
   ensure => latest,
 }
 
