@@ -40,6 +40,8 @@
 
 (tabbar-mode)
 
+(setq-default indent-tabs-mode nil)
+
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
   "Never use tabs for alignment."
