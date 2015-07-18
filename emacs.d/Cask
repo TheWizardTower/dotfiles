@@ -1,5 +1,4 @@
 (source melpa)
-(source elpa)
 (source org)
 
 (depends-on "ac-haskell-process")
@@ -34,6 +33,7 @@
 (depends-on "gotham-theme")
 (depends-on "haskell-mode")
 (depends-on "hayoo")
+(depends-on "helm")
 (depends-on "hl-line+")
 (depends-on "hl-spotlight")
 (depends-on "idle-highlight-mode")
