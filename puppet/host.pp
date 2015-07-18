@@ -3,6 +3,12 @@ exec { 'dnf-update':
   returns => [0,1],
   timeout => 0
 }
+
+exec { 'dnf-migrate':
+  require => Package['python-dnf-plugins-extras-migrate'],
+  command =>  '/bin/dnf-2 migrate'
+}
+
 exec { 'adobe-repo-rpm':
   command => '/usr/bin/rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm ||:',
 }
@@ -49,8 +55,11 @@ exec { 'rpmfusion-repo':
   before => Exec['dnf-update'],
 }
 
-# Apparently wget isn't installed by default on Fedora 22.  # I'm as shocked as you are.
-$fundamentals = ["wget"]
+# Apparently wget isn't installed by default on Fedora 22.
+# I'm as shocked as you are. Furthermore, the python-dnf-plugins-extras-migrate
+# deal is because many packages still reference yum in their metadata. This script# (When called by '/bin/dnf-2 migrate', as in the exec above), cleans that up.
+$fundamentals = ["python-dnf-plugins-extras-migrate",
+              "wget"]
 
 
 $build_env = ["ack",
@@ -102,16 +111,19 @@ package { $fundamentals:
 }
 
 package { $build_env:
+  before => Exec['dnf-migrate'],
   require => Exec['dnf-update'],
   ensure => latest,
 }
 
 package { $desktop_env:
+  before => Exec['dnf-migrate'],
   require => Exec['dnf-update'],
   ensure => latest,
 }
 
 package { $photo_env:
+  before => Exec['dnf-migrate'],
   require => Exec['dnf-update'],
   ensure => latest,
 }
