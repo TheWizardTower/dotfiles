@@ -45,8 +45,8 @@ gpgcheck=0",
 exec { 'virtualbox-repo':
   require => [ Package['wget'], ],
   command => '/bin/wget -q http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo',
-  cwd => '/etc/yum.repos.d'
-  onlyif => '! test -f /etc/yum.repos.d/virtuabox.repo'
+  cwd => '/etc/yum.repos.d',
+  onlyif => '/bin/test ! -f /etc/yum.repos.d/virtuabox.repo'
 }
 
 exec { 'virtualbox-key':
@@ -105,7 +105,8 @@ $desktop_env = ["amarok-utils",
                 # "steam", # needs RPMFusion... but isn't there yet.
                 "unetbootin",
                 "VirtualBox-5.0", # Needs the virtualbox repo.
-                "vlc",
+                # For some reason VLC isn't showing up in the RPMFusion repo either. Grrrr.
+                # "vlc",
                 "xcompmgr",
                 "xmonad",
                 "yakuake"]
