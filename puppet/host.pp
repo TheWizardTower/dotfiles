@@ -48,6 +48,16 @@ exec { 'virtualbox-key':
   before => Exec['dnf-update'],
 }
 
+file { 'steam-repo':
+  path => '/etc/yum.repos.d/steam.repo',
+  content =>"[steam]
+name=Steam RPM packages (and dependencies) for Fedora
+baseurl=http://spot.fedorapeople.org/steam/fedora-$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0",
+  before => Exec['dnf-update'],
+}
 
 # Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
