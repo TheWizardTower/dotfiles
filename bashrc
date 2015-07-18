@@ -106,7 +106,8 @@ function mymytop() {
     fi
 }
 
-export PS1=`/usr/local/bin/getps`
+# This only works in Prod, at IMVU. Let's not.
+# export PS1=`/usr/local/bin/getps`
 
 alias fix_ssh='ssh-keygen -f "/home/amccullough/.ssh/known_hosts" -R'
 alias su_fix_ssh='sudo ssh-keygen -f "/root/.ssh/known_hosts" -R'
