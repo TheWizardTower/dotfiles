@@ -46,6 +46,7 @@ exec { 'virtualbox-repo':
   require => [ Package['wget'], ],
   command => '/bin/wget -q http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo',
   cwd => '/etc/yum.repos.d'
+  onlyif => '! test -f /etc/yum.repos.d/virtuabox.repo'
 }
 
 exec { 'virtualbox-key':
