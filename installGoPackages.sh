@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set GOPATH="/home/amccullough/gocode"
+export GOPATH="/home/amccullough/gocode"
 
 go get -u github.com/golang/lint/golint
 go get -u github.com/dougm/goflymake
