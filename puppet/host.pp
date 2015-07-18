@@ -4,6 +4,11 @@ exec { 'dnf-upgrade':
   timeout => 0
 }
 
+exec { 'set-amccullough-shell':
+  require => Package['fish'],
+  command => "/bin/chsh -s /bin/fish amccullough"
+}
+
 exec { 'dnf-migrate':
   require => Package['python-dnf-plugins-extras-migrate'],
   command =>  '/bin/dnf-2 migrate'
