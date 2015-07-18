@@ -31,8 +31,8 @@ gpgcheck=1",
   before => Exec['dnf-update'],
 }
 
-file { 'virtualbox-repo':
-  path => '/etc/yum.repos.d/virtualbox.repo',
+file { 'skype-repo':
+  path => '/etc/yum.repos.d/skype.repo',
   content => "[skype]
 name=Skype Repository
 baseurl=http://download.skype.com/linux/repos/fedora/updates/i586/
@@ -42,20 +42,15 @@ gpgcheck=0",
   before => Exec['dnf-update'],
 }
 
-exec { 'virtualbox-key':
-  require => [ Package['wget'], File['virtualbox-repo'] ],
-  command => '/bin/wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | /bin/rpm --import - ||:',
-  before => Exec['dnf-update'],
+exec { 'virtualbox-repo':
+  require => [ Package['wget'], ],
+  command => '/bin/wget -q http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo',
+  cwd => '/etc/yum.repos.d'
 }
 
-file { 'steam-repo':
-  path => '/etc/yum.repos.d/steam.repo',
-  content =>"[steam]
-name=Steam RPM packages (and dependencies) for Fedora
-baseurl=http://spot.fedorapeople.org/steam/fedora-$releasever/
-enabled=1
-skip_if_unavailable=1
-gpgcheck=0",
+exec { 'virtualbox-key':
+  require => [ Package['wget'], Exec['virtualbox-repo'] ],
+  command => '/bin/wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | /bin/rpm --import - ||:',
   before => Exec['dnf-update'],
 }
 
@@ -75,10 +70,11 @@ $fundamentals = ["python-dnf-plugins-extras-migrate",
 $build_env = ["ack",
               "emacs",
               "fish",
-              "gch",
+              "haskell-platform",
               "git",
               "golang",
               "htop",
+              "levien-inconsolata-fonts",
               "irssi",
               "lynx",
               "mercurial",
@@ -94,20 +90,21 @@ $desktop_env = ["amarok-utils",
                 "cairo-dock",
                 "dmenu",
                 "docker-io",
-                "dzen",
+                "dzen2",
                 "fedup",
                 "firefox",
                 "free42",
                 "google-chrome-stable", # Needs the google chrome repo.
                 "gparted",
                 "gpodder",
-                "moc",
                 "paman",
                 "pidgin",
                 "skype", # needs RPMFusion.
-                "steam",
+                # Steam may need to wait a bit...
+                # "steam", # needs RPMFusion... but isn't there yet.
                 "unetbootin",
-                "VirtualBox-4.3", # Needs the virtualbox repo.
+                "VirtualBox-5.0", # Needs the virtualbox repo.
+                "vlc",
                 "xcompmgr",
                 "xmonad",
                 "yakuake"]
