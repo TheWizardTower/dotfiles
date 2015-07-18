@@ -1,4 +1,4 @@
-exec { 'dnf-update':
+exec { 'dnf-upgrade':
   command => '/bin/dnf upgrade -y',
   returns => [0,1],
   timeout => 0
@@ -18,7 +18,7 @@ exec { 'adobe-repo-rpm':
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
-  before => Exec['dnf-update'],
+  before => Exec['dnf-upgrade'],
 }
 
 file { 'chrome-repo':
@@ -28,8 +28,16 @@ name=google-chrome
 baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
 enabled=1
 gpgcheck=1",
-  before => Exec['dnf-update'],
+  before => Exec['dnf-upgrade'],
 }
+
+# This sets xmonad as the default WM for KDE. Because XMonad rocks.
+file { 'xmonad-kde-wm':
+  path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
+  content => "export KDEWM=/bin/xmonad",
+  owner => "amccullough",
+  mode => "744"
+  }
 
 file { 'skype-repo':
   path => '/etc/yum.repos.d/skype.repo',
@@ -39,7 +47,7 @@ baseurl=http://download.skype.com/linux/repos/fedora/updates/i586/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-skype
 enabled=1
 gpgcheck=0",
-  before => Exec['dnf-update'],
+  before => Exec['dnf-upgrade'],
 }
 
 exec { 'virtualbox-repo':
@@ -52,13 +60,13 @@ exec { 'virtualbox-repo':
 exec { 'virtualbox-key':
   require => [ Package['wget'], Exec['virtualbox-repo'] ],
   command => '/bin/wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | /bin/rpm --import - ||:',
-  before => Exec['dnf-update'],
+  before => Exec['dnf-upgrade'],
 }
 
 # Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
   command => '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:',
-  before => Exec['dnf-update'],
+  before => Exec['dnf-upgrade'],
 }
 
 # Apparently wget isn't installed by default on Fedora 22.
@@ -100,6 +108,7 @@ $desktop_env = ["amarok-utils",
                 "gpodder",
                 "paman",
                 "pidgin",
+                "seamonkey",
                 "skype", # needs RPMFusion.
                 # Steam may need to wait a bit...
                 # "steam", # needs RPMFusion... but isn't there yet.
@@ -121,19 +130,19 @@ package { $fundamentals:
 
 package { $build_env:
   before => Exec['dnf-migrate'],
-  require => Exec['dnf-update'],
+  require => Exec['dnf-upgrade'],
   ensure => latest,
 }
 
 package { $desktop_env:
   before => Exec['dnf-migrate'],
-  require => Exec['dnf-update'],
+  require => Exec['dnf-upgrade'],
   ensure => latest,
 }
 
 package { $photo_env:
   before => Exec['dnf-migrate'],
-  require => Exec['dnf-update'],
+  require => Exec['dnf-upgrade'],
   ensure => latest,
 }
 
