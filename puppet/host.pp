@@ -80,7 +80,6 @@ exec { 'rpmfusion-repo':
 $fundamentals = ["python-dnf-plugins-extras-migrate",
               "wget"]
 
-
 $build_env = ["ack",
               "emacs",
               "fish",
