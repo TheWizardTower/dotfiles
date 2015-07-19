@@ -23,8 +23,10 @@ setenv SSH_ENV $HOME/.ssh/environment
 function start_agent
     echo "Initializing new SSH agent ..."
     set ssh_eval (/usr/bin/ssh-agent -c)
-    eval $ssh_eval
+    echo $ssh_eval > $SSH_ENV
     echo "succeeded"
+    chmod 600 $SSH_ENV
+    . $SSH_ENV
     ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605
 end
 
