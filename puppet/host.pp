@@ -4,6 +4,24 @@ exec { 'dnf-upgrade':
   timeout => 0
 }
 
+user { 'amccullough':
+  comment => "Adam McCullough",
+  ensure => 'present',
+  home => '/home/amccullough',
+  groups => ['dockerroot','vboxusers', 'wheel'],
+  managehome => 'true',
+  name => 'amccullough',
+  password => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
+  shell => '/bin/fish',
+}
+
+exec { 'get-dotfiles':
+  require => [ Package['git'], User['amccullough'] ],
+  command => '/bin/git clone https://github.com/TheWizardTower/dotfiles.git',
+  cwd     => '/home/amccullough',
+  unless => '/bin/test -d /home/amccullough/dotfiles'
+}
+
 exec { 'set-amccullough-shell':
   require => Package['fish'],
   command => "/bin/chsh -s /bin/fish amccullough"
@@ -124,6 +142,8 @@ $desktop_env = ["amarok-utils",
                 "pavucontrol",
                 "pavumeter",
                 "pidgin",
+                "pidgin-otr",
+                "purple-plugin-pack",
                 "seamonkey",
                 "skype", # needs RPMFusion.
                 # Steam may need to wait a bit...
