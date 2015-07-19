@@ -81,23 +81,31 @@ $fundamentals = ["python-dnf-plugins-extras-migrate",
               "wget"]
 
 $build_env = ["ack",
+              "colordiff",
+              "cabal-rpm",
               "emacs",
               "fish",
               "haskell-platform",
+              "hlint",
               "git",
               "golang",
               "htop",
               "levien-inconsolata-fonts",
+              "iftop",
+              "iotop",
               "irssi",
               "lynx",
               "mercurial",
               "mc",
               "ntop",
+              "perl-core",
+              "perltidy",
               "python",
               "screen",
               "subversion",
               "tmux",
-              "vim-enhanced"]
+              "vim-enhanced",
+              "vim-X11"]
 
 $desktop_env = ["amarok-utils",
                 "cairo-dock",
@@ -106,11 +114,15 @@ $desktop_env = ["amarok-utils",
                 "dzen2",
                 "fedup",
                 "firefox",
+                "flash-plugin",
                 "free42",
                 "google-chrome-stable", # Needs the google chrome repo.
                 "gparted",
                 "gpodder",
                 "paman",
+                "paprefs",
+                "pavucontrol",
+                "pavumeter",
                 "pidgin",
                 "seamonkey",
                 "skype", # needs RPMFusion.
@@ -124,8 +136,11 @@ $desktop_env = ["amarok-utils",
                 "xmonad",
                 "yakuake"]
 
-$photo_env = ["digikam",
+$photo_env = ["darktable",
+              "digikam",
+              "GraphicsMagick",
               "gimp",
+              "ImageMagick",
               "ufraw"]
 
 package { $fundamentals:
