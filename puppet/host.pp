@@ -66,7 +66,6 @@ exec { 'plasma-config-dir':
   require => User['amccullough'],
   command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
   user => "amccullough",
-  mode => "744"
 }
 
 file { 'xmonad-kde-wm':
