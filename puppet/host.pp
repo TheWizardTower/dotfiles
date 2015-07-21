@@ -63,7 +63,7 @@ exec { 'google-repo-key':
 
 # This sets xmonad as the default WM for KDE. Because XMonad rocks.
 file { 'plasma-config-dir':
-  requires => User['amccullough'],
+  require => User['amccullough'],
   path => '/home/amccullough/.config/plasma-workspace/env',
   ensure => directory,
   owner => "amccullough",
@@ -71,7 +71,7 @@ file { 'plasma-config-dir':
 }
 
 file { 'xmonad-kde-wm':
-      requires => [ User['amccullough'], File['plasma-config-dir'] ],
+  require => [ User['amccullough'], File['plasma-config-dir'] ],
   path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => "export KDEWM=/bin/xmonad",
   owner => "amccullough",
