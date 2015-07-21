@@ -14,9 +14,19 @@ Theme "agnoster-mercurial"
 # All built-in plugins can be found at ~/.oh-my-fish/plugins/
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Enable plugins by adding their name separated by a space to the line below.
+Plugin "balias"
+Plugin "git-flow"
+Plugin "grc"
+Plugin "jump"
+Plugin "mc"
+Plugin "percol"
+Plugin "peco"
 Plugin "theme"
 Plugin "tmux"
 
+function fish_user_key_bindings
+  bind \cr 'peco_select_history (commandline -b)'
+end
 
 setenv SSH_ENV $HOME/.ssh/environment
 
