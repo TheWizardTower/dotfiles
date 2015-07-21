@@ -3,23 +3,32 @@ MAINTAINER Adam McCullough <merlinfmct87@gmail.com>
 
 RUN curl http://fishshell.com/files/linux/RedHat_RHEL-5/fish.release:2.repo > /etc/yum.repos.d/shells:fish:release:2.repo
 RUN yum -y update && yum -y install epel-release && yum -y install \
+    ack \
+    colordiff \
+    cabal-rpm \
     emacs \
     fish \
     ghc \
     git \
     golang \
+    htop \
+    iftop \
+    iotop \
     irssi \
+    levien-inconsolata-fonts.noarch \
     lynx \
     mercurial \
     mc \
     ntop \
+    perl-core \
     python \
     screen \
     subversion \
     tmux \
     useradd \
     vim \
-    w3m
+    w3m \
+    wget
 
 RUN groupadd amccullough && useradd -m -g amccullough -s /usr/bin/fish amccullough
 
