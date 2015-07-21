@@ -69,7 +69,7 @@ exec { 'plasma-config-dir':
 }
 
 file { 'xmonad-kde-wm':
-  require => [ User['amccullough'], File['plasma-config-dir'] ],
+  require => [ User['amccullough'], Exec['plasma-config-dir'] ],
   path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => "export KDEWM=/bin/xmonad",
   owner => "amccullough",
