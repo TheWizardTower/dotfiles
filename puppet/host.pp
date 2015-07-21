@@ -5,6 +5,7 @@ exec { 'dnf-upgrade':
 }
 
 user { 'amccullough':
+  require => Package['fish'],
   comment => "Adam McCullough",
   ensure => 'present',
   home => '/home/amccullough',
