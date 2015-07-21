@@ -5,7 +5,7 @@ exec { 'dnf-upgrade':
 }
 
 user { 'amccullough':
-  require => Package['fish'],
+  require => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'] ],
   comment => "Adam McCullough",
   ensure => 'present',
   home => '/home/amccullough',
@@ -27,6 +27,19 @@ exec { 'get-dotfiles':
 exec { 'set-amccullough-shell':
   require => [Package['fish'], User['amccullough'] ],
   command => "/bin/chsh -s /bin/fish amccullough"
+}
+
+service { 'docker':
+  require => Package['docker-io'],
+  enable => true
+}
+
+file { 'chmod-docker-socket':
+  require => [ Service ['docker'], Package['docker-io'] ],
+  owner => "root",
+  owner => "dockerroot",
+  mode => "550",
+  ensure => true
 }
 
 exec { 'dnf-migrate':
