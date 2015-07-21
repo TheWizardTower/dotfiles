@@ -57,7 +57,7 @@ gpgcheck=1",
 }
 
 exec { 'google-repo-key':
-  requires => File['chrome-repo'],
+  require => File['chrome-repo'],
   command => '/bin/rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub',
 }
 
