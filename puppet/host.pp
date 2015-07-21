@@ -20,11 +20,12 @@ exec { 'get-dotfiles':
   require => [ Package['git'], User['amccullough'] ],
   command => '/bin/git clone https://github.com/TheWizardTower/dotfiles.git',
   cwd     => '/home/amccullough',
-  unless => '/bin/test -d /home/amccullough/dotfiles'
+  unless => '/bin/test -d /home/amccullough/dotfiles',
+  user => 'amccullough'
 }
 
 exec { 'set-amccullough-shell':
-  require => Package['fish'],
+  require => [Package['fish'], User['amccullough'] ],
   command => "/bin/chsh -s /bin/fish amccullough"
 }
 
@@ -56,7 +57,16 @@ gpgcheck=1",
 }
 
 # This sets xmonad as the default WM for KDE. Because XMonad rocks.
+file { 'plasma-config-dir':
+  requires => User['amccullough'],
+  path => '/home/amccullough/.config/plasma-workspace/env',
+  ensure => directory,
+  owner => "amccullough",
+  mode => "744"
+}
+
 file { 'xmonad-kde-wm':
+      requires => [ User['amccullough'], File['plasma-config-dir'] ],
   path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => "export KDEWM=/bin/xmonad",
   owner => "amccullough",
