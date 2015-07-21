@@ -56,6 +56,11 @@ gpgcheck=1",
   before => Exec['dnf-upgrade'],
 }
 
+exec { 'google-repo-key':
+  requires => File['chrome-repo'],
+  command => '/bin/rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub',
+}
+
 # This sets xmonad as the default WM for KDE. Because XMonad rocks.
 file { 'plasma-config-dir':
   requires => User['amccullough'],
