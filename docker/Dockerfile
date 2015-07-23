@@ -35,4 +35,4 @@ RUN groupadd amccullough && useradd -m -g amccullough -s /usr/bin/fish amccullou
 # Run the next command as amccullough. This checks out my github dotfiles repo, and runs some setup/initialization code.
 # The syntax is a little peculiar becuase I set my shell to fish, which does && a little differently.
 USER amccullough
-RUN cd /home/amccullough; and git clone https://github.com/TheWizardTower/dotfiles.git; and cd dotfiles; and bash install.sh
+RUN cd /home/amccullough && git clone https://github.com/TheWizardTower/dotfiles.git && cd dotfiles && bash install.sh
