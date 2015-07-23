@@ -127,5 +127,7 @@
 (setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
 (setq debug-on-error t)    ; now you should get a backtrace
 
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
