@@ -34,11 +34,9 @@ service { 'docker':
   enable => true
 }
 
-file { 'chmod-docker-socket':
-  require => [ Service ['docker'], Package['docker-io'] ],
-  owner => "root",
-  owner => "dockerroot",
-  mode => "550",
+exec { 'chmod-docker-socket':
+  path  => '/bin/chmod :dockerroot /var/run/docker.sock',
+  require => [ Service['docker'], Package['docker-io'] ],
   ensure => true
 }
 
