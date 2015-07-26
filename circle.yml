@@ -11,4 +11,4 @@ dependencies:
         pwd: xmonad
     - docker build -t thewizardtower/puppet .:
         pwd: puppet
-    - docker build -t thewizardtower/emacs_config .:
+    - docker build -t thewizardtower/emacs_config .
