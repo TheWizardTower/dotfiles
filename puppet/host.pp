@@ -35,9 +35,8 @@ service { 'docker':
 }
 
 exec { 'chmod-docker-socket':
-  path  => '/bin/chmod :dockerroot /var/run/docker.sock',
-  require => [ Service['docker'], Package['docker-io'] ],
-  ensure => true
+  command  => '/bin/chmod :dockerroot /var/run/docker.sock',
+  require => [ Service['docker'], Package['docker-io'] ]
 }
 
 exec { 'dnf-migrate':
@@ -162,6 +161,9 @@ $desktop_env = ["amarok-utils",
                 "google-chrome-stable", # Needs the google chrome repo.
                 "gparted",
                 "gpodder",
+                "kernel-devel",
+                "kernel-headers",
+                "dkms",
                 "paman",
                 "paprefs",
                 "pavucontrol",
