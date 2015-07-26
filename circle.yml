@@ -4,10 +4,11 @@ machine:
 
 
 test:
-    - docker build -t thewizardtower/dev_env .
-        pwd: docker/
-    - docker built -t thewizardtower/xmonad .
-        pwd: xmonad/
-    - docker build -t thewizardtower/puppet .
-        pwd: puppet/
+  post:
+    - docker build -t thewizardtower/dev_env .:
+      pwd: docker/
+    - docker built -t thewizardtower/xmonad .:
+      pwd: xmonad/
+    - docker build -t thewizardtower/puppet .:
+      pwd: puppet/
 
