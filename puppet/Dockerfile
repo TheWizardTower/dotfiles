@@ -9,4 +9,5 @@ ADD ./host.pp /root/host.pp
 
 WORKDIR /root
 
-RUN puppet parser validate *.pp
+RUN puppet parser validate *.pp &&\
+    puppet apply --test *.pp
