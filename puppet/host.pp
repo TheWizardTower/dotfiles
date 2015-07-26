@@ -5,23 +5,23 @@ exec { 'dnf-upgrade':
 }
 
 user { 'amccullough':
-  require => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'] ],
-  comment => "Adam McCullough",
-  ensure => 'present',
-  home => '/home/amccullough',
-  groups => ['dockerroot','vboxusers', 'wheel'],
+  require    => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'] ],
+  comment    => "Adam McCullough",
+  ensure     => 'present',
+  home       => '/home/amccullough',
+  groups     => ['dockerroot','vboxusers', 'wheel'],
   managehome => 'true',
-  name => 'amccullough',
-  password => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
-  shell => '/bin/fish',
+  name       => 'amccullough',
+  password   => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
+  shell      => '/bin/fish',
 }
 
 exec { 'get-dotfiles':
   require => [ Package['git'], User['amccullough'] ],
   command => '/bin/git clone https://github.com/TheWizardTower/dotfiles.git',
   cwd     => '/home/amccullough',
-  unless => '/bin/test -d /home/amccullough/dotfiles',
-  user => 'amccullough'
+  unless  => '/bin/test -d /home/amccullough/dotfiles',
+  user    => 'amccullough'
 }
 
 exec { 'set-amccullough-shell':
@@ -31,12 +31,30 @@ exec { 'set-amccullough-shell':
 
 service { 'docker':
   require => Package['docker-io'],
-  enable => true
+  enable  => true
 }
 
-exec { 'chmod-docker-socket':
-  command  => '/bin/chmod :dockerroot /var/run/docker.sock',
-  require => [ Service['docker'], Package['docker-io'] ]
+file { 'config-docker-service':
+  path    => '/etc/systemd/system/docker.service',
+  content => '[Unit]
+Description=Docker Application Container Engine
+Documentation=http://docs.docker.io
+After=network.target
+
+[Service]
+Type=notify
+EnvironmentFile=-/etc/sysconfig/docker
+ExecStart=/usr/bin/docker -d --selinux-enabled --dns 172.17.42.1 --group dockerroot
+Restart=on-failure
+LimitNOFILE=1048576
+LimitNPROC=1048576
+
+[Install]
+WantedBy=multi-user.target'
+  before  => Package['docker-io'],
+  mode    => "644",
+  owner   => root,
+  group   => root
 }
 
 exec { 'dnf-migrate':
@@ -53,17 +71,17 @@ exec { 'adobe-repo-rpm':
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
-  before => Exec['dnf-upgrade'],
+  before  => Exec['dnf-upgrade'],
 }
 
 file { 'chrome-repo':
-  path => '/etc/yum.repos.d/google-chrome.repo',
+  path    => '/etc/yum.repos.d/google-chrome.repo',
   content => "[google-chrome]
 name=google-chrome
 baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
 enabled=1
 gpgcheck=1",
-  before => Exec['dnf-upgrade'],
+  before  => Exec['dnf-upgrade'],
 }
 
 exec { 'google-repo-key':
@@ -75,45 +93,45 @@ exec { 'google-repo-key':
 exec { 'plasma-config-dir':
   require => User['amccullough'],
   command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
-  user => "amccullough",
+  user    => "amccullough",
 }
 
 file { 'xmonad-kde-wm':
   require => [ User['amccullough'], Exec['plasma-config-dir'] ],
-  path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
+  path    => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => "export KDEWM=/bin/xmonad",
-  owner => "amccullough",
-  mode => "744"
+  owner   => "amccullough",
+  mode    => "744"
   }
 
 file { 'skype-repo':
-  path => '/etc/yum.repos.d/skype.repo',
+  path    => '/etc/yum.repos.d/skype.repo',
   content => "[skype]
 name=Skype Repository
 baseurl=http://download.skype.com/linux/repos/fedora/updates/i586/
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-skype
 enabled=1
 gpgcheck=0",
-  before => Exec['dnf-upgrade'],
+  before  => Exec['dnf-upgrade'],
 }
 
 exec { 'virtualbox-repo':
   require => [ Package['wget'], ],
   command => '/bin/wget -q http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo',
-  cwd => '/etc/yum.repos.d',
-  onlyif => '/bin/test ! -f /etc/yum.repos.d/virtuabox.repo'
+  cwd     => '/etc/yum.repos.d',
+  onlyif  => '/bin/test ! -f /etc/yum.repos.d/virtuabox.repo'
 }
 
 exec { 'virtualbox-key':
   require => [ Package['wget'], Exec['virtualbox-repo'] ],
   command => '/bin/wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | /bin/rpm --import - ||:',
-  before => Exec['dnf-upgrade'],
+  before  => Exec['dnf-upgrade'],
 }
 
 # Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
   command => '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:',
-  before => Exec['dnf-upgrade'],
+  before  => Exec['dnf-upgrade'],
 }
 
 # Apparently wget isn't installed by default on Fedora 22.
@@ -191,24 +209,24 @@ $photo_env = ["darktable",
               "ufraw"]
 
 package { $fundamentals:
-  ensure =>  installed,
+  ensure  =>  installed,
 }
 
 package { $build_env:
-  before => Exec['dnf-migrate'],
+  before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure => latest,
+  ensure  => latest,
 }
 
 package { $desktop_env:
-  before => Exec['dnf-migrate'],
+  before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure => latest,
+  ensure  => latest,
 }
 
 package { $photo_env:
-  before => Exec['dnf-migrate'],
+  before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure => latest,
+  ensure  => latest,
 }
 
