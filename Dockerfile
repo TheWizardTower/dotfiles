@@ -1,7 +1,9 @@
 FROM fedora
 MAINTAINER Adam McCullough <merlinfmct87@gmail.com>
 
-RUN dnf install -y deltarpm && dnf -y update && dnf -y install \
+RUN dnf install --assumeyes  deltarpm &&\
+    dnf update  --assumeyes            ;\
+    dnf install --assumeyes             \
     emacs &&\
     golang
 
