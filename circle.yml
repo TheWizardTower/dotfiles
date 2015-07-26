@@ -3,7 +3,7 @@ machine:
     - docker
 
 
-build:
+dependencies:
   override:
     - docker build -t thewizardtower/dev_env .:
         pwd: docker
