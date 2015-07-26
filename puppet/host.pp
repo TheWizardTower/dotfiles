@@ -24,9 +24,41 @@ exec { 'get-dotfiles':
   user    => 'amccullough'
 }
 
-exec { 'set-amccullough-shell':
-  require => [Package['fish'], User['amccullough'] ],
-  command => "/bin/chsh -s /bin/fish amccullough"
+exec { 'install-dotfiles':
+  require => Exec['get-dotfiles'],
+  command => '/bin/bash install.sh'
+  cwd => '/home/amccullough/dotfiles',
+  user => 'amccullough'
+}
+  
+
+file { "git-project-dir":
+  path   => "/home/amccullough/git",
+  ensure => "directory",
+  owner   => "amccullough",
+  require => User['amccullough']
+}
+
+exec { 'clone-grc':
+  cwd => '/home/amccullough/git',
+  command => '/bin/git clone https://github.com/garabik/grc.git',
+  user => 'amccullough',
+  require => [ File['git-project-dir'], Package['git'] ],
+  onlyif => '/bin/test ! -d /home/amccullough/git/grc'
+}
+
+exec { 'update-grc':
+  cwd => '/home/amccullough/git/grc',
+  command => '/bin/git pull',
+  user => 'amccullough',
+  require => [ File['git-project-dir'], Package['git'], Exec['clone-grc'] ],
+  onlyif => '/bin/test -d /home/amccullough/git/grc'
+}
+
+exec { 'install-grc':
+  cwd => '/home/amccullough/git/grc',
+  require => Exec['update-grc'],
+  command => '/bin/bash install.sh'
 }
 
 service { 'docker':
@@ -50,7 +82,7 @@ LimitNOFILE=1048576
 LimitNPROC=1048576
 
 [Install]
-WantedBy=multi-user.target'
+WantedBy=multi-user.target',
   before  => Package['docker-io'],
   mode    => "644",
   owner   => root,
