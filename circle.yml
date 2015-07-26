@@ -3,8 +3,8 @@ machine:
     - docker
 
 
-test:
-  post:
+build:
+  override:
     - docker build -t thewizardtower/dev_env .:
         pwd: docker
     - docker build -t thewizardtower/xmonad .:
