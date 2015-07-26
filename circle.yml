@@ -5,6 +5,7 @@ machine:
 
 dependencies:
   override:
+    - docker info
     - docker build -t thewizardtower/dev_env .:
         pwd: docker
     - docker build -t thewizardtower/xmonad .:
