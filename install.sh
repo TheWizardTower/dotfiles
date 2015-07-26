@@ -1,3 +1,5 @@
+#!/bin/bash
+
 for configDir in fish; do
     test -d ~/.$configDir/ || ln -sfT "$(pwd)/$configDir/" ~/.config/$configDir
 done
