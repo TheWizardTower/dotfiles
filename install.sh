@@ -1,7 +1,7 @@
 #!/bin/bash
 
 for configDir in fish; do
-    test -d ~/.$configDir/ || ln -sfT "$(pwd)/$configDir/" ~/.config/$configDir
+    test -L ~/.config/.$configDir/ || mv ~/.config/$configDir ~/.config/$configDir.preInstall &&  ln -sfT "$(pwd)/$configDir/" ~/.config/$configDir
 done
 
 for file in tmux.conf cvsignore Xmodmap xsession xmobarrc bashrc bash_profile shellrc vimrc gitconfig gtkrc-2.0 zshrc emacs screenrc toprc; do
