@@ -5,12 +5,13 @@ RUN dnf install --assumeyes  deltarpm &&\
     dnf update  --assumeyes            ;\
     dnf install --assumeyes             \
     emacs \
+    git \
     golang
 
-ADD ../dotfiles /root/dotfiles
+ADD * /root/dotfiles/
 
 WORKDIR /root/dotfiles
 
-RUN install.sh &&
+RUN ./install.sh &&\
    emacs -Q --batch -l /root/.emacs 
 
