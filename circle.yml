@@ -13,3 +13,4 @@ test:
     - docker build -t thewizardtower/puppet .:
         pwd: puppet
     - docker build -t thewizardtower/emacs_config .
+    - docker build -f testDockerfile .
