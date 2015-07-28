@@ -4,12 +4,16 @@ exec { 'dnf-upgrade':
   timeout => 0
 }
 
+group { 'docker':
+  ensure => "present"
+}
+
 user { 'amccullough':
-  require    => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'] ],
+  require    => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'], Group['docker'] ],
   comment    => "Adam McCullough",
   ensure     => 'present',
   home       => '/home/amccullough',
-  groups     => ['dockerroot','vboxusers', 'wheel'],
+  groups     => ['docker','vboxusers', 'wheel'],
   managehome => 'true',
   name       => 'amccullough',
   password   => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
@@ -64,29 +68,6 @@ exec { 'install-grc':
 service { 'docker':
   require => Package['docker-io'],
   enable  => true
-}
-
-file { 'config-docker-service':
-  path    => '/etc/systemd/system/docker.service',
-  content => '[Unit]
-Description=Docker Application Container Engine
-Documentation=http://docs.docker.io
-After=network.target
-
-[Service]
-Type=notify
-EnvironmentFile=-/etc/sysconfig/docker
-ExecStart=/usr/bin/docker -d --selinux-enabled --dns 172.17.42.1 --group dockerroot
-Restart=on-failure
-LimitNOFILE=1048576
-LimitNPROC=1048576
-
-[Install]
-WantedBy=multi-user.target',
-  before  => Package['docker-io'],
-  mode    => "644",
-  owner   => root,
-  group   => root
 }
 
 exec { 'dnf-migrate':
