@@ -1,5 +1,9 @@
 ;(server-start)
-(desktop-save-mode 1)
+
+;; This is usually an annoyance. Comment it out until I get the server start stuff working.
+;(desktop-save-mode 1)
+
+(setq inhibit-startup-message t)
 
 (tool-bar-mode -1)
 
