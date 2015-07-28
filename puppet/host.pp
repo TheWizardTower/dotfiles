@@ -35,12 +35,6 @@ exec { 'install-dotfiles':
   user => 'amccullough'
 }
 
-exec { 'omf-install':
-  require => Exec['install-dotfiles'],
-  user => amccullough,
-  command => "/bin/fish -c 'omf install'"
-}
-
 file { ".config":
   path => "/home/amccullough/.config",
   ensure => "directory",
