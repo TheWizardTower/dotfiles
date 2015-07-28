@@ -29,12 +29,25 @@ exec { 'get-dotfiles':
 }
 
 exec { 'install-dotfiles':
-  require => Exec['get-dotfiles'],
-  command => '/bin/bash -c install.sh',
+  require => [ Exec['get-dotfiles'], File['.config'], Package['fish'], Package['go'] ],
+  command => '/home/amccullough/dotfiles/install.sh',
   cwd => '/home/amccullough/dotfiles',
   user => 'amccullough'
 }
-  
+
+exec { 'omf-install':
+  require => Exec['install-dotfiles'],
+  user => amccullough,
+  command => "/bin/fish -c 'omf install'"
+}
+
+file { ".config":
+  path => "/home/amccullough/.config",
+  ensure => "directory",
+  owner => "amccullough",
+  group => "amccullough",
+  require => User['amccullough']
+}
 
 file { "git-project-dir":
   path   => "/home/amccullough/git",
