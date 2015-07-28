@@ -13,6 +13,8 @@ ln -sfT "$(pwd)/vim_local/" ~/vim_local
 # Install oh-my-fish. Not completely convinced this is the best way to do it.
 curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish
 
+fish -c "omf install; omf update"
+
 for configDir in fish; do
     test -L ~/.config/.$configDir/ || mv ~/.config/$configDir ~/.config/$configDir.preInstall;  ln -sfT "$(pwd)/$configDir/" ~/.config/$configDir
 done
