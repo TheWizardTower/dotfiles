@@ -1,0 +1,16 @@
+FROM fedora
+MAINTAINER Adam McCullough <merlinfmct87@gmail.com>
+
+RUN dnf install -y tree
+
+ADD * /test/add_star/
+RUN tree /test/add_star
+
+ADD . /test/add_dot/
+RUN tree /test/add_dot
+
+COPY * /test/copy_star/
+RUN tree /test/copy_star
+
+COPY . /test/copy_dot/
+RUN tree /test/copy_dot
