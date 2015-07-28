@@ -26,7 +26,7 @@ exec { 'get-dotfiles':
 
 exec { 'install-dotfiles':
   require => Exec['get-dotfiles'],
-  command => '/bin/bash install.sh',
+  command => '/bin/bash -c install.sh',
   cwd => '/home/amccullough/dotfiles',
   user => 'amccullough'
 }
