@@ -29,7 +29,7 @@ exec { 'get-dotfiles':
 }
 
 exec { 'install-dotfiles':
-  require => [ Exec['get-dotfiles'], File['.config'], Package['fish'], Package['go'] ],
+  require => [ Exec['get-dotfiles'], File['.config'], Package['fish'], Package['golang'] ],
   command => '/home/amccullough/dotfiles/install.sh',
   cwd => '/home/amccullough/dotfiles',
   user => 'amccullough'
@@ -156,7 +156,7 @@ exec { 'virtualbox-key':
 
 # Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
-  command => '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:',
+  command => "/bin/bash -c '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:'",
   before  => Exec['dnf-upgrade'],
 }
 
