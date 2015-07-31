@@ -3,6 +3,12 @@
 ;; This is usually an annoyance. Comment it out until I get the server start stuff working.
 ;(desktop-save-mode 1)
 
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;(setq 'flycheck-emacs-lisp-initialize-packages 'auto)
+;(setq 'flycheck-emacs-lisp-package-user-dir 'dotfiles/)
+
 (setq inhibit-startup-message t)
 
 (tool-bar-mode -1)
@@ -16,6 +22,10 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+
+(require 'caskxy)
+
+(require 'browse-kill-ring+)
 
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")
@@ -35,6 +45,14 @@
 
 (mouse-wheel-mode t)
 
+(global-set-key (kbd "M-;") 'comment-dwim-2)
+
+;; require or autoload paredit-mode
+(add-hook 'clojure-mode-hook #'paredit-mode)
+
+;; require or autoload smartparens
+(add-hook 'clojure-mode-hook #'smartparens-strict-mode)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,7 +61,7 @@
  '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 83 :width normal :foundry "unknown" :family "Inconsolata"))))
  '(col-highlight ((t (:background "#073642")))))
 
-(tabbar-mode)
+(eval-after-load 'flycheck '(require 'flycheck-ghcmod))
 
 (setq-default indent-tabs-mode nil)
 
@@ -60,9 +78,6 @@
 ;; Highlight matching parenthesis.
 (show-paren-mode 1)
 
-(require 'go-mode)
-(add-hook 'go-mode 'linum-mode)
-
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -70,15 +85,32 @@
 
 (crosshairs-mode)
 
-;(require 'go-autocomplete)
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
+;; Completion words longer than 4 characters
+(custom-set-variables
+ '(ac-ispell-requires 4)
+ '(ac-ispell-fuzzy-limit 4))
+
+(eval-after-load "auto-complete"
+  '(progn
+     (ac-ispell-setup)))
+
+(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setupa)
+
+(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
+(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'haskell-interactive-mode))
+
+(eval-after-load 'haskell-mode
+  '(define-key haskell-mode-map (kbd "C-c C-d") 'ac-haskell-process-popup-doc))
+
 (require 'yasnippet)
 (yas-global-mode 1)
-
-(require 'flymake)
 
 (require 'log4e)
 
@@ -107,6 +139,8 @@
       helm-ff-file-name-history-use-recentf t)
 
 (helm-mode 1)
+(eval-after-load 'flycheck
+   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
 (require 'projectile)
 (projectile-global-mode)
@@ -117,7 +151,24 @@
 
 (setq exec-path (cons "/usr/bin" exec-path))
 (add-to-list 'exec-path "/home/amccullough/gocode/bin")
+
+;(require 'go-mode)
+(add-hook 'go-mode 'linum-mode)
+(require 'go-autocomplete)
+
+(setq gofmt-command "goimports")
+(require 'go-mode)
 (add-hook 'before-save-hook 'gofmt-before-save)
+(require 'golint)
+(require 'go-projectile)
+(require 'go-eldoc)
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+;; Pretty sure they are already in the path. But leaving this
+;; as a reminder.
+;; (add-to-list 'load-path "folder-in-which-go-dlv-files-are-in/")
+(require 'go-dlv)
+
+
 
 (require 'e2wm)
 (global-set-key (kbd "M-+") 'e2wm:start-management)
