@@ -1,5 +1,3 @@
-
-
 ;;; Stolen from http://www.emacswiki.org/emacs/EshellPrompt. Modified to work with a dark theme.
 (defmacro with-face (str &rest properties)
   `(propertize ,str 'face (list ,@properties)))
@@ -21,4 +19,5 @@
        " $")
      " ")))
 (setq eshell-prompt-function 'shk-eshell-prompt)
+
 (setq eshell-highlight-prompt nil)
