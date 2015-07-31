@@ -19,8 +19,14 @@ for configDir in fish; do
     test -L ~/.config/.$configDir/ || mv ~/.config/$configDir ~/.config/$configDir.preInstall;  ln -sfT "$(pwd)/$configDir/" ~/.config/$configDir
 done
 
-
 sh installGoPackages.sh
+sh installCabalPackages.sh
+
+if [ -d $HOME/.tmux/plugins/tpm ]
+   cd $HOME/.tmux/plugins/tpm; git pull
+   else
+       git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 cd emacs.d
 sh install.sh
