@@ -5,16 +5,19 @@ exec { 'dnf-upgrade':
 }
 
 group { 'docker':
-  ensure => "present"
+  ensure => 'present'
 }
 
 user { 'amccullough':
-  require    => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'], Group['docker'] ],
-  comment    => "Adam McCullough",
   ensure     => 'present',
+  require    => [ Package['fish'],
+                  Package['docker-io'],
+                  Package['VirtualBox-5.0'],
+                  Group['docker'] ],
+  comment    => 'Adam McCullough',
   home       => '/home/amccullough',
   groups     => ['docker','vboxusers', 'wheel'],
-  managehome => 'true',
+  managehome => true,
   name       => 'amccullough',
   password   => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
   shell      => '/bin/fish',
@@ -29,45 +32,48 @@ exec { 'get-dotfiles':
 }
 
 exec { 'install-dotfiles':
-  require => [ Exec['get-dotfiles'], File['.config'], Package['fish'], Package['golang'] ],
+  require => [ Exec['get-dotfiles'],
+    File['.config'],
+    Package['fish'],
+    Package['golang'] ],
   command => '/home/amccullough/dotfiles/install.sh',
-  cwd => '/home/amccullough/dotfiles',
-  user => 'amccullough'
+  cwd     => '/home/amccullough/dotfiles',
+  user    => 'amccullough'
 }
 
-file { ".config":
-  path => "/home/amccullough/.config",
-  ensure => "directory",
-  owner => "amccullough",
-  group => "amccullough",
+file { '.config':
+  ensure  => 'directory',
+  path    => '/home/amccullough/.config',
+  owner   => 'amccullough',
+  group   => 'amccullough',
   require => User['amccullough']
 }
 
-file { "git-project-dir":
-  path   => "/home/amccullough/git",
-  ensure => "directory",
-  owner   => "amccullough",
+file { 'git-project-dir':
+  ensure  => 'directory',
+  path    => '/home/amccullough/git',
+  owner   => 'amccullough',
   require => User['amccullough']
 }
 
 exec { 'clone-grc':
-  cwd => '/home/amccullough/git',
+  cwd     => '/home/amccullough/git',
   command => '/bin/git clone https://github.com/garabik/grc.git',
-  user => 'amccullough',
+  user    => 'amccullough',
   require => [ File['git-project-dir'], Package['git'] ],
-  onlyif => '/bin/test ! -d /home/amccullough/git/grc'
+  onlyif  => '/bin/test ! -d /home/amccullough/git/grc'
 }
 
 exec { 'update-grc':
-  cwd => '/home/amccullough/git/grc',
+  cwd     => '/home/amccullough/git/grc',
   command => '/bin/git pull',
-  user => 'amccullough',
+  user    => 'amccullough',
   require => [ File['git-project-dir'], Package['git'], Exec['clone-grc'] ],
-  onlyif => '/bin/test -d /home/amccullough/git/grc'
+  onlyif  => '/bin/test -d /home/amccullough/git/grc'
 }
 
 exec { 'install-grc':
-  cwd => '/home/amccullough/git/grc',
+  cwd     => '/home/amccullough/git/grc',
   require => Exec['update-grc'],
   command => '/bin/bash install.sh'
 }
@@ -86,8 +92,8 @@ exec { 'adobe-repo-rpm':
   command => '/usr/bin/rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm ||:',
 }
 
-# It'd be nice if the key import commands could toggle on if the key was present or not.
-# That way we could avoid the hackish-as-hell ||: at the end of each.
+# It'd be nice if the key import commands could toggle on if the key was present
+# or not. That way we could avoid the hackish-as-hell ||: at the end of each.
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
@@ -113,15 +119,15 @@ exec { 'google-repo-key':
 exec { 'plasma-config-dir':
   require => User['amccullough'],
   command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
-  user    => "amccullough",
+  user    => 'amccullough',
 }
 
 file { 'xmonad-kde-wm':
   require => [ User['amccullough'], Exec['plasma-config-dir'] ],
   path    => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
-  content => "export KDEWM=/bin/xmonad",
-  owner   => "amccullough",
-  mode    => "744"
+  content => 'export KDEWM=/bin/xmonad',
+  owner   => 'amccullough',
+  mode    => '0744',
   }
 
 file { 'skype-repo':
@@ -156,97 +162,106 @@ exec { 'rpmfusion-repo':
 
 # Apparently wget isn't installed by default on Fedora 22.
 # I'm as shocked as you are. Furthermore, the python-dnf-plugins-extras-migrate
-# deal is because many packages still reference yum in their metadata. This script# (When called by '/bin/dnf-2 migrate', as in the exec above), cleans that up.
-$fundamentals = ["python-dnf-plugins-extras-migrate",
-              "wget"]
+# deal is because many packages still reference yum in their metadata. This
+# script (When called by '/bin/dnf-2 migrate', as in the exec above), cleans
+# that up.
+$fundamentals = ['python-dnf-plugins-extras-migrate',
+              'wget']
 
-$build_env = ["ack",
-              "colordiff",
-              "cabal-rpm",
-              "emacs",
-              "fish",
-              "haskell-platform",
-              "hlint",
-              "git",
-              "golang",
-              "htop",
-              "levien-inconsolata-fonts",
-              "iftop",
-              "iotop",
-              "irssi",
-              "lynx",
-              "mercurial",
-              "mc",
-              "ntop",
-              "perl-core",
-              "perltidy",
-              "python",
-              "screen",
-              "subversion",
-              "tmux",
-              "vim-enhanced",
-              "vim-X11"]
+$build_env = ['ack',
+              'colordiff',
+              'cabal-rpm',
+              'emacs',
+              'fish',
+              'haskell-platform',
+              'hlint',
+              'git',
+              'golang',
+              'htop',
+              'levien-inconsolata-fonts',
+              'iftop',
+              'iotop',
+              'irssi',
+              'lynx',
+              'mercurial',
+              'mc',
+              'ntop',
+              'perl-core',
+              'perltidy',
+              'python',
+              'screen',
+              'subversion',
+              'tmux',
+              'vim-enhanced',
+              'vim-X11']
 
-$desktop_env = ["amarok-utils",
-                "cairo-dock",
-                "dmenu",
-                "docker-io",
-                "dzen2",
-                "fedup",
-                "firefox",
-                "flash-plugin",
-                "free42",
-                "google-chrome-stable", # Needs the google chrome repo.
-                "gparted",
-                "gpodder",
-                "kernel-devel",
-                "kernel-headers",
-                "dkms",
-                "paman",
-                "paprefs",
-                "pavucontrol",
-                "pavumeter",
-                "pidgin",
-                "pidgin-otr",
-                "purple-plugin-pack",
-                "seamonkey",
-                "skype", # needs RPMFusion.
+$desktop_env = ['amarok-utils',
+                'cairo-dock',
+                'dmenu',
+                'docker-io',
+                'dzen2',
+                'fedup',
+                'firefox',
+                'flash-plugin',
+                'free42',
+                'google-chrome-stable', # Needs the google chrome repo.
+                'gparted',
+                'gpodder',
+                'kernel-devel',
+                'kernel-headers',
+                'dkms',
+                'paman',
+                'paprefs',
+                'pavucontrol',
+                'pavumeter',
+                'pidgin',
+                'pidgin-otr',
+                'purple-plugin-pack',
+                'seamonkey',
+                'skype', # needs RPMFusion.
                 # Steam may need to wait a bit...
-                # "steam", # needs RPMFusion... but isn't there yet.
-                "unetbootin",
-                "VirtualBox-5.0", # Needs the virtualbox repo.
-                # For some reason VLC isn't showing up in the RPMFusion repo either. Grrrr.
-                # "vlc",
-                "xcompmgr",
-                "xmonad",
-                "yakuake"]
+                # 'steam', # needs RPMFusion... but isn't there yet.
+                'unetbootin',
+                'VirtualBox-5.0', # Needs the virtualbox repo.
+                # For some reason VLC isn't showing up in the RPMFusion repo
+                # either. Grrrr.
+                # 'vlc',
+                'xcompmgr',
+                'xmonad',
+                'yakuake']
 
-$photo_env = ["darktable",
-              "digikam",
-              "GraphicsMagick",
-              "gimp",
-              "ImageMagick",
-              "ufraw"]
+$photo_env = ['darktable',
+              'digikam',
+              'GraphicsMagick',
+              'gimp',
+              'ImageMagick',
+              'ufraw']
 
 package { $fundamentals:
   ensure  =>  installed,
 }
 
 package { $build_env:
+  ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure  => latest,
 }
 
 package { $desktop_env:
+  ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure  => latest,
 }
 
 package { $photo_env:
+  ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
-  ensure  => latest,
 }
 
+
+# Yo, dawg.
+package { 'puppet-lint':
+  ensure   => '1.1.0',
+  provider => 'gem',
+}
