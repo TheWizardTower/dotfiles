@@ -249,6 +249,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
          ]
          ++
          [  className =? "Plasma-desktop" --> doFloat
+          , className =? "plasmashell"    --> doFloat
           , className =? "plasma-desktop" --> makeMaster <+> doFloat
          ]
          ++

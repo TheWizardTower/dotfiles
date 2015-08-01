@@ -5,6 +5,7 @@ exec { 'dnf-upgrade':
 }
 
 user { 'amccullough':
+  require => [ Package['fish'], Package['docker-io'], Package['VirtualBox-5.0'] ],
   comment => "Adam McCullough",
   ensure => 'present',
   home => '/home/amccullough',
@@ -19,12 +20,26 @@ exec { 'get-dotfiles':
   require => [ Package['git'], User['amccullough'] ],
   command => '/bin/git clone https://github.com/TheWizardTower/dotfiles.git',
   cwd     => '/home/amccullough',
-  unless => '/bin/test -d /home/amccullough/dotfiles'
+  unless => '/bin/test -d /home/amccullough/dotfiles',
+  user => 'amccullough'
 }
 
 exec { 'set-amccullough-shell':
-  require => Package['fish'],
+  require => [Package['fish'], User['amccullough'] ],
   command => "/bin/chsh -s /bin/fish amccullough"
+}
+
+service { 'docker':
+  require => Package['docker-io'],
+  enable => true
+}
+
+file { 'chmod-docker-socket':
+  require => [ Service ['docker'], Package['docker-io'] ],
+  owner => "root",
+  owner => "dockerroot",
+  mode => "550",
+  ensure => true
 }
 
 exec { 'dnf-migrate':
@@ -54,8 +69,20 @@ gpgcheck=1",
   before => Exec['dnf-upgrade'],
 }
 
+exec { 'google-repo-key':
+  require => File['chrome-repo'],
+  command => '/bin/rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub',
+}
+
 # This sets xmonad as the default WM for KDE. Because XMonad rocks.
+exec { 'plasma-config-dir':
+  require => User['amccullough'],
+  command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
+  user => "amccullough",
+}
+
 file { 'xmonad-kde-wm':
+  require => [ User['amccullough'], Exec['plasma-config-dir'] ],
   path => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => "export KDEWM=/bin/xmonad",
   owner => "amccullough",
