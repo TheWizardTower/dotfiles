@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+
+
+test:
+  override:
+    - docker info
+    - docker build -t thewizardtower/dev_env .:
+        pwd: docker
+    - docker build -t thewizardtower/xmonad .:
+        pwd: xmonad
+    - docker build -t thewizardtower/puppet .:
+        pwd: puppet
+    - docker build -t thewizardtower/emacs_config .
+    - docker build -f testDockerfile .

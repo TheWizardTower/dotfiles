@@ -255,6 +255,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
          ++
          [   isFullscreen --> doFullFloat
            , isDialog     --> placeHook (inBounds (underMouse (0,0))) <+> makeMaster <+> doFloat
+
          ])
          <+> namedScratchpadManageHook namedScratchpads
          <+> manageDocks
@@ -272,17 +273,6 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---LAYOUTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-fifthGimpWorkspaceLayout = withIM (0.11) (Role "gimp-toolbox") $
-                           reflectHoriz $
-                           withIM (0.15) (Role "gimp-dock") Full
-
-fourthWorkspaceLayout = avoidStruts $ Mirror tiled
-    where
-        tiled = ThreeCol 1 (3/100) (1/2)
-
-laptopWorkspaceLayout = avoidStruts $ OneBig (3/4) (3/4) ||| noBorders Full
-
 mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion ||| Column 1.6 ||| OneBig (3/4) (3/4) ||| tiled ||| three ||| Full
    where
      -- Default tiling algorithm partitions the screen into two panes
@@ -300,11 +290,7 @@ mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion 
      delta = 3/100
 
 myLayout = mouseResize $
-           windowArrange $
-           onWorkspace "5.media" fifthGimpWorkspaceLayout $
-           onWorkspace "4.comms" fourthWorkspaceLayout $
-           onWorkspace "1.text" laptopWorkspaceLayout $
-           mainLayout
+           windowArrange mainLayout
 
 numworkspaces = take 10 [1..]
 
@@ -346,8 +332,8 @@ myStartupHook = do
           spawnOnce "xsetroot -cursor_name left_ptr &"
           spawnOnce "unclutter &"
           spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
-          spawnOnce "pidgin"
-          spawnOnce "yakuake"
+          spawnOnce "pidgin &"
+          spawnOnce "yakuake &"
           spawnOnce "xcompmgr -c"
 
 kdeOverride :: Query Bool
@@ -361,14 +347,12 @@ kdeOverride = ask >>= \w -> liftX $ do
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 main = do
     dzenLeftBar  <- spawnPipe myXmonadBarL
---    dzenRightBar <- spawnPipe myXmonadBarR
     xmonad       $  kde4Config
         { modMask            = myModMask
         , terminal           = myTerminal
         , manageHook         = ((className =? "krunner" <||> className =?
  "Plasma-desktop") >>= return . not --> manageHook kde4Config) <+>
  (kdeOverride --> doFloat) <+> myManageHook
---        , layoutHook         = myLayoutHook 
         , layoutHook         = myLayout
         , logHook            = myLogHook dzenLeftBar 
         , startupHook        = myStartupHook

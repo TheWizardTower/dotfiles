@@ -1,12 +1,18 @@
-FROM centos
+FROM fedora
 MAINTAINER Adam McCullough <merlinfmct87@gmail.com>
 
-RUN curl http://fishshell.com/files/linux/RedHat_RHEL-5/fish.release:2.repo > /etc/yum.repos.d/shells:fish:release:2.repo
-RUN yum -y install deltarpm && yum -y update && yum -y install epel-release && yum -y install \
+RUN dnf install --assumeyes \
+    hostname                \
     puppet
 
 ADD ./host.pp /root/host.pp
 
 WORKDIR /root
 
-RUN puppet parser validate *.pp
+# --test is an alias for --verbose --detailed-exitcodes, and enables "show_diff".
+# --detailed-exitcodes means that 0 is "nothing happened", 2 is "Changes were made",
+# 4 is "Errors occured, and 6 is "Changes were made, and errors occured.
+# Since 2 is the result we expect, check that the return code of the apply is 2.
+RUN puppet parser validate *.pp &&\
+    puppet apply --test *.pp; \
+    test $? -eq 2

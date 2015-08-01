@@ -1,8 +1,9 @@
-FROM centos
+FROM fedora
 MAINTAINER Adam McCullough <merlinfmct87@gmail.com>
 
-RUN curl http://fishshell.com/files/linux/RedHat_RHEL-5/fish.release:2.repo > /etc/yum.repos.d/shells:fish:release:2.repo
-RUN yum -y install deltarpm && yum -y update && yum -y install epel-release && yum -y install \
+RUN dnf install --assumeyes                    deltarpm &&\
+    dnf update  --assumeyes --exclude=iputils            ;\
+    dnf install --assumeyes                               \
         xmonad
 
 ADD ./xmonad.hs /root/.xmonad/xmonad.hs
