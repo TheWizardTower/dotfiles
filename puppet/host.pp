@@ -172,6 +172,7 @@ $build_env = ['ack',
               'colordiff',
               'cabal-rpm',
               'emacs',
+              'dash',
               'fish',
               'haskell-platform',
               'hlint',
@@ -189,11 +190,13 @@ $build_env = ['ack',
               'perl-core',
               'perltidy',
               'python',
+              'rpmlint',
               'screen',
               'subversion',
               'tmux',
               'vim-enhanced',
-              'vim-X11']
+              'vim-X11',
+              'zsh']
 
 $desktop_env = ['amarok-utils',
                 'cairo-dock',
@@ -220,7 +223,7 @@ $desktop_env = ['amarok-utils',
                 'seamonkey',
                 'skype', # needs RPMFusion.
                 # Steam may need to wait a bit...
-                # 'steam', # needs RPMFusion... but isn't there yet.
+                # 'steam',
                 'unetbootin',
                 'VirtualBox-5.0', # Needs the virtualbox repo.
                 # For some reason VLC isn't showing up in the RPMFusion repo
