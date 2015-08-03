@@ -72,7 +72,6 @@
 (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
 
 (eval-after-load 'flycheck '(flycheck-clojure-setup))
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 
 ;;; My custom Inconsolata font.
