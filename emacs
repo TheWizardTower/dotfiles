@@ -23,6 +23,8 @@
 (require 'caskxy)
 
 (require 'browse-kill-ring+)
+(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")
