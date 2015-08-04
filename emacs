@@ -46,6 +46,11 @@
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
 
+;;; Flyspell mode. Spellchecking.
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+
 ;;; Tramp needs to be taught how to handle SSH into prod.
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
@@ -59,7 +64,6 @@
 (mouse-wheel-mode t)
 
 (global-set-key (kbd "M-;") 'comment-dwim-2)
-
 
 ;;; Org mode configs.
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -137,7 +141,8 @@
 
 ;;; YASnippet
 (require 'yasnippet)
-(yas-global-mode 1)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+;(yas-global-mode 1)
 
 (require 'log4e)
 
@@ -214,6 +219,10 @@
 (setq debug-on-error t)    ; now you should get a backtrace
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+;;; Powerline
+(require 'powerline)
+(powerline-default-theme)
 
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
