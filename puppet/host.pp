@@ -250,18 +250,21 @@ package { $build_env:
   ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
+  returns => [0,1],
 }
 
 package { $desktop_env:
   ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
+  returns => [0,1],
 }
 
 package { $photo_env:
   ensure  => latest,
   before  => Exec['dnf-migrate'],
   require => Exec['dnf-upgrade'],
+  returns => [0,1],
 }
 
 
