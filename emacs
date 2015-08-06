@@ -45,6 +45,7 @@
 (eval-after-load "flycheck"
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;; Flyspell mode. Spellchecking.
 (add-hook 'text-mode-hook 'flyspell-mode)
@@ -219,6 +220,10 @@
 (setq debug-on-error t)    ; now you should get a backtrace
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(require 'dired+)
+
+(require 'browse-kill-ring+)
 
 ;;; Powerline
 (require 'powerline)
