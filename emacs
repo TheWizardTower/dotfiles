@@ -3,9 +3,6 @@
 ;; This is usually an annoyance. Comment it out until I get the server start stuff working.
 ;(desktop-save-mode 1)
 
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
 ;(setq 'flycheck-emacs-lisp-initialize-packages 'auto)
 ;(setq 'flycheck-emacs-lisp-package-user-dir 'dotfiles/)
 
@@ -26,6 +23,8 @@
 (require 'caskxy)
 
 (require 'browse-kill-ring+)
+(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")
@@ -34,6 +33,26 @@
 
 (require 'gotham-theme)
 
+;;; Flycheck config
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(eval-after-load 'flycheck
+  '(custom-set-variables
+    '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+
+(require 'flycheck-color-mode-line)
+
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;;; Flyspell mode. Spellchecking.
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+
+;;; Tramp needs to be taught how to handle SSH into prod.
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -47,12 +66,22 @@
 
 (global-set-key (kbd "M-;") 'comment-dwim-2)
 
+;;; Org mode configs.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+
+;;; Clojure setup.
 ;; require or autoload paredit-mode
 (add-hook 'clojure-mode-hook #'paredit-mode)
 
 ;; require or autoload smartparens
 (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
 
+(eval-after-load 'flycheck '(flycheck-clojure-setup))
+
+
+;;; My custom Inconsolata font.
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -85,6 +114,8 @@
 
 (crosshairs-mode)
 
+
+;;; Auto-Complete config
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
@@ -109,11 +140,15 @@
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map (kbd "C-c C-d") 'ac-haskell-process-popup-doc))
 
+;;; YASnippet
 (require 'yasnippet)
-(yas-global-mode 1)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+;(yas-global-mode 1)
 
 (require 'log4e)
 
+
+;;; Helm
 (require 'helm)
 (require 'helm-config)
 
@@ -149,6 +184,8 @@
 
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
+
+;;; Golang
 (setq exec-path (cons "/usr/bin" exec-path))
 (add-to-list 'exec-path "/home/amccullough/gocode/bin")
 
@@ -183,6 +220,14 @@
 (setq debug-on-error t)    ; now you should get a backtrace
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(require 'dired+)
+
+(require 'browse-kill-ring+)
+
+;;; Powerline
+(require 'powerline)
+(powerline-default-theme)
 
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
