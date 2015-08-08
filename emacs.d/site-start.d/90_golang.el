@@ -3,7 +3,6 @@
 (add-to-list 'exec-path (expand-file-name "~/gocode/bin"))
 
 ;(require 'go-mode)
-(add-hook 'go-mode 'linum-mode)
 (require 'go-autocomplete)
 
 (setq gofmt-command "goimports")
