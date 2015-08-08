@@ -19,8 +19,6 @@
 
 (require 'caskxy)
 
-(crosshairs-mode)
-
 (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
@@ -31,34 +29,20 @@
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-
-
-
 (setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
 (setq debug-on-error t)    ; now you should get a backtrace
 
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
 
+
+(crosshairs-mode)
+;;;(set-face-attribute 'default nil :background "gray15")
+(set-face-attribute 'hl-line nil :foreground nil :background "gray15")
+;(set-face-attribute 'col-highlight nil :foreground nil :background "gray5")
+
+
 (require 'scratch-ext)
 (require 'scratch-persist)
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 4)
- '(ac-ispell-requires 4)
- '(custom-safe-themes
-   (quote
-    ("523d5a027e2f378ad80f9b368db450f4a5fa4a159ae11d5b66ccd78b3f5f807d" default)))
- '(flycheck-display-errors-function (function flycheck-pos-tip-error-messages)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 83 :width normal :foundry "unknown" :family "Inconsolata"))))
- '(col-highlight ((t (:background "#073642")))))
