@@ -3,21 +3,32 @@
 (require 'linum)
 (global-linum-mode 1)
 
-(require 'tramp)
+(require 'dired+)
 
 (require 'color-theme)
-(color-theme-solarized)
+;(color-theme-solarized)
+;(gotham-theme)
 
-(add-to-list 'auto-mode-alist '("\\.cf\\'" . cfengine-auto-mode))
+(load-theme 'evenhold t)
 
-(add-hook 'cfengine3-mode-hook 'turn-on-eldoc-mode)
+(require 'sane-term)
+(global-set-key (kbd "C-x t") 'sane-term)
+(global-set-key (kbd "C-x T") 'sane-term-create)
 
 (require 'browse-kill-ring+)
 
 (tabbar-mode)
 
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "site-lisp/yasnippet-golang")
-(yas-global-mode 1)
+(require 'undo-tree)
+(global-undo-tree-mode)
 
-(require 'haskell-mode-autoloads)
+(column-number-mode)
+
+(crosshairs-mode)
+
+(eval-after-load "menu-bar" '(require 'menu-bar+))
+
+(setq-default indent-tabs-mode nil)
+
+;; Highlight matching parenthesis.
+(show-paren-mode 1)
