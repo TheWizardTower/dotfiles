@@ -142,11 +142,12 @@
 
 ;;; YASnippet
 (require 'yasnippet)
+(require 'helm-c-yasnippet)
+(setq helm-yas-space-match-any-greedy t) ;[default: nil]
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
-;(yas-global-mode 1)
 
 (require 'log4e)
-
 
 ;;; Helm
 (require 'helm)
@@ -205,7 +206,12 @@
 ;; (add-to-list 'load-path "folder-in-which-go-dlv-files-are-in/")
 (require 'go-dlv)
 
+(require 'docker)
+(require 'docker-tramp)
+(require 'dockerfile-mode)
 
+
+(require 'fish-mode)
 
 (require 'e2wm)
 (global-set-key (kbd "M-+") 'e2wm:start-management)
@@ -229,5 +235,20 @@
 (require 'powerline)
 (powerline-default-theme)
 
+(require 'sane-term)
+(global-set-key (kbd "C-x t") 'sane-term)
+(global-set-key (kbd "C-x T") 'sane-term-create)
+
+
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
+
+(autoload 'rpm-spec-mode "rpm-spec-mode.el" "RPM spec mode." t)
+(setq auto-mode-alist (append '(("\\.spec" . rpm-spec-mode))
+                              auto-mode-alist))
+
+(require 'scratch-ext)
+(require 'scratch-persist)
+
+
+(require 'roguel-ike)
