@@ -3,9 +3,6 @@
 ;; This is usually an annoyance. Comment it out until I get the server start stuff working.
 ;(desktop-save-mode 1)
 
-;(setq 'flycheck-emacs-lisp-initialize-packages 'auto)
-;(setq 'flycheck-emacs-lisp-package-user-dir 'dotfiles/)
-
 (setq inhibit-startup-message t)
 
 (tool-bar-mode -1)
@@ -47,11 +44,6 @@
 (mouse-wheel-mode t)
 
 (global-set-key (kbd "M-;") 'comment-dwim-2)
-
-;;; Org mode configs.
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
 
 ;;; Clojure setup.
 ;; require or autoload paredit-mode
