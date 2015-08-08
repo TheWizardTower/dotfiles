@@ -24,8 +24,6 @@
 
 (column-number-mode)
 
-(crosshairs-mode)
-
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
 (setq-default indent-tabs-mode nil)

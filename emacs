@@ -19,6 +19,8 @@
 
 (require 'caskxy)
 
+(crosshairs-mode)
+
 (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
