@@ -1,7 +1,14 @@
 (setq-default major-mode 'org-mode)
 
-(require 'linum)
+;(require 'linum)
+
+
+;(global-relative-line-numbers-mode)
+
+(require 'linum-relative)
+;(linum-on)
 (global-linum-mode 1)
+(setq linum-relative-current-symbol "")
 
 (require 'dired+)
 
@@ -16,8 +23,6 @@
 (global-set-key (kbd "C-x T") 'sane-term-create)
 
 (require 'browse-kill-ring+)
-
-(tabbar-mode)
 
 (require 'undo-tree)
 (global-undo-tree-mode)
