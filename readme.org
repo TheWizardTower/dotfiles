@@ -1,7 +1,9 @@
 #+TITLE: Dotfiles Readme
 #+AUTHOR: Adam McCullough
 
-https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=svg
+#+CAPTION: Build Status on Circle-CI
+#+ATTR_HTML: :alt dotfiles.svg 
+[[https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=svg]]
 
 * Install
 Ideally, git clone the repo, and run install.sh. 
