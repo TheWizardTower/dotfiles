@@ -30,3 +30,13 @@
 
 ;; Highlight matching parenthesis.
 (show-paren-mode 1)
+
+(require 'kv)
+(require 'gnomenm)
+
+(global-visual-line-mode)
+
+(require 'whitespace)
+(diminish 'whitespace-mode "ᗣ")
+(diminish 'global-whitespace-mode "ᗣ")
+(add-hook 'before-save-hook 'whitespace-cleanup)
