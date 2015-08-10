@@ -1,4 +1,4 @@
-$+TITLE: Dotfiles Readme
+#+TITLE: Dotfiles Readme
 #+AUTHOR: Adam McCullough
 
 https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=svg
