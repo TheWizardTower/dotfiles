@@ -11,26 +11,25 @@ Theme "agnoster-mercurial"
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Enable plugins by adding their name separated by a space to the line below.
 Plugin "balias"
+Plugin "functional"
 Plugin "git-flow"
 Plugin "grc"
-Plugin "jump"
 Plugin "mc"
-Plugin "percol"
 Plugin "peco"
 Plugin "theme"
 Plugin "tmux"
 
-function fish_user_key_bindings
-  bind \cr 'peco_select_history (commandline -b)'
-end
+
 
 setenv SSH_ENV $HOME/.ssh/environment
 
 function start_agent
     echo "Initializing new SSH agent ..."
     set ssh_eval (/usr/bin/ssh-agent -c)
-    eval $ssh_eval
+    echo $ssh_eval > $SSH_ENV
     echo "succeeded"
+    chmod 600 $SSH_ENV
+    . $SSH_ENV
     ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605
 end
 
