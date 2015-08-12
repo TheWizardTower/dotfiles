@@ -16,5 +16,5 @@ test:
     - docker build -t thewizardtower/puppet .:
         parallel: true
         pwd: puppet
-    - docker build -t thewizardtower/emacs_config .
+    - docker build -t thewizardtower/emacs_config .:
         parallel: true
