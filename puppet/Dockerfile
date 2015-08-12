@@ -13,6 +13,4 @@ WORKDIR /root
 # --detailed-exitcodes means that 0 is "nothing happened", 2 is "Changes were made",
 # 4 is "Errors occured, and 6 is "Changes were made, and errors occured.
 # Since 2 is the result we expect, check that the return code of the apply is 2.
-RUN puppet parser validate *.pp &&\
-    puppet apply --test *.pp; \
-    test $? -eq 2
+RUN puppet parser validate *.pp &&
