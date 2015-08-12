@@ -24,6 +24,7 @@
 (depends-on "common-lisp-snippets")
 (depends-on "crosshairs")
 (depends-on "dash")
+(depends-on "diminish")
 (depends-on "dired+")
 (depends-on "dired-rainbow")
 (depends-on "dired-ranger")
