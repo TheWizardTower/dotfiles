@@ -6,11 +6,15 @@ machine:
 test:
   override:
     - docker info
+    - docker build -f testDockerfile .
     - docker build -t thewizardtower/dev_env .:
+        parallel: true
         pwd: docker
     - docker build -t thewizardtower/xmonad .:
+        parallel: true
         pwd: xmonad
     - docker build -t thewizardtower/puppet .:
+        parallel: true
         pwd: puppet
     - docker build -t thewizardtower/emacs_config .
-    - docker build -f testDockerfile .
+        parallel: true
