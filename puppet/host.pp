@@ -10,10 +10,10 @@ group { 'docker':
 
 user { 'amccullough':
   ensure     => 'present',
-  require    => [ Package['fish'],
+  require    => [ Group['docker'],
                   Package['docker-io'],
-                  Package['VirtualBox-5.0'],
-                  Group['docker'] ],
+                  Package['fish'],
+                  Package['VirtualBox-5.0'] ],
   comment    => 'Adam McCullough',
   home       => '/home/amccullough',
   groups     => ['docker','vboxusers', 'wheel'],
@@ -92,8 +92,9 @@ exec { 'adobe-repo-rpm':
   command => '/usr/bin/rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm ||:',
 }
 
-# It'd be nice if the key import commands could toggle on if the key was present
-# or not. That way we could avoid the hackish-as-hell ||: at the end of each.
+# It'd be nice if the key import commands could toggle on if the key
+# was present or not. That way we could avoid the hackish-as-hell ||:
+# at the end of each.
 exec { 'adobe-repo-key':
   require => Exec['adobe-repo-rpm'],
   command => '/usr/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux ||:',
@@ -115,13 +116,15 @@ exec { 'google-repo-key':
   command => '/bin/rpm --import https://dl-ssl.google.com/linux/linux_signing_key.pub',
 }
 
-# This sets xmonad as the default WM for KDE. Because XMonad rocks.
+# Puppet doesn't have an option for mkdir -p. Rather than creating a
+# file entry for each directory in this path, just run the command.
 exec { 'plasma-config-dir':
   require => User['amccullough'],
   command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
   user    => 'amccullough',
 }
 
+# This sets xmonad as the default WM for KDE. Because XMonad rocks.
 file { 'xmonad-kde-wm':
   require => [ User['amccullough'], Exec['plasma-config-dir'] ],
   path    => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
@@ -154,17 +157,16 @@ exec { 'virtualbox-key':
   before  => Exec['dnf-upgrade'],
 }
 
-# Probably needs to be passed through /bin/sh
 exec { 'rpmfusion-repo':
   command => "/bin/bash -c '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:'",
   before  => Exec['dnf-upgrade'],
 }
 
-# Apparently wget isn't installed by default on Fedora 22.
-# I'm as shocked as you are. Furthermore, the python-dnf-plugins-extras-migrate
-# deal is because many packages still reference yum in their metadata. This
-# script (When called by '/bin/dnf-2 migrate', as in the exec above), cleans
-# that up.
+# Apparently wget isn't installed by default on Fedora 22.  I'm as
+# shocked as you are. Furthermore, the
+# python-dnf-plugins-extras-migrate deal is because many packages
+# still reference yum in their metadata. This script (When called by
+# '/bin/dnf-2 migrate', as in the exec above), cleans that up.
 $fundamentals = ['python-dnf-plugins-extras-migrate',
               'wget']
 
@@ -190,6 +192,7 @@ $build_env = ['ack',
               'mc',
               'ntop',
               'perl-core',
+              'perl-criticism',
               'perltidy',
               'python',
               'rpmlint',
@@ -233,6 +236,7 @@ $desktop_env = ['amarok-utils',
                 # 'vlc',
                 'xcompmgr',
                 'xmonad',
+                'xulrunner',
                 'yakuake']
 
 $photo_env = ['darktable',
