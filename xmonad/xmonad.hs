@@ -11,7 +11,7 @@
 ---IMPORTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     -- Base
-import XMonad
+import XMonad hiding ( (|||) )
 import XMonad.Actions.Submap
 import Data.Maybe (isJust)
 import Data.Map as M
@@ -85,9 +85,13 @@ import XMonad.Layout.OneBig
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
 import XMonad.Layout.IM (withIM, Property(Role))
+import XMonad.Layout.LayoutCombinators
+
+import qualified XMonad.Layout.Magnifier as Mag
 
     -- Prompts
 import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
+
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -194,12 +198,20 @@ myKeys =
     -- Modal Bindings
         ,  ("M-u",   submap . mkKeymap myXConfig $
           [("c", spawn "krunner")
+         , ("M-<Return>",    spawn "emacs --debug-init")
          , ("s", windows W.swapMaster)
          , ("r", spawn "xmonad --recompile && pkill dzen2 && xmonad --restart")
-         , ("l", submap .  mkKeymap myXConfig $
-           [("1", setLayout $ Layout Full)
-           ])
-         , ("u", submap . mkKeymap myXConfig $
+          , ("l", submap .  mkKeymap myXConfig $
+                  [  ("1", sendMessage $ JumpToLayout "Full")
+                  ,  ("2", sendMessage $ JumpToLayout "OneBig")
+                  ,  ("3", sendMessage $ JumpToLayout "Grid")
+                  ,  ("4", sendMessage $ JumpToLayout "Tiled")
+                  ,  ("5", sendMessage $ JumpToLayout "Column1.6")
+                  ,  ("6", sendMessage $ JumpToLayout "Accordion")
+                  ,  ("7", sendMessage $ JumpToLayout "MirrorTiled")
+                  ])
+          , ("m", sendMessage Mag.Toggle)
+          , ("u", submap . mkKeymap myXConfig $
                  [("u", spawn "Xdialog --titlle  'Really, dude?' --screencenter --yesno 'Really, dude?' 10 30")
                 ])
           ])
@@ -294,8 +306,17 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---LAYOUTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-mainLayout = avoidStruts $ Mirror three ||| Mirror tiled ||| Grid ||| Accordion ||| Column 1.6 ||| OneBig (3/4) (3/4) ||| tiled ||| three ||| Full
+mainLayout = avoidStruts $ rename "MirrorThree" (Mirror three)
+             ||| rename "MirrorTiled" ( Mirror tiled)
+             ||| rename "Grid" (Grid)
+             ||| rename "Accordion" (Accordion)
+             ||| rename "Column1.6" (Column 1.6)
+             ||| rename "OneBig" (OneBig (3/4) (3/4))
+             ||| rename "Tiled" (tiled)
+             ||| rename "Three" (three)
+             ||| rename "Full" Full
    where
+     rename s = renamed [Replace s] . Mag.magnifierOff
      -- Default tiling algorithm partitions the screen into two panes
      tiled = Tall nmaster delta ratio
 
