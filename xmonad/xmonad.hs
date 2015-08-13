@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---INFORMATIONS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- informations = { Author   = Graawr 
+-- informations = { Author   = Graawr
 --                , Version  = XMonad 0.10 <+> ghc 7.4 <+> dzen-0.8.5
 --                , Updated  = August 17 2013
 --                }
@@ -12,7 +12,9 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     -- Base
 import XMonad
+import XMonad.Actions.Submap
 import Data.Maybe (isJust)
+import Data.Map as M
 import XMonad.Config.Kde
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
@@ -20,7 +22,7 @@ import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
     -- Utilities
-import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
+import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings, mkKeymap)
 -- import XMonad.Util.NamedScratchpad (NamedScratchpad(NS), namedScratchpadManageHook, namedScratchpadAction, customFloating)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHook, scratchpadFilterOutWorkspace)
@@ -44,7 +46,7 @@ import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCop
 import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (nextScreen, prevScreen, shiftNextScreen,
-                               shiftPrevScreen, moveTo, shiftTo, WSType(..)) 
+                               shiftPrevScreen, moveTo, shiftTo, WSType(..))
 import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.Warp (warpToWindow, banishScreen, Corner(LowerRight))
@@ -52,10 +54,10 @@ import XMonad.Actions.MouseResize
 import qualified XMonad.Actions.ConstrainedResize as Sqr
 
     -- Layouts modifiers
-import XMonad.Layout.PerWorkspace (onWorkspace) 
+import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.WorkspaceDir 
-import XMonad.Layout.Spacing (spacing) 
+import XMonad.Layout.WorkspaceDir
+import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Minimize
 import XMonad.Layout.Maximize
 import XMonad.Layout.BoringWindows (boringWindows)
@@ -137,13 +139,13 @@ myGSConfig colorizer  = (buildDefaultGSConfig myGridConfig)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---SCRATCHPADS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-myScratchpads = 
+myScratchpads =
               [ NS "terminal"        "konsole"                                      (className =? "Konsole")        myPosition
               , NS "music"           "audacious"                                    (className =? "Audacious")      myPosition
               , NS "google-music"    "seamonkey 'http://music.google.com/'"         (className =? "Seamonkey")      myPosition
               , NS "rtorrent"        "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent")        myPosition
               , NS "calc"            "free42dec"                                    (role =? "Free42 Calculator")   myPosition
-              ] where 
+              ] where
                 myPosition = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
                 role = stringProperty "WM_WINDOW_ROLE"
 
@@ -159,15 +161,16 @@ myKeys =
         , ("M-M1-q",            io exitSuccess)
         , ("M-<Backspace>",     spawn "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
 
-    
+
     -- Windows
         , ("M-r",               refresh)
         , ("M-q",               kill1)
         , ("M-C-q",             killAll)
         , ("M-S-q",             killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP >> killAll >> moveTo Next nonNSP)
 
-        , ("M-t",        withFocused $ windows . W.sink)
-        , ("M-S-t",      sinkAll)
+        , ("M-t",               withFocused $ windows . W.sink)
+        , ("M-S-t",             sinkAll)
+        , ("M-s",               windows W.swapMaster)
 
 
     -- Layouts
@@ -187,11 +190,25 @@ myKeys =
         , ("M-e",               prevScreen)
         , ("M-S-w",             shiftNextScreen)
         , ("M-S-e",             shiftPrevScreen)
-          
+
+    -- Modal Bindings
+        ,  ("M-u",   submap . mkKeymap myXConfig $
+          [("c", spawn "krunner")
+         , ("s", windows W.swapMaster)
+         , ("r", spawn "xmonad --recompile && pkill dzen2 && xmonad --restart")
+         , ("l", submap .  mkKeymap myXConfig $
+           [("1", setLayout $ Layout Full)
+           ])
+         , ("u", submap . mkKeymap myXConfig $
+                 [("u", spawn "Xdialog --titlle  'Really, dude?' --screencenter --yesno 'Really, dude?' 10 30")
+                ])
+          ])
+
     -- Apps
 
         , ("M-<Return>",        spawn "konsole")
         , ("M-S-<Return>",      spawn "emacs")
+        , ("M-S-C-<Return>",    spawn "emacs --debug-init")
         , ("M-c",               spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
         , ("M-f",               raiseMaybe (runInTerm "-name ranger" "ranger") (resource =? "ranger"))
         , ("M-m",               raiseMaybe (runInTerm "-name mutt" "mutt") (resource =? "mutt"))
@@ -210,7 +227,7 @@ myKeys =
         , ("M-M1-m",               namedScratchpadAction myScratchpads "music" )
         , ("M-C-m",               namedScratchpadAction myScratchpads "google-music" )
         , ("M-M1-c",               namedScratchpadAction myScratchpads "calc" )
-	, ("M-M1-<Return>",        namedScratchpadAction myScratchpads "terminal" )
+        , ("M-M1-<Return>",        namedScratchpadAction myScratchpads "terminal" )
         , ("<XF86Tools>",          namedScratchpadAction myScratchpads "music")
 
     -- Multimedia Keys
@@ -229,7 +246,11 @@ myKeys =
         ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
-myMouseKeys = [ ((mod4Mask .|. shiftMask, button3), \w -> focus w >> Sqr.mouseResizeWindow w True) ]    
+myMouseKeys = [ ((mod4Mask .|. shiftMask, button3), \w -> focus w >> Sqr.mouseResizeWindow w True) ]
+
+
+myModalKeys = [
+         ]
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -237,7 +258,7 @@ myMouseKeys = [ ((mod4Mask .|. shiftMask, button3), \w -> focus w >> Sqr.mouseRe
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myWorkspaces = ["1.text", "2.web", "3.media", "4.comms", "5.misc", "6", "7", "8", "9.syst"]
 
-namedScratchpads = 
+namedScratchpads =
            [
            ]
 
@@ -245,7 +266,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
                (composeAll $
          [  className =? "Yakuake"           --> doFloat
           , className =? "Pidgin"            --> doShift "1.text"
-	  , className =? "Gimp"              --> doShift "5.misc"
+          , className =? "Gimp"              --> doShift "5.misc"
          ]
          ++
          [  className =? "Plasma-desktop" --> doFloat
@@ -269,7 +290,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
            l = 0.87 - w
 
 
-               
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---LAYOUTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -298,7 +319,7 @@ numworkspaces = take 10 [1..]
 ---STATUSBAR
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myBitmapsDir = "/home/logan/.xmonad/statusbar/icons"
-myXmonadBarL = "dzen2 -x '0' -y '0' -h '16' -w '1000' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' " 
+myXmonadBarL = "dzen2 -x '0' -y '0' -h '16' -w '1000' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' "
 -- myXmonadBarR = "conky -c /home/logan/.xmonad/statusbar/conky_dzen | dzen2 -x '1000' -y '0' -w '680' -h '16' -ta 'r' -bg '"++myColorBG++"' -fg '"++myColorWhite++"' -fn '"++myFont++"'"
 
 myLogHook h  = dynamicLogWithPP $ defaultPP
@@ -345,20 +366,24 @@ kdeOverride = ask >>= \w -> liftX $ do
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---CONFIG
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-main = do
-    dzenLeftBar  <- spawnPipe myXmonadBarL
-    xmonad       $  kde4Config
+myXConfig = kde4Config
         { modMask            = myModMask
         , terminal           = myTerminal
         , manageHook         = ((className =? "krunner" <||> className =?
  "Plasma-desktop") >>= return . not --> manageHook kde4Config) <+>
  (kdeOverride --> doFloat) <+> myManageHook
         , layoutHook         = myLayout
-        , logHook            = myLogHook dzenLeftBar 
+--        , logHook            = myLogHook
         , startupHook        = myStartupHook
         , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth 
+        , borderWidth        = myBorderWidth
         , normalBorderColor  = myColorDarkgray
         , focusedBorderColor = myColorWhite
-        } `additionalKeysP`         myKeys 
+        } `additionalKeysP`         myKeys
           `additionalMouseBindings` myMouseKeys
+
+
+
+
+main = do
+    xmonad       $ myXConfig
