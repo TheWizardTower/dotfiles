@@ -39,9 +39,13 @@
 (require 'kv)
 (require 'gnomenm)
 
+(require 'saveplace)
+(setq-default save-place t)
+
 (global-visual-line-mode)
 
 (require 'whitespace)
 (diminish 'whitespace-mode "ᗣ")
 (diminish 'global-whitespace-mode "ᗣ")
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
