@@ -43,27 +43,27 @@ function test_identities
     end
 end
 
-if [ -n "$SSH_AGENT_PID" ] 
+if [ -n "$SSH_AGENT_PID" ]
     ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
     if [ $status -eq 0 ]
         test_identities
-    end  
+    end
 else
     if [ -f $SSH_ENV ]
         . $SSH_ENV > /dev/null
-    end  
+    end
     ps -ef | grep $SSH_AGENT_PID |  grep [s]sh-agent > /dev/null
     if [ $status -eq 0 ]
         test_identities
-    else 
+    else
         start_agent
-    end  
+    end
 end
 
 set REPOS "svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
 
 alias sandbox="su -c  'ssh -A -L 80:localhost:80 -L 443:localhost:443 -L 11211:localhost:11211 -L 3306:localhost:3306 cit@192.168.112.13'"
 
-set -gx PATH $HOME/.cask/bin $HOME/gocode/bin $HOME/.cabal/bin $PATH
+set -gx PATH $HOME/bin $HOME/.cask/bin $HOME/gocode/bin $HOME/.cabal/bin $PATH
 
 set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:/usr/lib/go
