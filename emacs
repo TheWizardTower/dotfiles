@@ -3,7 +3,9 @@
 ;; This is usually an annoyance. Comment it out until I get the server start stuff working.
 ;(desktop-save-mode 1)
 
+(setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
+(setq initial-buffer-choice t)
 
 (tool-bar-mode -1)
 
@@ -44,5 +46,3 @@
 
 (require 'scratch-ext)
 (require 'scratch-persist)
-
-
