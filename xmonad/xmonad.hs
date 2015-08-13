@@ -284,6 +284,8 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
          [  className =? "Plasma-desktop" --> doFloat
           , className =? "plasmashell"    --> doFloat
           , className =? "plasma-desktop" --> makeMaster <+> doFloat
+--          , className =? "dzen"           --> makeMaster <+> doFloat <+> docksEventHook
+--          , className =? "dzen2"          --> makeMaster <+> doFloat <+> docksEventHook
          ]
          ++
          [   isFullscreen --> doFullFloat
@@ -340,8 +342,8 @@ numworkspaces = take 10 [1..]
 ---STATUSBAR
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myBitmapsDir = "/home/logan/.xmonad/statusbar/icons"
-myXmonadBarL = "dzen2 -x '0' -y '0' -h '16' -w '1000' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' "
--- myXmonadBarR = "conky -c /home/logan/.xmonad/statusbar/conky_dzen | dzen2 -x '1000' -y '0' -w '680' -h '16' -ta 'r' -bg '"++myColorBG++"' -fg '"++myColorWhite++"' -fn '"++myFont++"'"
+myXmonadBarL = "dzen2 -x '0' -y '24' -h '16' -w '1200' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' "
+--- myXmonadBarR = "conky -c /home/logan/.xmonad/statusbar/conky_dzen | dzen2 -x '1000' -y '24' -w '680' -h '16' -ta 'r' -bg '"++myColorBG++"' -fg '"++myColorWhite++"' -fn '"++myFont++"'"
 
 myLogHook h  = dynamicLogWithPP $ defaultPP
       { ppOutput           = hPutStrLn h
@@ -394,7 +396,6 @@ myXConfig = kde4Config
  "Plasma-desktop") >>= return . not --> manageHook kde4Config) <+>
  (kdeOverride --> doFloat) <+> myManageHook
         , layoutHook         = myLayout
---        , logHook            = myLogHook
         , startupHook        = myStartupHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
@@ -407,4 +408,7 @@ myXConfig = kde4Config
 
 
 main = do
-    xmonad       $ myXConfig
+    dzenLeftBar <- spawnPipe myXmonadBarL
+    xmonad       $ myXConfig {
+      logHook = myLogHook dzenLeftBar
+                }
