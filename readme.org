@@ -2,14 +2,14 @@
 #+AUTHOR: Adam McCullough
 
 #+CAPTION: Build Status on Circle-CI
-#+ATTR_HTML: :alt dotfiles.svg 
+#+ATTR_HTML: :alt dotfiles.svg
 [[https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=svg]]
 
 * Install
-Ideally, git clone the repo, and run install.sh. 
+Ideally, git clone the repo, and run install.sh.
 
 * Dependencies
-The installer requires Emacs 24 and Python for Cask, Golang, Cabal, Fish for oh-my-fish, and git for cloning a few side plugins. The Docker build environments  
+The installer requires Emacs 24 and Python for Cask, Golang, Cabal, Fish for oh-my-fish, and git for cloning a few side plugins.
 
 * In Progress
 ** Clean up any references to /home/amccullough.
@@ -20,14 +20,22 @@ This is mostly done. There are still a few stray things in emacs (some of which 
 ** Clean up the install process.
 It's kind of broken, especially with all the stuff I'm doing with it. Ideally convert to https://github.com/anishathalye/dotbot. Most importantly, make it idempotent, so that puppet can just call it.
 
+** Fix Circle-CI testing.
+It's broken. Period. Not Circle-CI (they're *wonderful*), how I've set it up is just borkbork.
+
+It's running in "parallel", which is to say it's running the same tests four times. The puppet test is intermittently failing, because dnf gives a bad exit status if it's called as 'yum', and several packages (sometimes!) do this as part of their install process.
 
 * Wishlist
 ** Literate programming for emacs
 Dotfiles settings aren't the most... readable things in the world. And being forced to explain settings clearly only ends in good things.
 ** Modal bindings for XMonad.
 Something like this: https://www.youtube.com/watch?v=_qZliI1BKzI
-** Better tests in circle-ci.
-**** Check my vim config. 
-**** Make sure puppet did everything correctly. 
+** Better tests in Circle-CI.
+**** Check my vim config.
+Right now it's slightly broken, and needs some TLC.
+**** Make sure puppet did everything correctly.
+Do some basic health checks. Launch emacs. Check go --help. Make sure cabal is available.
 **** Fix intermittent failures because Fedora migrated to dnf and some packages still reference yum.
+I may have to do something clever here. The built-in package management system doesn't let me say "A return code of 1 is okay" like I can in an exec block.
 ** Travis-CI testing.
+Maybe someday. Containers-as-tests are rather lovely.
