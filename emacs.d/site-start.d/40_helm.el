@@ -13,6 +13,7 @@
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c C-f") 'ido-find-file)
 
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
