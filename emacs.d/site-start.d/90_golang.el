@@ -17,3 +17,6 @@
 ;; (add-to-list 'load-path "folder-in-which-go-dlv-files-are-in/")
 (require 'go-dlv)
 
+
+;;; Fix for https://github.com/syl20bnr/spacemacs/issues/2495.
+(setq flycheck-check-syntax-automatically '(new-line save))
