@@ -10,4 +10,4 @@ for test in $(cat testList); do
   ((i=i+1))
 done
 
-test-runner ${execList[@]}
+bash -c "${execList[@]}"
