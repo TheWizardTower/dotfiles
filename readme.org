@@ -3,7 +3,7 @@
 
 #+CAPTION: Build Status on Circle-CI
 #+ATTR_HTML: :alt dotfiles.svg
-[[https://circleci.com/gh/TheWizardTower/dotfiles][https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=circle-token]]
+[[https://circleci.com/gh/TheWizardTower/dotfiles][https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=shield&circle-token:=circle-token]]
 * Install
 Ideally, git clone the repo, and run install.sh.
 
