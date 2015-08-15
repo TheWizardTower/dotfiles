@@ -2,12 +2,13 @@
 
 i=0
 execList=()
-for test in $(cat testList); do
+for test in $(find . -iname "test_*.sh" | sort); do
   if [ $(($i % $CIRCLE_NODE_TOTAL)) -eq $CIRCLE_NODE_INDEX ]
   then
-    execList+=" $test"
+    execList+="$test "
   fi
   ((i=i+1))
 done
 
-bash -c "${execList[@]}"
+echo "${execList[@]}"
+bash  ${execList[@]}
