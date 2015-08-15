@@ -1,0 +1,5 @@
+docker build -f testDockerfile .
+cd docker; docker build -t thewizardtower/dev_env .
+cd xmonad; docker build -t thewizardtower/xmonad .
+cd puppet;  docker build -t thewizardtower/puppet .
+docker build -t thewizardtower/emacs_config .
