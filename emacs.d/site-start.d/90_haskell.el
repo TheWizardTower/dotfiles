@@ -6,6 +6,8 @@
     ad-do-it))
 (setq haskell-stylish-on-save t)
 
+(add-to-list 'load-path "~/.emacs.d/structured-haskell-mode/elisp/")
+(require 'shm)
 (add-hook 'haskell-mode-hook 'structured-haskell-mode)
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)

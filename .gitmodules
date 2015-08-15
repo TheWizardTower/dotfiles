@@ -112,3 +112,9 @@
 [submodule "vim/bundle/vim-surround"]
 	path = vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "emacs.d/structured-haskell-mode"]
+	path = emacs.d/structured-haskell-mode
+	url = https://github.com/chrisdone/structured-haskell-mode
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot

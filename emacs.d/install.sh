@@ -19,3 +19,10 @@ export PATH="$HOMEDIR/.cask/bin:$PATH"
 
 # ~/.cask/bin/cask install
 cask install
+
+pushd structured-haskell-mode
+cabal install
+pushd elisp
+make
+popd
+popd
