@@ -8,3 +8,4 @@ test:
     - docker info
     - bash circle-parallel.sh:
         parallel: true
+        dir: test
