@@ -1,7 +1,11 @@
 #!/bin/bash
 
+mkdir -p ~/.config/systemd/user/
+
+ln -s "${PWD}/emacs.service ~/.config/systemd/user/emacs.service"
+
 for file in tmux.conf cvsignore Xmodmap xsession xmobarrc bashrc bash_profile shellrc vimrc gitconfig gtkrc-2.0 zshrc emacs screenrc toprc; do
-	ln -sf "$(pwd)/$file" ~/.$file
+        ln -sf "$(pwd)/$file" ~/.$file
 done
 
 for dir in emacs.d screen-bin xmonad; do

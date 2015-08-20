@@ -15,6 +15,12 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-c C-f") 'ido-find-file)
 
+
+(global-unset-key (kbd "C-x b"))
+(global-set-key (kbd "C-x b") 'helm-mini)
+
+(global-set-key (kbd "C-TAB") 'ac-complete-with-helm)
+
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
 
