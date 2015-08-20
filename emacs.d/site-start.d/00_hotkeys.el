@@ -16,4 +16,5 @@
 
 (global-set-key (kbd "C-x G") 'magit-status)
 
-(global-set-key (kbd "M-p") 'ace-window)
+(global-unset-key (kbd "C-x o"))
+(global-set-key (kbd "C-x o") 'ace-window)
