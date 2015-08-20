@@ -1,20 +1,12 @@
 (setq-default major-mode 'org-mode)
 
-;(require 'linum)
-
-
-;(global-relative-line-numbers-mode)
-
 (require 'linum-relative)
-;(linum-on)
 (global-linum-mode 1)
 (setq linum-relative-current-symbol "")
 
-(require 'dired+)
+(setq comment-auto-fill-only-comments t)
 
-(require 'color-theme)
-;(color-theme-solarized)
-;(gotham-theme)
+(require 'dired+)
 
 (load-theme 'evenhold t)
 
