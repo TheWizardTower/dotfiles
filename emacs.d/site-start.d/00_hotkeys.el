@@ -14,3 +14,4 @@
 (global-unset-key (kbd "C-x i"))
 (global-set-key (kbd "C-x i") 'align-regexp)
 
+(global-set-key (kbd "C-x G") 'magit-status)
