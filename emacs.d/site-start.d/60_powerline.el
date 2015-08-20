@@ -1,6 +1,6 @@
 ;;; Powerline
 (require 'powerline)
-(powerline-center-theme)
+(powerline-center-evil-theme)
 
 (require 'symon)
 (symon-mode)

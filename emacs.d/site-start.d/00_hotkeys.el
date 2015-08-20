@@ -15,3 +15,5 @@
 (global-set-key (kbd "C-x i") 'align-regexp)
 
 (global-set-key (kbd "C-x G") 'magit-status)
+
+(global-set-key (kbd "M-p") 'ace-window)

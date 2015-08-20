@@ -26,7 +26,11 @@
 
 (helm-mode 1)
 (eval-after-load 'flycheck
-   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+  '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+
+
+(require 'helm-anything)
+(helm-anything-set-keys)
 
 (require 'helm-descbinds)
 (helm-descbinds-mode)
