@@ -1,9 +1,10 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---INFORMATIONS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- informations = { Author   = Graawr
---                , Version  = XMonad 0.10 <+> ghc 7.4 <+> dzen-0.8.5
---                , Updated  = August 17 2013
+-- informations = { Author   = Adam James McCullough
+--                  Based on = Config by Graawr
+--                , Version  = XMonad 0.11 <+> ghc 7.8.4 <+> dzen2-0.8.5
+--                , Updated  = August 20 2015
 --                }
 
 
@@ -11,86 +12,119 @@
 ---IMPORTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     -- Base
-import XMonad hiding ( (|||) )
-import XMonad.Actions.Submap
-import Data.Maybe (isJust)
-import Data.Map as M
-import XMonad.Config.Kde
-import System.IO (hPutStrLn)
-import System.Exit (exitSuccess)
-import qualified XMonad.StackSet as W
-import XMonad.ManageHook
+import           Data.Map                            as M
+import           Data.Maybe                          (isJust)
+import           System.Exit                         (exitSuccess)
+import           System.IO                           (hPutStrLn)
+import           XMonad                              hiding ((|||))
+import           XMonad.Actions.Submap
+import           XMonad.Config.Kde
+import           XMonad.ManageHook
+import qualified XMonad.StackSet                     as W
 
     -- Utilities
-import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings, mkKeymap)
+import           XMonad.Util.EZConfig                (additionalKeysP,
+                                                      additionalMouseBindings,
+                                                      mkKeymap)
 -- import XMonad.Util.NamedScratchpad (NamedScratchpad(NS), namedScratchpadManageHook, namedScratchpadAction, customFloating)
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Scratchpad (scratchpadSpawnAction, scratchpadManageHook, scratchpadFilterOutWorkspace)
-import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
-import XMonad.Util.SpawnOnce
-import XMonad.Util.WindowProperties (getProp32s)
+import           XMonad.Util.NamedScratchpad
+import           XMonad.Util.Run                     (runInTerm, safeSpawn,
+                                                      spawnPipe, unsafeSpawn)
+import           XMonad.Util.Scratchpad              (scratchpadFilterOutWorkspace,
+                                                      scratchpadManageHook,
+                                                      scratchpadSpawnAction)
+import           XMonad.Util.SpawnOnce
+import           XMonad.Util.WindowProperties        (getProp32s)
 
     -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, dzenColor, pad, shorten, PP(..))
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.Place
-import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.FloatNext (floatNextHook, toggleFloatNext, toggleFloatAllNew)
-import XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.DynamicLog             (PP (..), defaultPP,
+                                                      dynamicLogWithPP,
+                                                      dzenColor, pad, shorten)
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.FloatNext              (floatNextHook,
+                                                      toggleFloatAllNew,
+                                                      toggleFloatNext)
+import           XMonad.Hooks.InsertPosition
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.Place
 
     -- Actions
-import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
-import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (nextScreen, prevScreen, shiftNextScreen,
-                               shiftPrevScreen, moveTo, shiftTo, WSType(..))
-import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
-import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
-import XMonad.Actions.Warp (warpToWindow, banishScreen, Corner(LowerRight))
-import XMonad.Actions.MouseResize
-import qualified XMonad.Actions.ConstrainedResize as Sqr
+import qualified XMonad.Actions.ConstrainedResize    as Sqr
+import           XMonad.Actions.CopyWindow           (copyToAll, kill1,
+                                                      killAllOtherCopies,
+                                                      runOrCopy)
+import           XMonad.Actions.CycleWS              (WSType (..), moveTo,
+                                                      nextScreen, prevScreen,
+                                                      shiftNextScreen,
+                                                      shiftPrevScreen, shiftTo)
+import           XMonad.Actions.DynamicWorkspaces    (addWorkspacePrompt,
+                                                      removeEmptyWorkspace)
+import           XMonad.Actions.GridSelect           (GSConfig (..),
+                                                      bringSelected,
+                                                      buildDefaultGSConfig,
+                                                      colorRangeFromClassName,
+                                                      goToSelected)
+import           XMonad.Actions.MouseResize
+import           XMonad.Actions.Promote
+import           XMonad.Actions.RotSlaves            (rotAllDown, rotSlavesDown)
+import           XMonad.Actions.Warp                 (Corner (LowerRight),
+                                                      banishScreen,
+                                                      warpToWindow)
+import           XMonad.Actions.WindowGo             (raiseMaybe, runOrRaise)
+import           XMonad.Actions.WithAll              (killAll, sinkAll)
 
     -- Layouts modifiers
-import XMonad.Layout.PerWorkspace (onWorkspace)
-import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.WorkspaceDir
-import XMonad.Layout.Spacing (spacing)
-import XMonad.Layout.Minimize
-import XMonad.Layout.Maximize
-import XMonad.Layout.BoringWindows (boringWindows)
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
-import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(..))
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import           XMonad.Layout.BoringWindows         (boringWindows)
+import           XMonad.Layout.LimitWindows          (decreaseLimit,
+                                                      increaseLimit,
+                                                      limitWindows)
+import           XMonad.Layout.Maximize
+import           XMonad.Layout.Minimize
+import           XMonad.Layout.MultiToggle           (EOT (EOT), Toggle (..),
+                                                      mkToggle, single, (??))
+import           XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL, MIRROR, NOBORDERS))
+import           XMonad.Layout.PerWorkspace          (onWorkspace)
+import           XMonad.Layout.Reflect               (REFLECTX (..),
+                                                      REFLECTY (..),
+                                                      reflectHoriz, reflectVert)
+import           XMonad.Layout.Renamed               (Rename (CutWordsLeft, Replace),
+                                                      renamed)
+import           XMonad.Layout.Spacing               (spacing)
+import qualified XMonad.Layout.ToggleLayouts         as T (ToggleLayout (Toggle),
+                                                           toggleLayouts)
+import           XMonad.Layout.WindowArranger        (WindowArrangerMsg (..),
+                                                      windowArrange)
+import           XMonad.Layout.WorkspaceDir
 
     -- Layouts
-import XMonad.Layout.WindowArranger
-import XMonad.Layout.LayoutHints
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Simplest
-import XMonad.Layout.Tabbed
-import XMonad.Layout.TwoPane
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Grid
-import XMonad.Layout.Accordion
-import XMonad.Layout.Column
-import XMonad.Layout.Reflect
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.OneBig
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
-import XMonad.Layout.IM (withIM, Property(Role))
-import XMonad.Layout.LayoutCombinators
+import           XMonad.Layout.Accordion
+import           XMonad.Layout.Column
+import           XMonad.Layout.Grid
+import           XMonad.Layout.IM                    (Property (Role), withIM)
+import           XMonad.Layout.LayoutCombinators
+import           XMonad.Layout.LayoutHints
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.OneBig
+import           XMonad.Layout.Reflect
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Simplest
+import           XMonad.Layout.SimplestFloat
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.TwoPane
+import           XMonad.Layout.WindowArranger
+import           XMonad.Layout.ZoomRow               (ZoomMessage (ZoomFullToggle),
+                                                      zoomIn, zoomOut,
+                                                      zoomReset, zoomRow)
 
-import qualified XMonad.Layout.Magnifier as Mag
+import qualified XMonad.Layout.Magnifier             as Mag
 
     -- Prompts
-import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
+import           XMonad.Prompt                       (Direction1D (..),
+                                                      XPConfig (..),
+                                                      XPPosition (Top),
+                                                      defaultXPConfig)
 
 
 
@@ -219,8 +253,7 @@ myKeys =
     -- Apps
 
         , ("M-<Return>",        spawn "konsole")
-        , ("M-S-<Return>",      spawn "emacs")
-        , ("M-S-C-<Return>",    spawn "emacs --debug-init")
+        , ("M-S-<Return>",      spawn "emacsclient -c")
         , ("M-c",               spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
         , ("M-f",               raiseMaybe (runInTerm "-name ranger" "ranger") (resource =? "ranger"))
         , ("M-m",               raiseMaybe (runInTerm "-name mutt" "mutt") (resource =? "mutt"))

@@ -19,6 +19,10 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
+;; Stolen from Sacha Chua.
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-diff t)
+
 (column-number-mode)
 
 (eval-after-load "menu-bar" '(require 'menu-bar+))
@@ -79,3 +83,10 @@
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode-pop-mark)
+
+(put 'set-goal-column 'disabled nil)
+
+(display-time-mode 1)
+(setq display-time-format "%l:%M%p")
+
+(fset 'yes-or-no-p 'y-or-n-p)

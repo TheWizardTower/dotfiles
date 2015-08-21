@@ -87,6 +87,7 @@
 (depends-on "gotest")
 (depends-on "gotham-theme")
 (depends-on "govet")
+(depends-on "guide-key")
 (depends-on "guru-mode")
 (depends-on "haskell-mode")
 (depends-on "haskell-snippets")
