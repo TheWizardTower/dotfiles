@@ -248,6 +248,8 @@ myKeys =
           , ("u", submap . mkKeymap myXConfig $
                  [("u", spawn "Xdialog --titlle  'Really, dude?' --screencenter --yesno 'Really, dude?' 10 30")
                 ])
+          , ("M-u", submap . mkKeymap myXConfig $
+            [("M-<Return>",    spawn "systemctl --user restart emacs")])
           ])
 
     -- Apps
