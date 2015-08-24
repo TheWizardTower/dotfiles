@@ -86,7 +86,9 @@
 
 (put 'set-goal-column 'disabled nil)
 
-(display-time-mode 1)
-(setq display-time-format "%l:%M%p")
+;;; Stolen from http://efod.se/writings/linuxbook/html/date-and-time.html
+(setq display-time-24hr-format t)
+;; (setq display-time-day-and-date t)
+(display-time)
 
 (fset 'yes-or-no-p 'y-or-n-p)
