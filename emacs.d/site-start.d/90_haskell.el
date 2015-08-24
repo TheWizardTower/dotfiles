@@ -15,9 +15,9 @@
 (add-to-list 'completion-ignored-extensions ".hi")
 
 (setq exec-path (cons (expand-file-name "~/.cabal/bin/") exec-path))
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+;;(autoload 'ghc-init "ghc" nil t)
+;;(autoload 'ghc-debug "ghc" nil t)
+;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 ;;; This throws an error on load. Find another keybinding.
 ;; (eval-after-load 'haskell-mode
@@ -28,5 +28,5 @@
 (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
 
 
-(add-hook 'haskell-mode-hook
-          (lambda () (define-key haskell-mode-map (kbd "C-c ?") 'helm-ghc-errors)))
+;;(add-hook 'haskell-mode-hook
+;;          (lambda () (define-key haskell-mode-map (kbd "C-c ?") 'helm-ghc-errors)))
