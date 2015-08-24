@@ -1,0 +1,31 @@
+        - "clean": ['~']
+
+        - "link":
+            ~/.bash_profile: "bash_profile"
+            ~/.bashrc: "bashrc"
+            ~/.cvsignore: "cvsignore"
+            ~/.emacs: "emacs"
+            ~/.emacs.d: "emacs.d"
+            ~/.config.systemd/user/emacs.service: "emacs.service"
+            ~/.gitconfig: "gitconfig"
+            ~/.gtkrc-2.0: "gtkrc-2.0"
+            ~/.screen-bin: "screen-bin"
+            ~/.screenrc: "screenrc"
+            ~/.toprc: "toprc"
+            ~/.tmux.conf: "tmux.conf"
+            ~/.vim_loca: "vim_local"
+            ~/.vimrc: "vimrc"
+            ~/.xmobarrc: "xmobarrc"
+            ~/.xmonad: "xmonad"
+            ~/.xsession: "xsession"
+            .zshrc: "zshrc"
+
+
+        - shell:
+          -  ["git submodule update --init --recursive", "Installing submodules."]
+          -  ["curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.fish | fish", "Downloading oh-my-fish."]
+          -  ["fish -c 'omf install; omf update'", "Installing oh-my-fish."]
+          -  ["bash installGoPackages.sh", "Installing Go Packages."]
+          -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
+          -  ["bash -c 'cd emacs.d; sh install.sh'", "Installing Emacs Libraries."]
+          -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]

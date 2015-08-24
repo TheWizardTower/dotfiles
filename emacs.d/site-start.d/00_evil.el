@@ -1,10 +1,32 @@
+(require 'god-mode)
+
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+ "g" 'evil-execute-in-god-state
+ "f" 'helm-find-files
+ "5" 'make-frame-command
+ )
+
+(evil-define-key 'god global-map [escape] 'evil-god-state-bail)
+
 ;; (require 'pennence)
 (require 'evil)
 (evil-mode 1)
 
-
 (require 'evil-args)
+(require 'evil-tabs)
+(global-evil-tabs-mode t)
 
+(require 'evil-exchange)
+;;; (setq evil-exchange-key (kbd "zx"))
+
+
+;;; Not in MELPA, grab from:
+;;; https://github.com/Dewdrops/evil-extra-operator
+;;(require 'evil-extra-operator)
+;;(global-evil-extra-operator-mode 1)
 
 ;;; Stolen from rrix.
 (evil-define-state emacs
@@ -18,12 +40,15 @@
 
 (setq evil-default-state 'emacs)
 
-;;; It turns out that the above does not work, for some bizarre reason. Esc-
-;;; is always captured and assumed to be part of some continuing key chord.
-;;; So. Risk doing something sinful.
-(global-set-key (kbd "C-c ESC") 'evil-normal-state)
+;;; The above code block does not, by default, get Escape bound to
+;;; evil-normal-state. So, do this binding now. Note that simply
+;;; saying (kbd "ESC") does not work here. It has to be this:
+;;; (kdb "<escape>")
+(global-unset-key (kbd "<escape>"))
+(global-set-key (kbd "<escape>") 'evil-normal-state)
 
 
+;;; Set the color of the cursor depending on the evil mode you're in.
 (setq evil-normal-state-cursor '(box "red"))
 (setq evil-visual-state-cursor '(box "blue"))
 (setq evil-motion-state-cursor '(box "green"))
