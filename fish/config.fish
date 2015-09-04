@@ -1,6 +1,10 @@
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 
+function fish_title
+  true
+end
+
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
 
