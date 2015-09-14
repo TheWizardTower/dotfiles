@@ -34,13 +34,13 @@ function start_agent
     echo "succeeded"
     chmod 600 $SSH_ENV
     . $SSH_ENV
-    ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605
+    ssh-add ~/.ssh/amccullough-corp-20150911 ~/.ssh/amccullough-prod-20150910
 end
 
 function test_identities
     ssh-add -l | grep -e "The agent has no identities" > /dev/null
     if [ $status -eq 0 ]
-        ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605
+        ssh-add ~/.ssh/amccullough-corp-20150911 ~/.ssh/amccullough-prod-20150910
         if [ $status -eq 2 ]
             start_agent
         end
