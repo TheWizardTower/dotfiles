@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 set -g OMF_PATH $HOME/.local/share/omf
 set -g OMF_CONFIG $HOME/.config/omf
 source $OMF_PATH/init.fish
+
+function fish_title
+  true
+end
 
 # Theme
 Theme "agnoster-mercurial"
