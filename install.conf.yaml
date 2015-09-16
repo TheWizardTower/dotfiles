@@ -1,24 +1,28 @@
         - "clean": ['~']
 
+        - shell:
+          - ["mkdir -p ~/.config/systemd/user", "Making systemd user config dir."]
+
         - "link":
             ~/.bash_profile: "bash_profile"
             ~/.bashrc: "bashrc"
             ~/.cvsignore: "cvsignore"
             ~/.emacs: "emacs"
             ~/.emacs.d: "emacs.d"
-            ~/.config.systemd/user/emacs.service: "emacs.service"
+            ~/.config/systemd/user/emacs.service: "emacs.service"
+            ~/.config/fish/: "fish/"
             ~/.gitconfig: "gitconfig"
             ~/.gtkrc-2.0: "gtkrc-2.0"
             ~/.screen-bin: "screen-bin"
             ~/.screenrc: "screenrc"
             ~/.toprc: "toprc"
             ~/.tmux.conf: "tmux.conf"
-            ~/.vim_loca: "vim_local"
+            ~/.vim_local: "vim_local"
             ~/.vimrc: "vimrc"
             ~/.xmobarrc: "xmobarrc"
             ~/.xmonad: "xmonad"
             ~/.xsession: "xsession"
-            .zshrc: "zshrc"
+            ~/.zshrc: "zshrc"
 
 
         - shell:

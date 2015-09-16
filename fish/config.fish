@@ -1,12 +1,11 @@
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
+<<<<<<< HEAD
+set -g OMF_PATH $HOME/.local/share/omf
+set -g OMF_CONFIG $HOME/.config/omf
+source $OMF_PATH/init.fish
 
 function fish_title
   true
 end
-
-# Load oh-my-fish configuration.
-. $fish_path/oh-my-fish.fish
 
 # Theme
 Theme "agnoster-mercurial"
