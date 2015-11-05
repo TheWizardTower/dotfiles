@@ -3,14 +3,7 @@
 (ido-mode t)
 (ido-vertical-mode 1)
 
-; These kill ido-vertical mode somehow.
-; (require 'ido-better-flex)
-; (ido-better-flex/enable)
-
 (require 'ido-hacks)
-
-; This isn't found for some reason.
-;(require 'ido-preview)
 
  (add-hook 'ido-setup-hook
    (lambda()
@@ -27,4 +20,3 @@
 ; The following two lines doesn't seem to take effect. Debug.
 (define-key global-map (kbd "C-c l") 'ido-load-library)
 (defalias 'load-library 'ido-load-library)
-
