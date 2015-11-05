@@ -1,8 +1,11 @@
 (setq-default major-mode 'org-mode)
 
-(require 'linum-relative)
-(global-linum-mode 1)
-(setq linum-relative-current-symbol "")
+;(require 'linum-relative)
+;'(global-linum-mode 1)
+;(setq linum-relative-current-symbol "")
+
+(require 'linum)
+(global-linum-mode)
 
 (setq comment-auto-fill-only-comments t)
 
