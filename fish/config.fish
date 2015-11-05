@@ -1,4 +1,7 @@
-<<<<<<< HEAD
+set -gx PATH $HOME/bin $HOME/.cask/bin $HOME/gocode/bin $HOME/.cabal/bin $PATH
+
+set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:/usr/lib/go
+
 set -g OMF_PATH $HOME/.local/share/omf
 set -g OMF_CONFIG $HOME/.config/omf
 source $OMF_PATH/init.fish
@@ -7,21 +10,9 @@ function fish_title
   true
 end
 
-# Theme
-Theme "agnoster-mercurial"
-
 # All built-in plugins can be found at ~/.oh-my-fish/plugins/
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
 # Enable plugins by adding their name separated by a space to the line below.
-Plugin "balias"
-Plugin "functional"
-Plugin "git-flow"
-Plugin "grc"
-Plugin "mc"
-Plugin "peco"
-Plugin "theme"
-Plugin "tmux"
-
 
 
 setenv SSH_ENV $HOME/.ssh/environment
@@ -67,6 +58,4 @@ set REPOS "svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operation
 
 alias sandbox="su -c  'ssh -A -L 80:localhost:80 -L 443:localhost:443 -L 11211:localhost:11211 -L 3306:localhost:3306 cit@192.168.112.13'"
 
-set -gx PATH $HOME/bin $HOME/.cask/bin $HOME/gocode/bin $HOME/.cabal/bin $PATH
 
-set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:/usr/lib/go
