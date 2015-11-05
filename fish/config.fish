@@ -16,6 +16,7 @@ end
 
 
 setenv SSH_ENV $HOME/.ssh/environment
+setenv SSH_SOCK_LINK $HOME/.ssh/auth_sock_symlink
 
 function start_agent
     echo "Initializing new SSH agent ..."
@@ -25,6 +26,7 @@ function start_agent
     chmod 600 $SSH_ENV
     . $SSH_ENV
     ssh-add ~/.ssh/amccullough-corp-20150911 ~/.ssh/amccullough-prod-20150910
+    ln -sf $SSH_AUTH_SOCK $SSH_SOCK_LINK
 end
 
 function test_identities
