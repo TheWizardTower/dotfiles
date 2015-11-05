@@ -23,7 +23,7 @@
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 
 
-(require 'visual-regexp)
+(require 'visual-regexp-steroids)
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
 ;; if you use multiple-cursors, this is for you:
