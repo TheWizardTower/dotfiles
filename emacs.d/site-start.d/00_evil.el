@@ -28,18 +28,6 @@
 ;;(require 'evil-extra-operator)
 ;;(global-evil-extra-operator-mode 1)
 
-;;; Stolen from rrix.
-(evil-define-state emacs
-  "Emacs state that can be exited with the escape key."
-  :tag " <EE> "
-  :message "-- EMACS WITH ESCAPE --"
-  :input-method t)
-
-(defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
-  (evil-emacs-state))
-
-(setq evil-default-state 'emacs)
-
 ;;; The above code block does not, by default, get Escape bound to
 ;;; evil-normal-state. So, do this binding now. Note that simply
 ;;; saying (kbd "ESC") does not work here. It has to be this:
@@ -76,3 +64,18 @@
 
 ;; bind evil-jump-out-args
 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+
+;; (require 'smartparens-config)
+;; (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+
+;;; Stolen from rrix.
+(evil-define-state emacs
+  "Emacs state that can be exited with the escape key."
+  :tag " <EE> "
+  :message "-- EMACS WITH ESCAPE --"
+  :input-method t)
+
+(defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
+  (evil-emacs-state))
+
+(setq evil-default-state 'emacs)
