@@ -1,18 +1,8 @@
-;(server-start)
-
-;; This is usually an annoyance. Comment it out until I get the server start stuff working.
-;(desktop-save-mode 1)
-
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq initial-buffer-choice t)
 
 (tool-bar-mode -1)
-
-;; Transparency looks *awful* on the Lenovo I have. Disable for now.
-;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-; (set-frame-parameter (selected-frame) 'alpha '(85 50))
-; (add-to-list 'default-frame-alist '(alpha 85 50))
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
@@ -39,9 +29,6 @@
 
 
 (crosshairs-mode)
-;;;(set-face-attribute 'default nil :background "gray15")
-;(set-face-attribute 'col-highlight nil :foreground nil :background "gray5")
-
 
 (require 'scratch-ext)
 (require 'scratch-persist)
