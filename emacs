@@ -32,7 +32,7 @@
                          ("melpa" . "http://melpa.org/packages/")))
 
 (setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
-(setq debug-on-error t)    ; now you should get a backtrace
+(setq debug-on-error t)       ; now you should get a backtrace
 
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
