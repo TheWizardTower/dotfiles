@@ -312,6 +312,8 @@ namedScratchpads =
 myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
                (composeAll $
          [  className =? "Yakuake"           --> doFloat
+          , className =? "Steam"             --> doFloat
+          ,  className =? "steam"            --> doFloat
           , className =? "Pidgin"            --> doShift "1.text"
           , className =? "Gimp"              --> doShift "5.misc"
          ]
@@ -377,7 +379,7 @@ numworkspaces = take 10 [1..]
 ---STATUSBAR
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 myBitmapsDir = "/home/logan/.xmonad/statusbar/icons"
-myXmonadBarL = "dzen2 -x '0' -y '24' -h '16' -w '1200' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' "
+myXmonadBarL = "dzen2 -x '0' -y '0' -h '16' -w '1200' -ta 'l' -fg '"++myColorWhite++"' -bg '"++myColorBG++"' -fn '"++myFont++"' "
 --- myXmonadBarR = "conky -c /home/logan/.xmonad/statusbar/conky_dzen | dzen2 -x '1000' -y '24' -w '680' -h '16' -ta 'r' -bg '"++myColorBG++"' -fg '"++myColorWhite++"' -fn '"++myFont++"'"
 
 myLogHook h  = dynamicLogWithPP $ defaultPP
