@@ -233,6 +233,7 @@ myKeys =
         ,  ("M-u",   submap . mkKeymap myXConfig $
           [("c", spawn "krunner")
          , ("M-<Return>",    spawn "emacs --debug-init")
+         , ("<Backspace>",   spawn "xscreensaver-command -lock")
          , ("s", windows W.swapMaster)
          , ("r", spawn "xmonad --recompile && pkill dzen2 && xmonad --restart")
           , ("l", submap .  mkKeymap myXConfig $
@@ -415,6 +416,7 @@ myStartupHook = do
           spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
           spawnOnce "pidgin &"
           spawnOnce "yakuake &"
+          spawnOnce "xscreensaver -nosplash &"
           spawnOnce "xcompmgr -c"
 
 kdeOverride :: Query Bool
