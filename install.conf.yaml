@@ -28,6 +28,8 @@
         - shell:
           -  ["curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish", "Downloading oh-my-fish."]
           -  ["fish -c 'omf install; omf update'", "Installing oh-my-fish."]
+          -  ["fish -c 'omf install https://github.com/oh-my-fish/plugin-cask.git'", "Installing cask oh-my-fish plugin."]
+          -  ["fish -c 'omf install https://github.com/oh-my-fish/plugin-functional.git", "Installing functional oh-my-fish plugin."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
           -  ["curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python", "Installing Cask."]

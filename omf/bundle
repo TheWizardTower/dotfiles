@@ -1,6 +1,7 @@
 package emacs
 package errno
 package fzf
+package gi
 package git-flow
 package peco
 package python
