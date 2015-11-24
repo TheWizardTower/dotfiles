@@ -29,7 +29,7 @@ function start_agent {
   echo succeeded
   chmod 600 ${SSH_ENV}
   . ${SSH_ENV} > /dev/null
-  /usr/bin/ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605
+  /usr/bin/ssh-add ~/.ssh/amccullough-corp-20130605 ~/.ssh/amccullough-prod-20130605 ~/.ssh/github
 }
 
 # Source SSH settings, if applicable
