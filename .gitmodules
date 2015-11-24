@@ -4,9 +4,6 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
-[submodule "emacs.d/structured-haskell-mode"]
-	path = emacs.d/structured-haskell-mode
-	url = https://github.com/chrisdone/structured-haskell-mode
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
