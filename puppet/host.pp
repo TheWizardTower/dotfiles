@@ -8,23 +8,8 @@ group { 'docker':
   ensure => 'present'
 }
 
-user { 'amccullough':
-  ensure     => 'present',
-  require    => [ Group['docker'],
-                  Package['docker-io'],
-                  Package['fish'],
-                  Package['VirtualBox-5.0'] ],
-  comment    => 'Adam McCullough',
-  home       => '/home/amccullough',
-  groups     => ['docker','vboxusers', 'wheel'],
-  managehome => true,
-  name       => 'amccullough',
-  password   => '$6$syFUs/zpGB9YN9aQ$sKrkxv1xvbkPO7M3r3PUx5y..lQZHe3hH2iQYcfQHac50BWkrq/zJIpJTIMu.yoe1G3YN8FHwwJ5KtkKKZS951',
-  shell      => '/bin/fish',
-}
-
 exec { 'get-dotfiles':
-  require => [ Package['git'], User['amccullough'] ],
+  require => Package['git'],
   command => '/bin/git clone https://github.com/TheWizardTower/dotfiles.git',
   cwd     => '/home/amccullough',
   unless  => '/bin/test -d /home/amccullough/dotfiles',
@@ -46,14 +31,12 @@ file { '.config':
   path    => '/home/amccullough/.config',
   owner   => 'amccullough',
   group   => 'amccullough',
-  require => User['amccullough']
 }
 
 file { 'git-project-dir':
   ensure  => 'directory',
   path    => '/home/amccullough/git',
   owner   => 'amccullough',
-  require => User['amccullough']
 }
 
 exec { 'clone-grc':
@@ -119,14 +102,13 @@ exec { 'google-repo-key':
 # Puppet doesn't have an option for mkdir -p. Rather than creating a
 # file entry for each directory in this path, just run the command.
 exec { 'plasma-config-dir':
-  require => User['amccullough'],
   command => '/bin/mkdir -p /home/amccullough/.config/plasma-workspace/env',
   user    => 'amccullough',
 }
 
 # This sets xmonad as the default WM for KDE. Because XMonad rocks.
 file { 'xmonad-kde-wm':
-  require => [ User['amccullough'], Exec['plasma-config-dir'] ],
+  require => Exec['plasma-config-dir'],
   path    => '/home/amccullough/.config/plasma-workspace/env/set_window_manager.sh',
   content => 'export KDEWM=/bin/xmonad',
   owner   => 'amccullough',
@@ -158,7 +140,7 @@ exec { 'virtualbox-key':
 }
 
 exec { 'rpmfusion-repo':
-  command => "/bin/bash -c '/bin/dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm ||:'",
+  command => "/usr/bin/dnf install -y http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm",
   before  => Exec['dnf-upgrade'],
 }
 
@@ -174,7 +156,6 @@ $build_env = ['ack',
               'colordiff',
               'cabal-rpm',
               'clojure',
-              'clojure-contrib',
               'emacs',
               'dash',
               'fish',
