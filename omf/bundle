@@ -3,6 +3,7 @@ package errno
 package fzf
 package gi
 package git-flow
+package https://github.com/oh-my-fish/plugin-cask.git
 package peco
 package python
 package technicolor
