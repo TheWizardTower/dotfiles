@@ -4,7 +4,6 @@ set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu
 
 set -g OMF_PATH $HOME/.local/share/omf
 set -g OMF_CONFIG $HOME/.config/omf
-source $OMF_PATH/init.fish
 
 function fish_title
   true

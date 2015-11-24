@@ -7,3 +7,4 @@ package peco
 package python
 package technicolor
 theme agnoster-mercurial
+theme default
