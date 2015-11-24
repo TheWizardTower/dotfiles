@@ -2,9 +2,6 @@
 
         - shell:
           - ["mkdir -p ~/.config/systemd/user", "Making systemd user config dir."]
-          # This is ugly, but Fish has a habit of creating the stock fish dir/config underneath this setup,
-          # so this is the only way to get my config in place.
-          - ["rm ~/.config/fish/; ln -s ~/dotfiles/fish ~/.config/fish"]
 
         - "link":
             ~/.bash_profile: "bash_profile"
@@ -13,6 +10,7 @@
             ~/.emacs: "emacs"
             ~/.emacs.d: "emacs.d/"
             ~/.config/systemd/user/emacs.service: "emacs.service"
+            ~/.config/omf: "omf/"
             ~/.gitconfig: "gitconfig"
             ~/.gtkrc-2.0: "gtkrc-2.0"
             ~/.shellrc: "shellrc"

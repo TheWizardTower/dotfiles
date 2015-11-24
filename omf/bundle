@@ -1,0 +1,8 @@
+package emacs
+package errno
+package fzf
+package git-flow
+package peco
+package python
+package technicolor
+theme agnoster-mercurial
