@@ -227,14 +227,11 @@ $desktop_env = ['amarok-utils',
                 'pidgin-otr',
                 'purple-plugin-pack',
                 'seamonkey',
-                'skype', # needs RPMFusion.
-                # Steam may need to wait a bit...
-                # 'steam',
+                'skype',
+                'steam',
                 'unetbootin',
                 'VirtualBox-5.0', # Needs the virtualbox repo.
-                # For some reason VLC isn't showing up in the RPMFusion repo
-                # either. Grrrr.
-                # 'vlc',
+                'vlc',
                 'xcompmgr',
                 'xmonad',
                 'xulrunner',
