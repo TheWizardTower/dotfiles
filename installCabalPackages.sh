@@ -1,9 +1,10 @@
 #!/bin/bash
 
 cabal update
-cabal install cabal-install
-cabal install ghc-mod
-cabal install shellcheck
-cabal install stylish-haskell
-cabal install ghc-imported-from
-cabal install hoogle
+cabal install --avoid-reinstalls --upgrade-dependencies cabal-install
+cabal install --avoid-reinstalls --upgrade-dependencies \
+      ghc-imported-from\
+      ghc-mod \
+      hoogle \
+      shellcheck \
+      stylish-haskell
