@@ -1,5 +1,3 @@
-set -gx PATH $HOME/bin $HOME/.cask/bin $HOME/gocode/bin $HOME/.cabal/bin $PATH
-
 set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:/usr/lib/go
 
 set -g OMF_PATH $HOME/.local/share/omf
@@ -58,5 +56,3 @@ end
 set REPOS "svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
 
 alias sandbox="su -c  'ssh -A -L 80:localhost:80 -L 443:localhost:443 -L 11211:localhost:11211 -L 3306:localhost:3306 cit@192.168.112.13'"
-
-
