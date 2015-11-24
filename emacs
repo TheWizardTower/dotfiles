@@ -27,7 +27,6 @@
 ; Not yet configured.
 ;(autoload 'wl "wl" "Wanderlust" t)
 
-
 (crosshairs-mode)
 
 (require 'scratch-ext)
