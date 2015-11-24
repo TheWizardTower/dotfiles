@@ -26,6 +26,7 @@ emacs.d/var/*
 emacs.d/session.*
 
 emacs.d/.emacs.desktop
+emacs.d/recentf
 emacs.d/elpa/*
 emacs.d/auto-save-list/*
 emacs.d/ac-comphist.dat
