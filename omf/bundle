@@ -4,8 +4,8 @@ package fzf
 package gi
 package git-flow
 package https://github.com/oh-my-fish/plugin-cask.git
+package https://github.com/oh-my-fish/plugin-functional.git
 package peco
 package python
 package technicolor
 theme agnoster-mercurial
-theme default
