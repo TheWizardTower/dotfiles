@@ -1,6 +1,14 @@
 #!/bin/bash
 
-export GOPATH="/home/amccullough/gocode"
+USER=$(whoami)
+HOMEDIR="/home/$USER"
+
+if [ "$USER" = "root" ]; then
+   export HOMEDIR="/root/"
+fi
+
+
+export GOPATH="${HOMEDIR}/gocode"
 
 go get -u github.com/golang/lint/golint
 go get -u github.com/dougm/goflymake
