@@ -1,7 +1,5 @@
 #!/bin/bash
 
-git submodule init
-git submodule sync
-git submodule update
+git submodule update --init --recursive
 
-~/dotfiles/dotbot/bin/dotbot -d ~/dotfiles -c ~/dotfiles/install.conf.yaml
+dotbot/bin/dotbot -d . -c install.conf.yaml
