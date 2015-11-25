@@ -5,36 +5,36 @@
 #+ATTR_HTML: :alt dotfiles.svg
 [[https://circleci.com/gh/TheWizardTower/dotfiles][https://circleci.com/gh/TheWizardTower/dotfiles.svg?style=shield&circle-token:=circle-token]]
 * Install
-Ideally, git clone the repo, and run install.sh.
+Do a git clone the repo, and run install.sh. Remove the ~/.gitconfig file if you aren't me. :)
 
 * Dependencies
-The installer requires Emacs 24 and Python for Cask, Golang, Cabal, Fish for oh-my-fish, and git for cloning a few side plugins.
+[[https://github.com/anishathalye/dotbot][Dotbot]] needs python and the python YAML library.
+oh-my-fish needs Fish and Git. The Peco plugin for omf needs peco, which is in go.
+Emacs uses quite a few external tools, particularly for error-checking and linting. This involves reaching out to binaries written in Go, Haskell, as well as tools for Perl, Python, Clojure, regexes, rpm files and YAML. I use [[https://github.com/rdallasgray/pallet][Pallet]] and [[https://github.com/cask/cask][Cask]] to manage the emacs packages.
 
 * In Progress
-** Clean up any references to /home/amccullough.
-Make it just reference ~/.
-** Convert to using site-start.d for configuring modules and settings whenever possible.
-This is mostly done. There are still a few stray things in emacs (some of which can't be moved out successfully), and the numbering of the init files is a little arbitrary and needs to be cleaned up.
+** Fix Cabal
+Cabal-install is a rather awful package manager.
 
-** Clean up the install process.
-It's kind of broken, especially with all the stuff I'm doing with it. Ideally convert to https://github.com/anishathalye/dotbot. Most importantly, make it idempotent, so that puppet can just call it.
+On any Distro, I expect this operation to work:
 
+$my_package_manager install $package; $my_package_manager install $package
+
+With cabal-install, this does not. It says that you're risking a re-install, and that might break things.
+
+Furthermore, if I can install a given set of packages one at a time, I fully expect to be able to install them in one batch command. With cabal-install, this is not the case.
+
+The only idea I've come across that consistently works is (cringe) building the packages statically, inside a container. I only need a handful of packages (for now), so this wouldn't be tremendously onerous. It could even be done in parallel.
+
+For more reading: https://ivanmiljenovic.wordpress.com/2010/03/15/repeat-after-me-cabal-is-not-a-package-manager/
 ** Fix Circle-CI testing.
-It's broken. Period. Not Circle-CI (they're *wonderful*), how I've set it up is just borkbork.
+My Circle-CI tests miss a lot. There have been cases where the Cask file had the libraries for what was sourced directly in my init files, but not for the various mode-hooks I've added. Vim is still basically completely busted. For a long time, the dotbot setup wouldn't reliably work, up to and including issues with Cabal, a bad URL for oh-my-fish and Cask, and more.
+** Modal bindings for XMonad.
+Something like this: https://www.youtube.com/watch?v=_qZliI1BKzI
 
-It's running in "parallel", which is to say it's running the same tests four times. The puppet test is intermittently failing, because dnf gives a bad exit status if it's called as 'yum', and several packages (sometimes!) do this as part of their install process.
-
+I've made some progress on this by making some multi-step key bindings. But nothing like command mode in vim. I suspect this will take a library for xmonad.
 * Wishlist
 ** Literate programming for emacs
 Dotfiles settings aren't the most... readable things in the world. And being forced to explain settings clearly only ends in good things.
-** Modal bindings for XMonad.
-Something like this: https://www.youtube.com/watch?v=_qZliI1BKzI
-** Better tests in Circle-CI.
-**** Check my vim config.
-Right now it's slightly broken, and needs some TLC.
-**** Make sure puppet did everything correctly.
-Do some basic health checks. Launch emacs. Check go --help. Make sure cabal is available.
-**** Fix intermittent failures because Fedora migrated to dnf and some packages still reference yum.
-I may have to do something clever here. The built-in package management system doesn't let me say "A return code of 1 is okay" like I can in an exec block.
 ** Travis-CI testing.
 Maybe someday. Containers-as-tests are rather lovely.
