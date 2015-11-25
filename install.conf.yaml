@@ -1,16 +1,23 @@
         - "clean": ['~']
 
-        - shell:
-          - ["mkdir -p ~/.config/systemd/user", "Making systemd user config dir."]
-
         - "link":
-            ~/.bash_profile: "bash_profile"
-            ~/.bashrc: "bashrc"
+            ~/.bash_profile:
+              path: "bash_profile"
+              force: true
+            ~/.bashrc:
+              path: "bashrc"
+              force: true
             ~/.cvsignore: "cvsignore"
-            ~/.emacs: "emacs"
+            ~/.emacs:
+              path: "emacs"
+              force: true
             ~/.emacs.d: "emacs.d/"
-            ~/.config/systemd/user/emacs.service: "emacs.service"
-            ~/.config/omf: "omf/"
+            ~/.config/systemd/user/emacs.service:
+              path: "emacs.service"
+              force: true
+            ~/.config/omf:
+              path: "omf/"
+              force: true
             ~/.gitconfig: "gitconfig"
             ~/.gtkrc-2.0: "gtkrc-2.0"
             ~/.shellrc: "shellrc"
@@ -32,6 +39,6 @@
           -  ["fish -c 'omf install https://github.com/oh-my-fish/plugin-functional.git", "Installing functional oh-my-fish plugin."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
-          -  ["curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python", "Installing Cask."]
-          -  ["~/.cask/bin/cask install --path ~/dotfiles/emacs.d/", "Install Cask Packages for Emacs."]
+          -  ["bash insatllCask.sh", "Installing/Updating Cask."]
+          -  ["~/.cask/bin/cask install --path ~/.emacs.d/", "Install Cask Packages for Emacs."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
