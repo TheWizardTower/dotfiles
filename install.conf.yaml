@@ -19,7 +19,6 @@
               path: "omf/"
               force: true
             ~/.gitconfig: "gitconfig"
-            ~/.gtkrc-2.0: "gtkrc-2.0"
             ~/.shellrc: "shellrc"
             ~/.screen-bin: "screen-bin/"
             ~/.screenrc: "screenrc"
@@ -33,10 +32,7 @@
             ~/.zshrc: "zshrc"
 
         - shell:
-          -  ["curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish", "Downloading oh-my-fish."]
-          -  ["fish -c 'omf install; omf update'", "Installing oh-my-fish."]
-          -  ["fish -c 'omf install https://github.com/oh-my-fish/plugin-cask.git'", "Installing cask oh-my-fish plugin."]
-          -  ["fish -c 'omf install https://github.com/oh-my-fish/plugin-functional.git", "Installing functional oh-my-fish plugin."]
+          -  ["fish -c 'omf update' ||  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish", "Downloading oh-my-fish."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
           -  ["bash insatllCask.sh", "Installing/Updating Cask."]
