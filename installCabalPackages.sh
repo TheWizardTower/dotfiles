@@ -1,9 +1,8 @@
 #!/bin/bash
 
-cabal update
-cabal install --avoid-reinstalls --upgrade-dependencies cabal-install
-cabal install --avoid-reinstalls --upgrade-dependencies ghc-imported-from
-cabal install --avoid-reinstalls --upgrade-dependencies ghc-mod
-cabal install --avoid-reinstalls --upgrade-dependencies hoogle
-cabal install --avoid-reinstalls --upgrade-dependencies shellcheck
-cabal install --avoid-reinstalls --upgrade-dependencies stylish-haskell
+stack setup
+stack install ghc-imported-from
+stack install ghc-mod
+stack install hoogle
+stack install shellcheck
+stack install stylish-haskell
