@@ -1,12 +1,12 @@
 [user]
-	name = Adam McCullough
-	umail = merlinfmct87@gmail.com
-	email = merlinfmct87@gmail.com
+        name = Adam McCullough
+        umail = merlinfmct87@gmail.com
+        email = merlinfmct87@gmail.com
 [core]
-	editor = vim
-	excludesfile = ~/.cvsignore
+        editor = emacsclient -t -c
+        excludesfile = ~/.gitignore
 [color]
-	ui = true
+        ui = true
 [alias]
     rms = "!f(){ git rm --cached \"$1\";rm -r \"$1\";git config -f .gitmodules --remove-section \"submodule.$1\";git config -f .git/config --remove-section \"submodule.$1\";git add .gitmodules; }; f"
     st = status -sb
@@ -14,4 +14,4 @@
     lg = log --graph --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     purr = pull --rebase
 [push]
-	default = matching
+        default = matching
