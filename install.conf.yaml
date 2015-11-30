@@ -19,6 +19,7 @@
               path: "omf/"
               force: true
             ~/.gitconfig: "gitconfig"
+            ~/.stylish-haskell.yaml: "stylish-haskell.yaml"
             ~/.shellrc: "shellrc"
             ~/.screen-bin: "screen-bin/"
             ~/.screenrc: "screenrc"
