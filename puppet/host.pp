@@ -20,23 +20,24 @@ exec { 'install-dotfiles':
   require => [ Exec['get-dotfiles'],
     File['.config'],
     Package['fish'],
-    Package['golang'] ],
+    Package['golang'],
+    Package['stack'] ],
   command => '/home/amccullough/dotfiles/install.sh',
   cwd     => '/home/amccullough/dotfiles',
   user    => 'amccullough'
 }
 
 file { '.config':
-  ensure  => 'directory',
-  path    => '/home/amccullough/.config',
-  owner   => 'amccullough',
-  group   => 'amccullough',
+  ensure => 'directory',
+  path   => '/home/amccullough/.config',
+  owner  => 'amccullough',
+  group  => 'amccullough',
 }
 
 file { 'git-project-dir':
-  ensure  => 'directory',
-  path    => '/home/amccullough/git',
-  owner   => 'amccullough',
+  ensure => 'directory',
+  path   => '/home/amccullough/git',
+  owner  => 'amccullough',
 }
 
 exec { 'clone-grc':
@@ -126,6 +127,12 @@ gpgcheck=0",
   before  => Exec['dnf-upgrade'],
 }
 
+exec { 'stack-repo':
+  command => '/usr/bin/curl -sSL https://s3.amazonaws.com/download.fpcomplete.com/fedora/22/fpco.repo | tee /etc/yum.repos.d/fpco.repo',
+  onlyif  => '/bin/test ! -f /etc/yum.repos.d/fbco.repo',
+  before  => Package['stack'],
+}
+
 exec { 'virtualbox-repo':
   require => [ Package['wget'], ],
   command => '/bin/wget -q http://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo',
@@ -180,6 +187,7 @@ $build_env = ['ack',
               'PyYAML',
               'rpmlint',
               'screen',
+              'stack',
               'strace',
               'subversion',
               'tmux',
