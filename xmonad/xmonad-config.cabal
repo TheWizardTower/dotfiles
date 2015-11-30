@@ -1,0 +1,26 @@
+name:                xmonad-config
+version:             0.1.0.0
+synopsis:            My XMonad config.
+description:         Please see README.md
+homepage:            http://github.com/TheWizardTower/dotfiles/xmonad#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Adam McCullough
+maintainer:          merlinfmct87@gmail.com
+copyright:           2015 Adam McCullough
+build-type:          Simple
+category:            Window Management Config
+cabal-version:       >=1.10
+
+executable xmonad-config
+  hs-source-dirs:      .
+  main-is:             xmonad.hs
+  default-language:    Haskell2010
+  build-depends:       time
+                    ,  text
+                    ,  old-locale
+                    ,  process
+                    ,  base
+                    ,  xmonad
+                    ,  xmonad-contrib
+                    ,  containers
