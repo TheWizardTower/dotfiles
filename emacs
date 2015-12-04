@@ -31,4 +31,7 @@
 
 (require 'scratch-ext)
 (require 'scratch-persist)
-(setenv "SSH_AUTH_SOCK" (concat (getenv "HOME") "/.ssh/auth_sock_symlink"))
+
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")

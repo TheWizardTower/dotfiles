@@ -66,6 +66,7 @@
 (depends-on "evil-tabs")
 (depends-on "evil-tutor")
 (depends-on "evil-visual-mark-mode")
+(depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")
 (depends-on "firecode-theme")
