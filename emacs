@@ -14,6 +14,10 @@
 (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
+(require 'exec-path-from-shell)
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")
 
@@ -31,7 +35,3 @@
 
 (require 'scratch-ext)
 (require 'scratch-persist)
-
-(require 'exec-path-from-shell)
-(exec-path-from-shell-copy-env "SSH_AGENT_PID")
-(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
