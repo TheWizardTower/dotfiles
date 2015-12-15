@@ -4,17 +4,30 @@
 (defadvice haskell-mode-stylish-buffer (around skip-if-flycheck-errors activate)
   (unless (flycheck-has-current-errors-p 'error)
     ad-do-it))
-(setq haskell-stylish-on-save t)
+
+
+ (custom-set-variables
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-type 'stack-ghci)
+ '(haskell-stylish-on-save t)
+ '(haskell-tags-on-save t))
+
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+
+(add-to-list 'company-backends 'company-ghc)
+(custom-set-variables '(company-ghc-show-info t))
+
+
 ;; Ignore compiled Haskell files in filename completions
 (add-to-list 'completion-ignored-extensions ".hi")
 
 (setq exec-path (cons (expand-file-name "~/.cabal/bin/") exec-path))
-;;(autoload 'ghc-init "ghc" nil t)
-;;(autoload 'ghc-debug "ghc" nil t)
-;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
 ;;; This throws an error on load. Find another keybinding.
 ;; (eval-after-load 'haskell-mode
 ;;           `(define-key haskell-mode-map
