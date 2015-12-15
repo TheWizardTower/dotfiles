@@ -17,6 +17,7 @@
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+(setenv "SSH_SOCK_LINK" (concat (getenv "HOME") "/.ssh/auth_sock_simlink"))
 
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")

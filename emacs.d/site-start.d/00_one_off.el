@@ -95,3 +95,6 @@
 (display-time)
 
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(require 'ecb)
+(setq ecb-options-version "2.40")
