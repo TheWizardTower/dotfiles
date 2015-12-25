@@ -14,6 +14,12 @@
     ("9864c2e956c25b3098fbc935ba0969e333dd74ecd7a1013c8dd39a6c171e1cca" default)))
  '(ecb-options-version "2.40"))
 '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
+'(haskell-process-suggest-remove-import-lines t)
+'(haskell-process-auto-import-loaded-modules t)
+'(haskell-process-log t)
+'(haskell-process-type 'stack-ghci)
+'(haskell-stylish-on-save t)
+'(haskell-tags-on-save t)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

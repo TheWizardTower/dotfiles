@@ -6,15 +6,6 @@
   (unless (flycheck-has-current-errors-p 'error)
     ad-do-it))
 
-
-
-(setq haskell-process-suggest-remove-import-lines t)
-(setq haskell-process-auto-import-loaded-modules t)
-(setq haskell-process-log t)
-(setq haskell-process-type 'stack-ghci)
-(setq haskell-stylish-on-save t)
-(setq haskell-tags-on-save t)
-
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
@@ -22,8 +13,6 @@
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
 (add-to-list 'company-backends 'company-ghc)
-(custom-set-variables '(company-ghc-show-info t))
-
 
 ;; Ignore compiled Haskell files in filename completions
 (add-to-list 'completion-ignored-extensions ".hi")
@@ -36,7 +25,7 @@
 ;;                        #'ghc-imported-from-haddock-for-symbol-at-point))
 
 (add-hook 'inferior-haskell-mode-hook 'turn-on-ghci-completion)
-
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 
 ;;(add-hook 'haskell-mode-hook
 ;;          (lambda () (define-key haskell-mode-map (kbd "C-c ?") 'helm-ghc-errors)))
