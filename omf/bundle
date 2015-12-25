@@ -3,6 +3,7 @@ package errno
 package fzf
 package gi
 package git-flow
+package https://github.com/oh-my-fish/plugin-balias
 package https://github.com/oh-my-fish/plugin-cask.git
 package https://github.com/oh-my-fish/plugin-functional.git
 package peco
