@@ -1,4 +1,4 @@
-(eshell-git-prompt-use-theme 'robbyrussel)
+(eshell-git-prompt-use-theme 'robbyrussell)
 
 (with-eval-after-load "esh-opt"
   (require 'virtualenvwrapper)
@@ -6,3 +6,4 @@
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
         eshell-prompt-function 'epe-theme-lambda))
+
