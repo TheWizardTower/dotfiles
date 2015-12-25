@@ -5,4 +5,7 @@
 (global-set-key (kbd "C-c y") 'helm-yas-complete)
 ;;(add-hook 'prog-mode-hook #'yas-minor-mode)
 (yas-global-mode)
-(add-to-list 'yas-snippet-dirs "site-lisp/yasnippet-golang")
+
+(require 'auto-yasnippet)
+(global-set-key (kbd "C-c w") #'aya-create)
+(global-set-key (kbd "C-c M-y") #'aya-expand)
