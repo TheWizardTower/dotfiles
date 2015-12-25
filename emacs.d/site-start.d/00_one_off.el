@@ -101,4 +101,6 @@
 
 (global-aggressive-indent-mode 1)
 
-(fortune-cookie-mode)
+(require 'alert)
+
+(require 'blank-mode)
