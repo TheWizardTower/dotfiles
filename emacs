@@ -36,3 +36,6 @@
 
 (require 'scratch-ext)
 (require 'scratch-persist)
+
+(require 'airline-themes)
+(load-theme 'airline-serene)

@@ -1,0 +1,16 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Test Module
+# key: tm
+# binding: direct-keybinding
+# --
+
+module $1_Tests ($2) where
+
+import           $1
+import           Test.Tasty
+import           TestLib
+
+$2 :: TestTree
+$2 = testGroup "$1 Tests"
+  [
+  ]

@@ -124,3 +124,5 @@ function myfix {
 }
 
 alias ia=imvuasset.pl
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

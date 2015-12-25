@@ -62,6 +62,28 @@ exec { 'install-grc':
   command => '/bin/bash install.sh'
 }
 
+exec { 'clone-fzf':
+  cwd     => '/home/amccullough/git',
+  command => '/bin/git clone https://github.com/junegunn/fzf.git',
+  user    => 'amccullough',
+  require => [ File['git-project-dir'], Package['git'] ],
+  onlyif  => '/bin/test ! -d /home/amccullough/git/fzf'
+}
+
+exec { 'update-fzf':
+  cwd     => '/home/amccullough/git/fzf',
+  command => '/bin/git pull',
+  user    => 'amccullough',
+  require => [ File['git-project-dir'], Package['git'], Exec['clone-fzf'] ],
+  onlyif  => '/bin/test -d /home/amccullough/git/fzf'
+}
+
+exec { 'install-fzf':
+  cwd     => '/home/amccullough/git/fzf',
+  require => Exec['update-fzf'],
+  command => '/bin/bash install.sh'
+}
+
 service { 'docker':
   require => Package['docker-io'],
   enable  => true

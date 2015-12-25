@@ -98,3 +98,9 @@
 
 (require 'ecb)
 (setq ecb-options-version "2.40")
+
+(global-aggressive-indent-mode 1)
+
+(require 'alert)
+
+(require 'blank-mode)

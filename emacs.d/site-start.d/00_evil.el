@@ -79,8 +79,9 @@
 ;; bind evil-jump-out-args
 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
 
-;; (require 'smartparens-config)
-;; (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(require 'smartparens-config)
+(add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(require 'evil-cleverparens-text-objects)
 
 ;;; Stolen from rrix.
 (evil-define-state emacs
