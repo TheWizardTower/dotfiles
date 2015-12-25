@@ -3,11 +3,6 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
-;; Completion words longer than 4 characters
-(custom-set-variables
- '(ac-ispell-requires 4)
- '(ac-ispell-fuzzy-limit 4))
-
 (eval-after-load "auto-complete"
   '(progn
      (ac-ispell-setup)))
@@ -22,4 +17,3 @@
 
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map (kbd "C-c C-d") 'ac-haskell-process-popup-doc))
-

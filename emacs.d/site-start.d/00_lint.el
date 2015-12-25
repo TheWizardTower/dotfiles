@@ -4,10 +4,6 @@
 ;;; Flycheck config
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
-(eval-after-load 'flycheck
-  '(custom-set-variables
-    '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
-
 (require 'flycheck-color-mode-line)
 
 (eval-after-load "flycheck"
