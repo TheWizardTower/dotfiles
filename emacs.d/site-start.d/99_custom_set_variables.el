@@ -8,7 +8,12 @@
  ;; If there is more than one, they won't work right.
  '(ac-ispell-fuzzy-limit 4)
  '(ac-ispell-requires 4)
+ '(company-ghc-show-info t)
+ '(custom-safe-themes
+   (quote
+    ("9864c2e956c25b3098fbc935ba0969e333dd74ecd7a1013c8dd39a6c171e1cca" default)))
  '(ecb-options-version "2.40"))
+'(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,6 +26,5 @@
  '(company-tooltip ((t (:inherit default :background "#050505"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
  '(hl-line ((t (:background "gray15"))))
  '(linum ((t (:inherit (shadow default) :foreground "dim gray" :width normal)))))
