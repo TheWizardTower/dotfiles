@@ -242,6 +242,7 @@ $desktop_env = ['amarok-utils',
                 'seamonkey',
                 'skype',
                 'steam',
+                'tigervnc',
                 'unetbootin',
                 'VirtualBox-5.0', # Needs the virtualbox repo.
                 'vlc',

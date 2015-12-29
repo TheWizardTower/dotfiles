@@ -12,8 +12,11 @@ packages: []
 extra-deps:
     - atto-lisp-0.2.2.1
     - cabal-helper-0.6.2.0
+    - ghc-7.10.2
     - ghc-exactprint-0.5.0.0
     - ghc-mod-5.4.0.0
+    - ghc-syb-0.1.2.2
+    - network-bytestring-0.1.3.4
     - rosezipper-0.2
     - ShellCheck-0.4.1
     - Strafunski-StrategyLib-5.0.0.8

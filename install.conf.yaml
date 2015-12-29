@@ -23,6 +23,9 @@
             ~/.shellrc: "shellrc"
             ~/.screen-bin: "screen-bin/"
             ~/.screenrc: "screenrc"
+            ~/.stack/global-project/stack.yaml:
+              path: stack.yaml
+              force: true
             ~/.toprc: "toprc"
             ~/.tmux.conf: "tmux.conf"
             ~/vim_local: "vim_local/"
