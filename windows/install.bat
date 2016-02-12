@@ -1,0 +1,29 @@
+choco install -y 7zip ^
+                 boot2docker ^
+                 calibre ^
+                 ccleaner ^
+                 cmder ^
+                 crashplan ^
+                 docker ^
+                 dropbox ^
+                 evernote ^
+                 foobar2000 ^
+                 ghc ^
+                 golang ^
+                 launchy ^
+                 linkshellextension ^
+                 msys2 ^
+                 openvpn ^
+                 pidgin ^
+                 pidgin-otr ^
+                 procexp ^
+                 purple-facebook ^
+                 skype ^
+                 spybot ^
+                 steam ^
+                 synergy ^
+                 tightvnc ^
+                 universal-usb-installer ^
+                 virtualbox ^
+                 virtualclonedrive ^
+                 vlc
