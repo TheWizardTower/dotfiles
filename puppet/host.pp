@@ -81,7 +81,7 @@ exec { 'update-fzf':
 exec { 'install-fzf':
   cwd     => '/home/amccullough/git/fzf',
   require => Exec['update-fzf'],
-  command => '/bin/bash install.sh'
+  command => '/bin/bash install'
 }
 
 service { 'docker':
