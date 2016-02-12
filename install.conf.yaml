@@ -1,5 +1,10 @@
         - "clean": ['~']
 
+        - shell:
+            - ["mkdir -p ~/.config/systemd/user", "Config diretory for user-level systemd tasks."]
+            - ["mkdir -p ~/.stack/global-project", "Config directory for Stack."]
+            - ["mkdir -p ~/.config/fisherman", "Fisherman config directory."]
+
         - "link":
             ~/.bash_profile:
               path: "bash_profile"
@@ -11,11 +16,13 @@
             ~/.emacs:
               path: "emacs"
               force: true
-            ~/.emacs.d: "emacs.d/"
+            ~/.emacs.d:
+              path: "emacs.d/"
+              force: true
             ~/.config/systemd/user/emacs.service:
               path: "emacs.service"
               force: true
-            ~/.config/omf:
+            ~/.config/fisherman/conf.d:
               path: "omf/"
               force: true
             ~/.gitconfig: "gitconfig"
@@ -36,7 +43,7 @@
             ~/.zshrc: "zshrc"
 
         - shell:
-          -  ["fish -c 'omf update' ||  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish", "Downloading oh-my-fish."]
+          -  ["fish -c 'fisher update' ||  curl -L install.fisherman.sh | fish", "Downloading oh-my-fish."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
           -  ["bash insatllCask.sh", "Installing/Updating Cask."]
