@@ -44,7 +44,8 @@ else
 fi
 
 export REPOS="svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
-export GOPATH=$(pwd)/imvu:$(pwd)/external:$GOPATH
+export GOPATH="$HOME/gocode:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:$GOPATH"
+export PERL5LIB="$HOME/imvu/operations/software/ImvuPerlModules"
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace

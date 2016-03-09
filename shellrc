@@ -1,8 +1,9 @@
 # vim: filetype=sh
 
-export GOPATH=/home/amccullough/imvu/operations/golang/imvu:/home/amccullough/code/golang:/usr/lib/go
 export EDITOR="vim"
 export TERM="screen-256color"
+export GOPATH="$HOME/gocode:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:$GOPATH"
+export PERL5LIB="$HOME/imvu/operations/software/ImvuPerlModules"
 
 # For working with Debian packages
 export QUILT_PATCHES=debian/patches
@@ -28,5 +29,4 @@ alias cash="ledger --price-db ~/ledger/price.db -V --no-cache -d \"l<=4\" bal As
 # use vim as a PAGER for man
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
-# comment this out. export PATH=${GOPATH//://bin:}/bin:/home/amccullough/bin:/home/amccullough/.cabal/bin:$PATH
 true
