@@ -97,7 +97,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'ecb)
-(setq ecb-options-version "2.40")
 
 (global-aggressive-indent-mode 1)
 
