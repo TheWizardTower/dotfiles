@@ -26,16 +26,19 @@
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-;(setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
-;(setq debug-on-error t)       ; now you should get a backtrace
-
-; Not yet configured.
-;(autoload 'wl "wl" "Wanderlust" t)
-
-(crosshairs-mode)
+;;;(setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
+;;;(setq debug-on-error t)       ; now you should get a backtrace
+;;; Not yet configured.
+;;;(autoload 'wl "wl" "Wanderlust" t)
 
 (require 'scratch-ext)
 (require 'scratch-persist)
 
 (require 'airline-themes)
 (load-theme 'airline-serene)
+
+;;; Set the color of the cursor depending on the evil mode you're in.
+(setq evil-normal-state-cursor '(box "red"))
+(setq evil-visual-state-cursor '(box "blue"))
+(setq evil-motion-state-cursor '(box "green"))
+(setq evil-emacs-state-cursor '(box "white"))
