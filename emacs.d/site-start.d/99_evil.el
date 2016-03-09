@@ -30,9 +30,6 @@
 ;; bind evil-jump-out-args
 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
 
-(require 'evil-tabs)
-(global-evil-tabs-mode t)
-
 (require 'evil-exchange)
 ;;; (setq evil-exchange-key (kbd "zx"))
 
