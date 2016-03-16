@@ -14,14 +14,14 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
-; This seems to be the one place where Ido wins out over helm. Helm plus Tramp bring Emacs to a crawl.
+;;; This seems to be the one place where Ido wins out over helm. Helm plus Tramp bring Emacs to a crawl.
 (require 'ido)
 (require 'ido-vertical-mode)
 (ido-mode t)
 (ido-vertical-mode t)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 (setq ido-vertical-show-count t)
-(global-set-key (kbd "C-c C-f") 'ido-find-file)
+(global-set-key (kbd "C-c C-f") 'counsel-find-file)
 
 
 (global-unset-key (kbd "C-x b"))
