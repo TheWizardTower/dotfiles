@@ -11,7 +11,7 @@
 
 (evil-define-key 'god global-map [escape] 'evil-god-state-bail)
 
-;; (require 'pennence)
+;;; (require 'penance)
 (require 'evil)
 (evil-mode 1)
 
@@ -31,8 +31,10 @@
 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
 
 (require 'evil-exchange)
-;;; (setq evil-exchange-key (kbd "zx"))
+(setq evil-exchange-key (kbd "zx"))
 
+(require 'evil-vimish-fold)
+(evil-vimish-fold-mode 1)
 
 ;;; Not in MELPA, grab from:
 ;;; https://github.com/Dewdrops/evil-extra-operator
@@ -91,3 +93,9 @@
   (evil-emacs-state))
 
 (setq evil-default-state 'emacs)
+
+(with-eval-after-load 'evil
+  (require 'evil-anzu))
+
+(require 'evil-mc)
+(global-evil-mc-mode 1)

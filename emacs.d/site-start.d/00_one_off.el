@@ -112,3 +112,5 @@
 
 (require 'insert-shebang)
 (add-hook 'find-file-hook 'insert-shebang)
+
+(require 'exercism)

@@ -42,3 +42,12 @@
 (setq evil-visual-state-cursor '(box "blue"))
 (setq evil-motion-state-cursor '(box "green"))
 (setq evil-emacs-state-cursor '(box "white"))
+
+
+(setq airline-utf-glyph-separator-left      #xe0b0
+      airline-utf-glyph-separator-right     #xe0b2
+      airline-utf-glyph-subseparator-left   #xe0b1
+      airline-utf-glyph-subseparator-right  #xe0b3
+      airline-utf-glyph-branch              #xe0a0
+      airline-utf-glyph-readonly            #xe0a2
+      airline-utf-glyph-linenumber          #xe0a1)

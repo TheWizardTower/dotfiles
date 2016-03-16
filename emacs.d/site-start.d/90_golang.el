@@ -25,7 +25,13 @@
 
 (require 'govet)
 
+(require 'go-gopath)
+(define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
 
+(require 'go-complete)
+(add-hook 'completion-at-point-functions 'go-complete-at-point)
+
+(require 'rats)
 ;;; Keeping this handy in case I need it for one of my modes.
 ;;; A few go-modes don't play nice if you aren't editing a file -- as is
 ;;; the case when you are working in a *scratch* buffor for Go.
