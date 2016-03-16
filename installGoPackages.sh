@@ -10,10 +10,10 @@ fi
 
 export GOPATH="${HOMEDIR}/gocode"
 
-go get -u github.com/dougm/goflymake
-go get -u github.com/golang/lint/golint
-go get -u github.com/kisielk/errcheck
+
+go get -u github.com/alecthomas/gometalinter
 go get -u github.com/nsf/gocode
 go get -u github.com/peco/peco/cmd/peco
-go get -u golang.org/x/tools/cmd/goimports
 go get -u golang.org/x/tools/cmd/guru
+
+$HOMEDIR/gocode/bin/gometalinter --install --update
