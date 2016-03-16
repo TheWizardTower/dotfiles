@@ -2,13 +2,27 @@
 (setq exec-path (cons "/usr/bin" exec-path))
 (add-to-list 'exec-path (expand-file-name "~/gocode/bin"))
 
-;(require 'go-mode)
+;;; This has to come first, so that $GOPATH is properly set up before
+;;; anything else golang-related has a chance to get confused.
+;; (require 'go-gopath)
+
+;;; Now load go-mode
+(require 'go-mode)
+
+;;; Once go-mode is loaded, we can bind the go-gopath function to the
+;;; go-map-mode exclusively, rather than making it a useless global
+;;; binding. Note that if this comes before the above (require
+;;; 'go-mode), it will have no effect.
+;; (define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
+
 (require 'go-autocomplete)
 
+(require 'flycheck-gometalinter)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup))
+
 (setq gofmt-command "goimports")
-(require 'go-mode)
 (add-hook 'before-save-hook 'gofmt-before-save)
-(require 'golint)
 (require 'go-projectile)
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
@@ -17,16 +31,10 @@
 ;; (add-to-list 'load-path "folder-in-which-go-dlv-files-are-in/")
 (require 'go-dlv)
 
-
 ;;; Fix for https://github.com/syl20bnr/spacemacs/issues/2495.
 (setq flycheck-check-syntax-automatically '(new-line save))
 
 (require 'go-direx)
-
-(require 'govet)
-
-(require 'go-gopath)
-(define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
 
 (require 'go-complete)
 (add-hook 'completion-at-point-functions 'go-complete-at-point)

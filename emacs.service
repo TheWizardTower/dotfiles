@@ -5,6 +5,7 @@ Description=Emacs Daemon
 Type=forking
 ExecStart=/usr/bin/emacs --daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+EnvironmentFile=/home/amccullough/dotfiles/emacs.env
 Restart=always
 
 [Install]
