@@ -101,3 +101,14 @@
 (require 'alert)
 
 (require 'blank-mode)
+
+(require 'indent-guide)
+
+(indent-guide-global-mode)
+
+(require 'aggressive-fill-pagagraph)
+
+(afp-setup-recommended-hooks)
+
+(require 'insert-shebang)
+(add-hook 'find-file-hook 'insert-shebang)
