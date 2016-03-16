@@ -417,7 +417,8 @@ myStartupHook = do
           spawnOnce "pidgin &"
           spawnOnce "yakuake &"
           spawnOnce "xscreensaver -nosplash &"
-          spawnOnce "xcompmgr -c"
+          spawnOnce "xcompmgr -c &"
+          spawnOnce "systemctl --user start emacs"
 
 kdeOverride :: Query Bool
 kdeOverride = ask >>= \w -> liftX $ do
