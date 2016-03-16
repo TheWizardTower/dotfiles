@@ -47,5 +47,5 @@
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
           -  ["bash insatllCask.sh", "Installing/Updating Cask."]
-          -  ["~/.cask/bin/cask install --path ~/.emacs.d/", "Install Cask Packages for Emacs."]
+          -  ["bash -c 'cd ~/.emacs.d; ~/.cask/bin/cask install", "Install Emacs Packages."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
