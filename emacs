@@ -40,12 +40,13 @@
 (require 'airline-themes)
 (load-theme 'airline-serene)
 
+(global-relative-line-numbers-mode)
+
 ;;; Set the color of the cursor depending on the evil mode you're in.
 (setq evil-normal-state-cursor '(box "red"))
 (setq evil-visual-state-cursor '(box "blue"))
 (setq evil-motion-state-cursor '(box "green"))
 (setq evil-emacs-state-cursor '(box "white"))
-
 
 (setq airline-utf-glyph-separator-left      #xe0b0
       airline-utf-glyph-separator-right     #xe0b2
