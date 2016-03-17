@@ -10,4 +10,4 @@
   ("h" hydra-move-splitter-left)
   ("j" hydra-move-splitter-down)
   ("k" hydra-move-splitter-up)
-  ("l" hydra-move-splitter-right)))
+  ("l" hydra-move-splitter-right))
