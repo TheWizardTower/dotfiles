@@ -4,10 +4,10 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
- "g" 'evil-execute-in-god-state
- "f" 'helm-find-files
- "5" 'make-frame-command
- )
+  "5" 'make-frame-command
+  "f" 'helm-find-files
+  "g" 'evil-execute-in-god-state
+  "x" 'helm-M-x)
 
 (evil-define-key 'god global-map [escape] 'evil-god-state-bail)
 
