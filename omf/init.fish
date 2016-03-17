@@ -1,4 +1,4 @@
-set -gx GOPATH $HOME/gocode/:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:/usr/lib/go
+set -gx GOPATH $HOME/gocode/:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:/usr/lib/go
 
 set -g OMF_PATH $HOME/.local/share/omf
 set -g OMF_CONFIG $HOME/.config/omf
