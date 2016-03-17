@@ -14,9 +14,6 @@
 (global-unset-key (kbd "C-x i"))
 (global-set-key (kbd "C-x i") 'align-regexp)
 
-(global-unset-key (kbd "C-x o"))
-(global-set-key (kbd "C-x o") 'ace-window)
-
 (require 'direx)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 

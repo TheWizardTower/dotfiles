@@ -65,28 +65,6 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 
-;;; Perhaps consider moving the ace-* config lines
-;;; to their own file.
-(require 'ace-isearch)
-(global-ace-isearch-mode +1)
-
-(require 'ace-jump-buffer)
-
-(require 'ace-jump-helm-line)
-(eval-after-load "helm"
-  '(define-key helm-map (kbd "C-'") 'ace-jump-helm-line))
-
-(autoload
-  'ace-jump-mode-pop-mark
-  "ace-jump-mode"
-  "Ace jump back:-)"
-  t)
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode-pop-mark)
-
-(put 'set-goal-column 'disabled nil)
-
 ;;; Stolen from http://efod.se/writings/linuxbook/html/date-and-time.html
 (setq display-time-24hr-format t)
 ;; (setq display-time-day-and-date t)
