@@ -1,3 +1,6 @@
+;;; The flames make it go faster.
+(setq gc-cons-threshold 100000000)
+
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq initial-buffer-choice t)
