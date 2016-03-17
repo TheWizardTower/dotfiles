@@ -12,6 +12,7 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
+(setq flycheck-idle-change-delay 0.2)
 
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
