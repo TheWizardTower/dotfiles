@@ -7,6 +7,7 @@
   "5" 'make-frame-command
   "f" 'helm-find-files
   "g" 'evil-execute-in-god-state
+  "G" 'magit-status
   "x" 'helm-M-x)
 
 (evil-define-key 'god global-map [escape] 'evil-god-state-bail)
