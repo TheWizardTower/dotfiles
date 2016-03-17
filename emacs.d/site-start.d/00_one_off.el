@@ -1,12 +1,5 @@
 (setq-default major-mode 'org-mode)
 
-;(require 'linum-relative)
-;'(global-linum-mode 1)
-;(setq linum-relative-current-symbol "")
-
-(require 'linum)
-(global-linum-mode)
-
 (setq comment-auto-fill-only-comments t)
 
 (require 'dired+)
@@ -83,10 +76,6 @@
 (require 'indent-guide)
 
 (indent-guide-global-mode)
-
-(require 'aggressive-fill-pagagraph)
-
-(afp-setup-recommended-hooks)
 
 (require 'insert-shebang)
 (add-hook 'find-file-hook 'insert-shebang)
