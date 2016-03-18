@@ -44,3 +44,12 @@ fish/fishd.*
 
 
 .stack-work
+
+tags
+emacs.d/commands
+emacs.d/ede-projects.el
+emacs.d/request/
+emacs.d/semanticdb/
+emacs.d/smex-items
+emacs.d/srecode-map.el
+emacs.d/vimish-fold/
