@@ -34,6 +34,14 @@ file { '.config':
   group  => 'amccullough',
 }
 
+exec { 'clone-powerline-fonts':
+  cwd     => '/home/amccullough',
+  command => '/bin/git clone https://github.com/powerline/fonts.git',
+  user    => 'amccullough',
+  require => [ File['git-project-dir'], Package['git'] ],
+  onlyif  => '/bin/test ! -d /home/amccullough/git/fonts'
+}
+
 file { 'git-project-dir':
   ensure => 'directory',
   path   => '/home/amccullough/git',
