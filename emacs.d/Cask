@@ -195,6 +195,7 @@
 (depends-on "idomenu")
 (depends-on "indent-guide")
 (depends-on "init-loader")
+(depends-on "insert-shebang")
 (depends-on "irony")
 (depends-on "ledger-mode")
 (depends-on "linum-relative")
