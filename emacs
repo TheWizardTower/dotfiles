@@ -55,3 +55,8 @@
       airline-utf-glyph-branch              #xe0a0
       airline-utf-glyph-readonly            #xe0a2
       airline-utf-glyph-linenumber          #xe0a1)
+
+
+
+(require 'winring)
+(winring-initialize)
