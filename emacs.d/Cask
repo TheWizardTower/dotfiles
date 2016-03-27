@@ -85,6 +85,7 @@
 (depends-on "emamux")
 (depends-on "epl")
 (depends-on "erefactor")
+(depends-on "ergoemacs-status")
 (depends-on "ertx")
 (depends-on "eshell-git-prompt")
 (depends-on "eshell-prompt-extras")
