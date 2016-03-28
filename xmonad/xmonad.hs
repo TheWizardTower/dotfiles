@@ -133,7 +133,7 @@ import           XMonad.Prompt                       (Direction1D (..),
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     -- Styles
 myFont          = "-artwiz-snap-normal-*-normal-*-10-*-*-*-*-*-*-*"
-myBorderWidth   = 1
+myBorderWidth   = 0
 myColorBG       = "#151515"
 myColorWhite    = "#ebebeb"
 myColorRed      = "#C3143B"
