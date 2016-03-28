@@ -15,17 +15,23 @@
 ;;; 'go-mode), it will have no effect.
 ;; (define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
 
-(require 'go-autocomplete)
+;; (require 'go-autocomplete)
+
+(require 'company-go)
 
 (require 'flycheck-gometalinter)
 (eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup))
+  '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup)
+  '(setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo")))
 
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
+
 (require 'go-projectile)
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+
+
 ;; Pretty sure they are already in the path. But leaving this
 ;; as a reminder.
 ;; (add-to-list 'load-path "folder-in-which-go-dlv-files-are-in/")
@@ -36,8 +42,8 @@
 
 (require 'go-direx)
 
-(require 'go-complete)
-(add-hook 'completion-at-point-functions 'go-complete-at-point)
+;; (require 'go-complete)
+;; (add-hook 'completion-at-point-functions 'go-complete-at-point)
 
 (require 'rats)
 ;;; Keeping this handy in case I need it for one of my modes.
@@ -47,4 +53,3 @@
 ;;   (when buffer-file-name
 ;;     (setq-local company-backends '(company-go))))
 
-;; (add-hook 'go-mode-hook #'my-go-hook)
