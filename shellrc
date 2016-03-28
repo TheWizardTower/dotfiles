@@ -1,6 +1,6 @@
 # vim: filetype=sh
 
-export EDITOR="vim"
+export EDITOR="emacsclient -c"
 export TERM="screen-256color"
 export GOPATH="$HOME/gocode:$HOME/code/golang:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:$GOPATH"
 export PERL5LIB="$HOME/imvu/operations/software/ImvuPerlModules"

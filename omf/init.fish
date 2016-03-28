@@ -22,7 +22,7 @@ function start_agent
         echo "succeeded"
         chmod 600 $SSH_ENV
         . $SSH_ENV
-        ssh-add ~/.ssh/amccullough-corp-20150911 ~/.ssh/amccullough-prod-20150910
+        ssh-add ~/.ssh/amccullough-corp-20150911 ~/.ssh/amccullough-prod-20150910 ~/.ssh/github
         ln -sf $SSH_AUTH_SOCK $SSH_SOCK_LINK
 end
 

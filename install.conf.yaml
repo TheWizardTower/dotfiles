@@ -22,8 +22,8 @@
             ~/.config/systemd/user/emacs.service:
               path: "emacs.service"
               force: true
-            ~/.config/fisherman/conf.d:
-              path: "omf/"
+            ~/.config/fisherman/conf.d/init.fish:
+              path: "omf/init.fish"
               force: true
             ~/.gitconfig: "gitconfig"
             ~/.stylish-haskell.yaml: "stylish-haskell.yaml"
