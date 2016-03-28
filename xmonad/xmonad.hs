@@ -418,6 +418,7 @@ myStartupHook = do
           spawnOnce "yakuake &"
           spawnOnce "xscreensaver -nosplash &"
           spawnOnce "xcompmgr -c &"
+          spawnOnce "redshift -l manual &"
           spawnOnce "systemctl --user start emacs"
 
 kdeOverride :: Query Bool
