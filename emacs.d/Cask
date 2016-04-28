@@ -273,6 +273,7 @@
 (depends-on "visual-regexp-steroids")
 (depends-on "vline")
 (depends-on "warm-night-theme")
+(depends-on "which-key")
 (depends-on "window-layout")
 (depends-on "winring")
 (depends-on "with-editor")
