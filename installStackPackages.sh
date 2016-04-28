@@ -7,5 +7,5 @@ stack install HaRe
 stack install hasktags
 stack install hlint
 stack install hoogle
-stack install shellcheck
+stack install ShellCheck
 stack install stylish-haskell
