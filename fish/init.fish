@@ -1,8 +1,5 @@
 set -gx GOPATH $HOME/gocode/:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:/usr/lib/go
 
-set -g OMF_PATH $HOME/.local/share/omf
-set -g OMF_CONFIG $HOME/.config/omf
-
 function fish_title
         true
 end
@@ -56,3 +53,8 @@ end
 set REPOS "svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
 
 alias sandbox="su -c  'ssh -A -L 80:localhost:80 -L 443:localhost:443 -L 11211:localhost:11211 -L 3306:localhost:3306 cit@192.168.112.13'"
+
+set -gx ENHANCD_FILTER fzf
+
+source ~/.enhancd/fish/enhancd.fish
+alias cd cd::cd
