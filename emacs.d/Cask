@@ -54,6 +54,7 @@
 (depends-on "company-math")
 (depends-on "company-quickhelp")
 (depends-on "company-shell")
+(depends-on "company-statistics")
 (depends-on "company-try-hard")
 (depends-on "config-block")
 (depends-on "counsel")

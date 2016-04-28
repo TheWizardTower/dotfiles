@@ -3,6 +3,9 @@
 
 (company-quickhelp-mode 1)
 
+(require 'company-statistics)
+(company-statistics-mode)
+
 (eval-after-load 'company
   '(progn
      (define-key company-mode-map (kbd "C-:") 'helm-company)
