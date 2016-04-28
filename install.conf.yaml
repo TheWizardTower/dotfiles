@@ -12,6 +12,9 @@
             ~/.bashrc:
               path: "bashrc"
               force: true
+            ~/.cask:
+              path: "cask"
+              force: true
             ~/.cvsignore: "cvsignore"
             ~/.emacs:
               path: "emacs"
@@ -51,7 +54,7 @@
         - shell:
           -  ["fish -c 'fisher update' ||  curl -L install.fisherman.sh | fish", "Downloading oh-my-fish."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
-          -  ["bash installCabalPackages.sh", "Installing Cabal Packages."]
-          -  ["bash insatllCask.sh", "Installing/Updating Cask."]
+          -  ["bash installStackPackages.sh", "Installing Cabal Packages."]
+          -  ["~/.cask/bin/cask upgrade-cask", "Updating Cask."]
           -  ["bash -c 'cd ~/.emacs.d; ~/.cask/bin/cask install", "Install Emacs Packages."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
