@@ -2,13 +2,16 @@
 (eval-after-load 'flycheck '(require 'flycheck-hdevtools))
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
+(add-to-list 'load-path "~/git/HaRe/elisp/")
+(require 'hare)
+
 (defadvice haskell-mode-stylish-buffer (around skip-if-flycheck-errors activate)
   (unless (flycheck-has-current-errors-p 'error)
     ad-do-it))
 
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(add-hook 'haskell-mode-hook (lambda () (ghc-init) (hare-init)))
 
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
@@ -34,10 +37,6 @@
 (require 'ebal)
 (setq ebal-operation-mode 'stack)
 
-
-(add-to-list 'load-path "~/git/HaRe/elisp/")
-(require 'hare)
-(autoload 'hare-init "hare" nil t)
 
 (require 'hindent)
 (add-hook 'haskell-mode-hook #'hindent-mode)
