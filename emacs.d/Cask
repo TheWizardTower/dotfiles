@@ -187,6 +187,7 @@
 (depends-on "helm-swoop")
 (depends-on "help+")
 (depends-on "highlight")
+(depends-on "hindent")
 (depends-on "hl-line+")
 (depends-on "hl-spotlight")
 (depends-on "hydra")
