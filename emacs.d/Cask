@@ -11,8 +11,6 @@
 (depends-on "ace-window")
 (depends-on "ack-menu")
 (depends-on "ag")
-(depends-on "aggressive-fill-paragraph")
-(depends-on "aggressive-indent")
 (depends-on "airline-themes")
 (depends-on "anzu")
 (depends-on "async")

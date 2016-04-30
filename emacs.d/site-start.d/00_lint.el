@@ -23,6 +23,3 @@
 (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
 
 (require 'ace-flyspell)
-
-(require 'aggressive-indent)
-(global-aggressive-indent-mode 1)
