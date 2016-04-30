@@ -75,7 +75,6 @@
 (depends-on "emamux")
 (depends-on "epl")
 (depends-on "erefactor")
-(depends-on "ergoemacs-status")
 (depends-on "ertx")
 (depends-on "esk")
 (depends-on "evil")

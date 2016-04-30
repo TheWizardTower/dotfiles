@@ -5,5 +5,5 @@
 (require 'symon)
 (symon-mode)
 
-(require 'ergoemacs-status)
-(ergoemacs-status-mode)
+;; (require 'ergoemacs-status)
+;; (ergoemacs-status-mode)
