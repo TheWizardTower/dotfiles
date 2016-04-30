@@ -35,7 +35,7 @@
 (setq ebal-operation-mode 'stack)
 
 
-(add-to-load-path "~/git/HaRe/elisp/")
+(add-to-list 'load-path "~/git/HaRe/elisp/")
 (require 'hare)
 (autoload 'hare-init "hare" nil t)
 
