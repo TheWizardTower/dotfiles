@@ -14,10 +14,6 @@
 (global-unset-key (kbd "C-x i"))
 (global-set-key (kbd "C-x i") 'align-regexp)
 
-(require 'direx)
-(global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
-
-
 (require 'visual-regexp-steroids)
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)

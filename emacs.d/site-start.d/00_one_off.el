@@ -1,5 +1,3 @@
-(require 'dired+)
-
 ;;; Stolen from http://efod.se/writings/linuxbook/html/date-and-time.html
 (setq display-time-24hr-format t)
 ;; (setq display-time-day-and-date t)
