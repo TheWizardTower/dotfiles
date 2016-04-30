@@ -6,6 +6,7 @@
 (setq initial-buffer-choice t)
 
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
