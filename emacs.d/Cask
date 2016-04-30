@@ -73,6 +73,7 @@
 (depends-on "dired-ranger")
 (depends-on "direx")
 (depends-on "discover")
+(depends-on "discover-my-major")
 (depends-on "docker")
 (depends-on "docker-tramp")
 (depends-on "dockerfile-mode")
