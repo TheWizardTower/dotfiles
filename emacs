@@ -20,7 +20,6 @@
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("bashrc" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
-(add-to-list 'auto-mode-alist '("cfagent.*conf$" . cfengine2-mode))
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
