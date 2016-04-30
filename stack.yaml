@@ -11,6 +11,8 @@ extra-package-dbs: []
 packages: []
 extra-deps:
     - atto-lisp-0.2.2.1
+    - base-orphans-0.5.4
+    - bifunctors-5.3
     - cabal-helper-0.6.3.0
     - conceit-0.4.0.0
     - ghc-7.10.2
@@ -24,6 +26,7 @@ extra-deps:
     - ShellCheck-0.4.1
     - Strafunski-StrategyLib-5.0.0.8
     - syz-0.2.0.0
+    - transformers-compat-0.5.1.4
     - xmonad-0.11.1
     - xmonad-contrib-0.11.4
     - X11-xft-0.3.1

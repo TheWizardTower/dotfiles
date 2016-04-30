@@ -33,3 +33,11 @@
 
 (require 'ebal)
 (setq ebal-operation-mode 'stack)
+
+
+(add-to-load-path "~/git/HaRe/elisp/")
+(require 'hare)
+(autoload 'hare-init "hare" nil t)
+
+(require 'hindent)
+(add-hook 'haskell-mode-hook #'hindent-mode)
