@@ -1,3 +1,7 @@
+set -gx EDITOR "emacsclient -c"
+set -gx TERM "screen-256color"
+set -gx PERL5LIB "$HOME/imvu/operations/software/ImvuPerlModules"
+set -gx PATH $HOME/bin $HOME/.local/bin $HOME/.cask/bin $HOME/gocode/bin $PATH
 set -gx GOPATH $HOME/gocode/:$HOME/imvu/operations/golang/imvu:$HOME/imvu/operations/golang/external:/usr/lib/go
 
 function fish_title
