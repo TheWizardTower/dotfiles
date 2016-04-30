@@ -27,3 +27,6 @@
 
 (require 'ace-popup-menu)
 (ace-popup-menu-mode 1)
+
+(require 'golden-ratio)
+(golden-ratio-mode)
