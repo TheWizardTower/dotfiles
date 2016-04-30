@@ -127,3 +127,4 @@ function myfix {
 alias ia=imvuasset.pl
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"

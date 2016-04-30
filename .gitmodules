@@ -10,3 +10,6 @@
 [submodule "enhancd"]
 	path = enhancd
 	url = https://github.com/b4b4r07/enhancd.git
+[submodule "marker"]
+	path = marker
+	url = https://github.com/pindexis/marker.git
