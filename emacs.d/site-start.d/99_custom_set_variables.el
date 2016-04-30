@@ -9,7 +9,7 @@
  '(company-ghc-show-info t)
  '(custom-safe-themes
    (quote
-    ("9864c2e956c25b3098fbc935ba0969e333dd74ecd7a1013c8dd39a6c171e1cca" default)))
+    ("18a33cdb764e4baf99b23dcd5abdbf1249670d412c6d3a8092ae1a7b211613d5" "9864c2e956c25b3098fbc935ba0969e333dd74ecd7a1013c8dd39a6c171e1cca" default)))
  '(ecb-options-version "2.40"))
 '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
 '(haskell-process-suggest-remove-import-lines t)
