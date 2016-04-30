@@ -21,8 +21,9 @@
 
 (require 'flycheck-gometalinter)
 (eval-after-load 'flycheck
+  (progn
   '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup)
-  '(setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo")))
+  '(setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo"))))
 
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
