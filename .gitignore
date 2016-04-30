@@ -42,6 +42,7 @@ emacs.d/scratch.el
 emacs.d/tramp
 fish/fishd.*
 
+company-statistics-cache.el
 
 .stack-work
 
