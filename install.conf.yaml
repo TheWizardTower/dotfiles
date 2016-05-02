@@ -46,6 +46,7 @@
             ~/.tmux.conf: "tmux.conf"
             ~/vim_local: "vim_local/"
             ~/.vimrc: "vimrc"
+            ~/.Xmodmap: "Xmodmap"
             ~/.xmobarrc: "xmobarrc"
             ~/.xmonad: "xmonad/"
             ~/.xsession: "xsession"
