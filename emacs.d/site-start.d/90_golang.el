@@ -8,6 +8,7 @@
 
 ;;; Now load go-mode
 (require 'go-mode)
+(add-hook 'go-mode-hook (load-library (expand-file-name "~/gocode/src/golang.org/x/tools/cmd/oracle/oracle.el")))
 
 ;;; Once go-mode is loaded, we can bind the go-gopath function to the
 ;;; go-map-mode exclusively, rather than making it a useless global
