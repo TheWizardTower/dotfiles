@@ -8,9 +8,6 @@
 
 (require 'browse-kill-ring+)
 
-(require 'undo-tree)
-(global-undo-tree-mode)
-
 ;; Stolen from Sacha Chua.
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-diff t)
