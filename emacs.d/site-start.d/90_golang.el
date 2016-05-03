@@ -18,6 +18,8 @@
 ;; (require 'go-autocomplete)
 
 (require 'company-go)
+(setq company-go-show-annotation t)
+(push 'company-go company-backends)
 
 (require 'flycheck-gometalinter)
 (eval-after-load 'flycheck

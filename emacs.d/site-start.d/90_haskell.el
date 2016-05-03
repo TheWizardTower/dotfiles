@@ -4,6 +4,7 @@
 
 (add-to-list 'load-path "~/git/HaRe/elisp/")
 (require 'hare)
+(require 'flycheck-stack)
 
 (defadvice haskell-mode-stylish-buffer (around skip-if-flycheck-errors activate)
   (unless (flycheck-has-current-errors-p 'error)

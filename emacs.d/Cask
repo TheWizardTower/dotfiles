@@ -109,6 +109,7 @@
 (depends-on "flycheck-hdevtools")
 (depends-on "flycheck-ledger")
 (depends-on "flycheck-pos-tip")
+(depends-on "flycheck-stack")
 (depends-on "flyspell-popup")
 (depends-on "fold-this")
 (depends-on "fzf")
