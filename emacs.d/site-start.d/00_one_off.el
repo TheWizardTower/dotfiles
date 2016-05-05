@@ -8,10 +8,6 @@
 
 (require 'browse-kill-ring+)
 
-;; Stolen from Sacha Chua.
-(setq undo-tree-visualizer-timestamps t)
-(setq undo-tree-visualizer-diff t)
-
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
 (setq-default indent-tabs-mode nil)
