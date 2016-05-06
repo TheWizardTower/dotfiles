@@ -29,7 +29,7 @@
 (global-set-key (kbd "C-c h C-c w") 'helm-wikipedia-suggest)
 
 (global-set-key (kbd "C-c h x") 'helm-register)
-;; (global-set-key (kbd "C-x r j") 'jump-to-register)
+(global-set-key (kbd "C-x r j") 'jump-to-register)
 
 (define-key 'help-command (kbd "C-f") 'helm-apropos)
 (define-key 'help-command (kbd "r") 'helm-info-emacs)
