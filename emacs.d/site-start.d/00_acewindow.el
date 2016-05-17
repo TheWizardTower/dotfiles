@@ -18,12 +18,8 @@
 
 (put 'set-goal-column 'disabled nil)
 
-
-
-
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x o") 'ace-window)
-
 
 (require 'ace-popup-menu)
 (ace-popup-menu-mode 1)
