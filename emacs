@@ -12,6 +12,7 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+(require 'benchmark-init)
 
 (require 'caskxy)
 
