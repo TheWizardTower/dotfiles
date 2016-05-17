@@ -1,12 +1,17 @@
 ;;; The flames make it go faster.
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
 
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq initial-buffer-choice t)
+
+(setq-default
+ inhibit-splash-screen t
+ indicate-empty-lines t
+ inhibit-startup-message t
+ initial-buffer-choice t)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(fringe-mode '(10 . 10))
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
