@@ -84,8 +84,9 @@
 
 (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
 
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+(require 'helm-helm-commands)
+
+(global-set-key (kbd "C-c h h c") 'helm-helm-commands)
 
 (helm-mode 1)
 (eval-after-load 'flycheck
