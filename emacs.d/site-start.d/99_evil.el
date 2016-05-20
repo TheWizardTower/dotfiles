@@ -2,13 +2,16 @@
 
 (require 'evil-leader)
 (global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
+(evil-leader/set-leader ",")
 (evil-leader/set-key
   "5" 'make-frame-command
   "f" 'helm-find-files
   "g" 'evil-execute-in-god-state
   "G" 'magit-status
   "x" 'helm-M-x)
+
+(require 'evil-space)
+(evil-space-mode)
 
 (evil-define-key 'god global-map [escape] 'evil-god-state-bail)
 
