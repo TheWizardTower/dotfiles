@@ -31,7 +31,7 @@
             ~/.config/fisherman/conf.d/bundle:
               path: "fish/bundle"
               force: true
-            ~/.config/fisherman/conf.d/init.fish:
+            ~/.config/fish/conf.d/init.fish:
               path: "fish/init.fish"
               force: true
             ~/.gitconfig: "gitconfig"
