@@ -26,6 +26,7 @@ stack install hasktags
 stack install hindent
 stack install hlint
 stack install hoogle
+stack install intero
 stack install present
 stack install ShellCheck
 stack install stylish-haskell
