@@ -16,3 +16,8 @@
 (show-paren-mode 1)
 
 (magic-filetype-enable-vim-filetype)
+
+
+(require 'judge-indent)
+(global-judge-indent-mode 1)
+(setq judge-indent-major-modes '(c-mode python-mode sh-mode))

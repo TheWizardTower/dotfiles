@@ -191,6 +191,7 @@
 (depends-on "intero")
 (depends-on "iregister")
 (depends-on "irony")
+(depends-on "judge-indent")
 (depends-on "ledger-mode")
 (depends-on "linum-relative")
 (depends-on "list-utils")
