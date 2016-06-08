@@ -12,6 +12,7 @@
 (depends-on "ack-menu")
 (depends-on "ag")
 (depends-on "airline-themes")
+(depends-on "annotate-depth")
 (depends-on "anzu")
 (depends-on "async")
 (depends-on "auto-yasnippet")
