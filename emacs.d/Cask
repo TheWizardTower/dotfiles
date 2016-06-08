@@ -204,6 +204,7 @@
 (depends-on "magit-popup")
 (depends-on "magit-svn")
 (depends-on "magit-tramp")
+(depends-on "mark")
 (depends-on "markdown-mode")
 (depends-on "markdown-mode+")
 (depends-on "math-symbol-lists")
