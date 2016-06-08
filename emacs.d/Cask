@@ -16,6 +16,7 @@
 (depends-on "async")
 (depends-on "auto-yasnippet")
 (depends-on "avy")
+(depends-on "bash-completion")
 (depends-on "benchmark-init")
 (depends-on "bm")
 (depends-on "bookmark+")
