@@ -10,6 +10,10 @@
   (unless (flycheck-has-current-errors-p 'error)
     ad-do-it))
 
+
+(require 'intero)
+(add-hook 'haskell-mode-hook 'intero-mode)
+
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook (lambda () (ghc-init) (hare-init)))
