@@ -249,6 +249,7 @@
 (depends-on "rw-ispell")
 (depends-on "s")
 (depends-on "sane-term")
+(depends-on "scratch-ext")
 (depends-on "scratch-persist")
 (depends-on "seq")
 (depends-on "shut-up")
