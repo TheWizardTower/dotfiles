@@ -189,6 +189,7 @@
 (depends-on "init-loader")
 (depends-on "insert-shebang")
 (depends-on "intero")
+(depends-on "iregister")
 (depends-on "irony")
 (depends-on "ledger-mode")
 (depends-on "linum-relative")
