@@ -114,7 +114,7 @@
 (depends-on "flycheck-stack")
 (depends-on "flylisp")
 (depends-on "flymd")
-(depends-on "flyspell-popup")
+(depends-on "flyspell-correct-helm")
 (depends-on "fold-this")
 (depends-on "fzf")
 (depends-on "ggtags")

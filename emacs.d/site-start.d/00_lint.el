@@ -19,7 +19,6 @@
 ;;; Flyspell mode. Spellchecking.
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-(add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
+(setq flyspell-correct-interface 'flyspell-correct-helm)
 
 (require 'ace-flyspell)
