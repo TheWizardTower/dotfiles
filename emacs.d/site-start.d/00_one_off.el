@@ -14,3 +14,5 @@
 
 ;; Highlight matching parenthesis.
 (show-paren-mode 1)
+
+(magic-filetype-enable-vim-filetype)

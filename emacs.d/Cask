@@ -189,6 +189,7 @@
 (depends-on "linum-relative")
 (depends-on "list-utils")
 (depends-on "lively")
+(depends-on "magic-filetype")
 (depends-on "magit")
 (depends-on "magit-filenotify")
 (depends-on "magit-find-file")
