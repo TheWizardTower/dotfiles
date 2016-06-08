@@ -3,6 +3,5 @@
 
 (require 'dired+)
 
-(require 'ranger)
-(setq ranger-override-dired t)
-
+(require 'dired-quick-sort)
+(dired-quick-sort-setup)
