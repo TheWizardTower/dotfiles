@@ -54,6 +54,7 @@
 (depends-on "cperl-mode")
 (depends-on "crontab-mode")
 (depends-on "cus-edit+")
+(depends-on "cycle-quotes")
 (depends-on "dash")
 (depends-on "decide")
 (depends-on "deferred")
