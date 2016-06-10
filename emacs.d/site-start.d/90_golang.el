@@ -16,8 +16,6 @@
 ;;; 'go-mode), it will have no effect.
 ;; (define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
 
-;; (require 'go-autocomplete)
-
 (require 'company-go)
 (setq company-go-show-annotation t)
 (push 'company-go company-backends)
@@ -28,7 +26,9 @@
   '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup)
   '(setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo"))))
 
-(setq gofmt-command "goimports")
+;; This tends to crap out when using home libraries not in $GOROOT. Turns out
+;; $GOPATH doesn't play nice with many linters.
+;; (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 (require 'go-projectile)

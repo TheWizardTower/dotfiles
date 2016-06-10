@@ -22,6 +22,3 @@
 (setq flyspell-correct-interface 'flyspell-correct-helm)
 
 (require 'ace-flyspell)
-
-(require 'annotate-depth)
-(add-hook 'prog-mode-hook 'annotate-depth-mode)
