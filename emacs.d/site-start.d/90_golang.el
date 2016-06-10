@@ -4,7 +4,7 @@
 
 ;;; This has to come first, so that $GOPATH is properly set up before
 ;;; anything else golang-related has a chance to get confused.
-;; (require 'go-gopath)
+(require 'go-gopath)
 
 ;;; Now load go-mode
 (require 'go-mode)
@@ -14,7 +14,7 @@
 ;;; go-map-mode exclusively, rather than making it a useless global
 ;;; binding. Note that if this comes before the above (require
 ;;; 'go-mode), it will have no effect.
-;; (define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
+(define-key go-mode-map (kbd "C-c C-e") #'go-gopath-set-gopath)
 
 (require 'company-go)
 (setq company-go-show-annotation t)
