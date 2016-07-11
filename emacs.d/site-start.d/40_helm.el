@@ -22,7 +22,12 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h o") 'helm-occur)
+
+
+
+(global-unset-key (kbd "C-s"))
+(global-set-key (kbd "C-s") 'helm-occur)
+
 (global-set-key (kbd "C-c a") 'helm-ag)
 (global-set-key (kbd "C-c A") 'ack-menu)
 
