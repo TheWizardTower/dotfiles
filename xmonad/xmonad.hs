@@ -79,6 +79,7 @@ import           XMonad.Layout.BoringWindows         (boringWindows)
 import           XMonad.Layout.LimitWindows          (decreaseLimit,
                                                       increaseLimit,
                                                       limitWindows)
+import           XMonad.Layout.Magnifier
 import           XMonad.Layout.Maximize
 import           XMonad.Layout.Minimize
 import           XMonad.Layout.MultiToggle           (EOT (EOT), Toggle (..),
@@ -217,21 +218,15 @@ myKeys =
         , ("M-<Space>",         sendMessage NextLayout)
         , ("M-S-f",             sendMessage (T.Toggle "float"))
         , ("M-S-g",             sendMessage (T.Toggle "gimp"))
-        , ("M-S-x",             sendMessage $ Toggle REFLECTX)
-        , ("M-S-y",             sendMessage $ Toggle REFLECTY)
-        , ("M-S-m",             sendMessage $ Toggle MIRROR)
-        , ("M-S-b",             sendMessage $ Toggle NOBORDERS)
-        , ("M-S-d",             sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+        , ("M-S-x",             sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTX)
+        , ("M-S-y",             sendMessage $ XMonad.Layout.MultiToggle.Toggle REFLECTY)
+        , ("M-S-m",             sendMessage $ XMonad.Layout.MultiToggle.Toggle MIRROR)
+        , ("M-S-b",             sendMessage $ XMonad.Layout.MultiToggle.Toggle NOBORDERS)
+        , ("M-S-d",             sendMessage (XMonad.Layout.MultiToggle.Toggle NBFULL) >> sendMessage ToggleStruts)
+        , ("M-m",               sendMessage $ XMonad.Layout.Magnifier.Toggle)
+        , ("M--",               sendMessage $ XMonad.Layout.Magnifier.MagnifyLess)
+        , ("M-S-=",               sendMessage $ XMonad.Layout.Magnifier.MagnifyMore)
 
-    -- Workspaces
-        , ("M-w",               nextScreen)
-        , ("M-e",               prevScreen)
-        , ("M-S-w",             shiftNextScreen)
-        , ("M-S-e",             shiftPrevScreen)
-
-    -- Modal Bindings
-        ,  ("M-u",   submap . mkKeymap myXConfig $
-          [("c", spawn "krunner")
          , ("M-<Return>",    spawn "emacs --debug-init")
          , ("<Backspace>",   spawn "xscreensaver-command -lock")
          , ("s", windows W.swapMaster)
@@ -239,7 +234,6 @@ myKeys =
           , ("l", submap .  mkKeymap myXConfig $
                   [  ("1", sendMessage $ JumpToLayout "Full")
                   ,  ("2", sendMessage $ JumpToLayout "OneBig")
-                  ,  ("3", sendMessage $ JumpToLayout "Grid")
                   ,  ("4", sendMessage $ JumpToLayout "Tiled")
                   ,  ("5", sendMessage $ JumpToLayout "Column1.6")
                   ,  ("6", sendMessage $ JumpToLayout "Accordion")
@@ -259,7 +253,6 @@ myKeys =
         , ("M-S-<Return>",      spawn "emacsclient -c")
         , ("M-c",               spawn "exe=`dmenu_run -nb '#151515' -nf '#545454' -sb '#C3143B' -sf '#ebebeb' -p 'run:' -i` && eval \"exec $exe\"")
         , ("M-f",               raiseMaybe (runInTerm "-name ranger" "ranger") (resource =? "ranger"))
-        , ("M-m",               raiseMaybe (runInTerm "-name mutt" "mutt") (resource =? "mutt"))
         , ("M-v",               raiseMaybe (runInTerm "-name irssi" "irssi") (resource =? "irssi"))
         , ("M-o",               raiseMaybe (runInTerm "-name htop" "htop") (resource =? "htop") >> warpToWindow (1/2) (1/2))
         , ("M-C-f",             runOrCopy "dolphin" (resource =? "dolphin"))
@@ -346,9 +339,8 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---LAYOUTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-mainLayout = avoidStruts $ rename "MirrorThree" (Mirror three)
+mainLayout = avoidStruts $ magnifier $ rename "MirrorThree" (Mirror three)
              ||| rename "MirrorTiled" ( Mirror tiled)
-             ||| rename "Grid" (Grid)
              ||| rename "Accordion" (Accordion)
              ||| rename "Column1.6" (Column 1.6)
              ||| rename "OneBig" (OneBig (3/4) (3/4))
