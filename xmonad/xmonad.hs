@@ -225,9 +225,18 @@ myKeys =
         , ("M-S-d",             sendMessage (XMonad.Layout.MultiToggle.Toggle NBFULL) >> sendMessage ToggleStruts)
         , ("M-m",               sendMessage $ XMonad.Layout.Magnifier.Toggle)
         , ("M--",               sendMessage $ XMonad.Layout.Magnifier.MagnifyLess)
-        , ("M-S-=",               sendMessage $ XMonad.Layout.Magnifier.MagnifyMore)
+        , ("M-S-=",             sendMessage $ XMonad.Layout.Magnifier.MagnifyMore)
 
-         , ("M-<Return>",    spawn "emacs --debug-init")
+    -- Workspaces
+        , ("M-w",               nextScreen)
+        , ("M-e",               prevScreen)
+        , ("M-S-w",             shiftNextScreen)
+        , ("M-S-e",             shiftPrevScreen)
+
+    -- Modal Bindings
+        ,  ("M-u",   submap . mkKeymap myXConfig $
+           [("c", spawn "krunner")
+         , ("M-<Return>",    spawn "emacs")
          , ("<Backspace>",   spawn "xscreensaver-command -lock")
          , ("s", windows W.swapMaster)
          , ("r", spawn "xmonad --recompile && pkill dzen2 && xmonad --restart")
