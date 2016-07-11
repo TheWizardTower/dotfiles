@@ -6,7 +6,7 @@
 	url = https://github.com/anishathalye/dotbot
 [submodule "cask"]
 	path = cask
-	url = git@github.com:cask/cask.git
+	url = https://@github.com/cask/cask.git
 [submodule "enhancd"]
 	path = enhancd
 	url = https://github.com/b4b4r07/enhancd.git
