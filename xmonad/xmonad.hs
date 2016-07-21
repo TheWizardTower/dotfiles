@@ -17,6 +17,7 @@ import           Data.Maybe                          (isJust)
 import           System.Exit                         (exitSuccess)
 import           System.IO                           (hPutStrLn)
 import           XMonad                              hiding ((|||))
+import           XMonad.Actions.NoBorders
 import           XMonad.Actions.Submap
 import           XMonad.Config.Kde
 import           XMonad.ManageHook
@@ -226,6 +227,7 @@ myKeys =
         , ("M-m",               sendMessage $ XMonad.Layout.Magnifier.Toggle)
         , ("M--",               sendMessage $ XMonad.Layout.Magnifier.MagnifyLess)
         , ("M-S-=",             sendMessage $ XMonad.Layout.Magnifier.MagnifyMore)
+        , ("M-g",               withFocused toggleBorder)
 
     -- Workspaces
         , ("M-w",               nextScreen)
