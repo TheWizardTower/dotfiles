@@ -21,10 +21,8 @@
 (push 'company-go company-backends)
 
 (require 'flycheck-gometalinter)
-(eval-after-load 'flycheck
-  (progn
-  '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup)
-  '(setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo"))))
+(add-hook 'go-mode-hook 'flycheck-gometalinter-setup)
+(setq flycheck-gometalinter-disable-linters '("gotype" "gocycl"))
 
 ;; This tends to crap out when using home libraries not in $GOROOT. Turns out
 ;; $GOPATH doesn't play nice with many linters.
