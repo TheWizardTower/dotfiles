@@ -103,7 +103,3 @@
 
 (require 'evil-mc)
 (global-evil-mc-mode 1)
-
-(require 'vim-empty-lines-mode)
-(global-vim-empty-lines-mode)
-

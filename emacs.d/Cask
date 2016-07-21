@@ -268,7 +268,6 @@
 (depends-on "timp")
 (depends-on "tramp-term")
 (depends-on "undo-tree")
-(depends-on "vim-empty-lines-mode")
 (depends-on "vimish-fold")
 (depends-on "visual-regexp")
 (depends-on "visual-regexp-steroids")
