@@ -22,3 +22,7 @@
 (setq flyspell-correct-interface 'flyspell-correct-helm)
 
 (require 'ace-flyspell)
+
+(diminish 'global-flycheck-mode)
+(diminish 'flyspell-mode)
+(diminish 'flyspell-prog-mode)

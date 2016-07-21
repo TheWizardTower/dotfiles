@@ -7,6 +7,7 @@
 (load-theme 'evenhold t)
 
 (require 'browse-kill-ring+)
+(diminish 'browse-kill-ring-mode)
 
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
@@ -21,3 +22,5 @@
 (require 'judge-indent)
 (global-judge-indent-mode 1)
 (setq judge-indent-major-modes '(c-mode python-mode sh-mode))
+
+(global-visual-line-mode)

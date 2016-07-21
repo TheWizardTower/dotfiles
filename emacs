@@ -13,7 +13,6 @@
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
 
-
 (setq-default
  inhibit-splash-screen t
  indicate-empty-lines t
@@ -37,8 +36,12 @@
 (add-to-list 'auto-mode-alist '("bashrc" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 
+(require 'diminish)
+
 (require 'undo-tree)
 (global-undo-tree-mode)
+(diminish 'undo-tree-mode)
+
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
@@ -78,8 +81,6 @@
       airline-utf-glyph-branch              #xe0a0
       airline-utf-glyph-readonly            #xe0a2
       airline-utf-glyph-linenumber          #xe0a1)
-
-
 
 (require 'winring)
 (winring-initialize)

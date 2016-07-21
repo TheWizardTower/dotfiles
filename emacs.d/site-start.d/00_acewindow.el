@@ -26,3 +26,4 @@
 
 (require 'golden-ratio)
 (golden-ratio-mode)
+(diminish 'golden-ratio-mode)

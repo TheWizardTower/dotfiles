@@ -2,6 +2,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 
 (company-quickhelp-mode 1)
+(diminish 'company-mode)
 
 (require 'company-statistics)
 (company-statistics-mode)
