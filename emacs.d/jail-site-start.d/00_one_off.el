@@ -32,6 +32,7 @@
 (setq-default save-place t)
 
 (global-visual-line-mode)
+(diminish 'global-visual-line-mode)
 
 (require 'whitespace)
 (diminish 'whitespace-mode "ᗣ")

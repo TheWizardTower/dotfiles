@@ -24,3 +24,4 @@
 (setq judge-indent-major-modes '(c-mode python-mode sh-mode))
 
 (global-visual-line-mode)
+(diminish 'visual-line-minor-mode)

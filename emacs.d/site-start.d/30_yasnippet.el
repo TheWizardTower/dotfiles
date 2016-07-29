@@ -5,6 +5,8 @@
 (global-set-key (kbd "C-c y") 'helm-yas-complete)
 ;;(add-hook 'prog-mode-hook #'yas-minor-mode)
 (yas-global-mode)
+(diminish 'yas-global-mode)
+(diminish 'yas-minor-mode)
 
 (require 'auto-yasnippet)
 (global-set-key (kbd "C-c w") #'aya-create)
