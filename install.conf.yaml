@@ -4,6 +4,7 @@
             - ["mkdir -p ~/.config/systemd/user", "Config diretory for user-level systemd tasks."]
             - ["mkdir -p ~/.stack/global-project", "Config directory for Stack."]
             - ["mkdir -p ~/.config/fisherman", "Fisherman config directory."]
+            - ["mkdir -p ~/.ghc", "Haskell GHC Config directory."]
 
         - "link":
             ~/.bash_profile:
@@ -35,6 +36,7 @@
               path: "fish/init.fish"
               force: true
             ~/.gitconfig: "gitconfig"
+            ~/.ghc/ghci.conf: "ghc/ghci.conf"
             ~/.stylish-haskell.yaml: "stylish-haskell.yaml"
             ~/.shellrc: "shellrc"
             ~/.screen-bin: "screen-bin/"
