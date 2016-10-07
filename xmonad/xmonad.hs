@@ -419,9 +419,9 @@ myStartupHook = do
           spawnOnce "compton -bc -t -8 -l -9 -r 6 -o 0.7 -m 1.0 &"
           spawnOnce "pidgin &"
           spawnOnce "yakuake &"
-          spawnOnce "xscreensaver -nosplash &"
           spawnOnce "xcompmgr -c &"
           spawnOnce "redshift -l manual &"
+          spawnOnce "xmodmap ~/.Xmodmap &"
           spawnOnce "systemctl --user start emacs"
 
 kdeOverride :: Query Bool
