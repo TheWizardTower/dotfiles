@@ -1,4 +1,10 @@
-;;; The flames make it go faster.
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/")
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -8,8 +14,20 @@
 
 (setq package-selected-packages
    (quote
-    (swiper-helm runner vdiff winring window-layout which-key warm-night-theme vline visual-regexp-steroids vim-empty-lines-mode tramp-term telephone-line tabkey2 tabbar-ruler symon sublime stickyfunc-enhance ssh-file-modes srefactor spu smartscan smart-whitespace-comment-fixup sicp scratch-persist scratch-ext sane-term rpn-calc rpm-spec-mode roguel-ike relative-line-numbers register-list rats rainbow-delimiters quickref quelpa puppet-mode prodigy powerline-evil popwin plsense persistent-soft perlcritic pdf-tools paradox pallet orgit org-table-comment org-projectile org-download org-dotemacs org-dashboard nurumacs nssh-n nssh names miniedit menu-bar+ math-at-point markdown-mode+ mark magit-tramp magit-svn magit-gitflow magit-gh-pulls magit-find-file magit-filenotify magic-filetype macro-utils lively linum-relative ledger-mode judge-indent iregister intero insert-shebang init-loader indent-guide ido-vertical-mode idle-highlight-mode hook-utils hl-spotlight hl-line+ hindent highline highlight-sexp help+ helm-projectile helm-package helm-open-github helm-make helm-hoogle helm-helm-commands helm-hayoo helm-gtags helm-go-package helm-gitignore helm-git helm-ghc helm-fuzzy-find helm-flyspell helm-flycheck helm-descbinds helm-company helm-commandlinefu helm-cider-history helm-c-yasnippet helm-anything helm-ag hayoo haskell-snippets guru-mode govet gotham-theme gotests gotest gore-mode golint golden-ratio go-snippets go-scratch go-projectile go-gopath go-errcheck go-dlv go-direx go-complete gnomenm git-messenger git-draft ghci-completion ghc-imported-from ggtags fzf fold-this flyspell-correct-helm flymd flylisp flycheck-stack flycheck-rust flycheck-pos-tip flycheck-ledger flycheck-hdevtools flycheck-haskell flycheck-gometalinter flycheck-ghcmod flycheck-color-mode-line flycheck-clojure flycheck-cask flycheck-bashate fish-mode firecode-theme expand-region exec-path-from-shell evil-visual-mark-mode evil-vimish-fold evil-tutor evil-tabs evil-surround evil-space evil-smartparens evil-search-highlight-persist evil-org evil-mc evil-matchit evil-god-state evil-exchange evil-cleverparens evil-args evil-anzu erefactor emamux elisp-cache el-sprunge ecb ebal dsvn dropbox dockerfile-mode docker discover-my-major discover dired-rainbow dired-quick-sort dired+ diminish diffview diff-hl decide cycle-quotes cus-edit+ crontab-mode counsel config-block company-try-hard company-statistics company-shell company-quickhelp company-math company-irony-c-headers company-irony company-go company-ghci company-ghc company-flx company-cabal company-c-headers company-ansible common-lisp-snippets comment-dwim-2 commander clojure-snippets cfengine-code-style caskxy browse-kill-ring+ browse-at-remote bookmark+ bm better-registers benchmark-init bash-completion auto-yasnippet ansible-doc ansible airline-themes ag ack-menu ace-window ace-popup-menu ace-jump-helm-line ace-jump-buffer ace-isearch ace-flyspell)))
+    (swiper-helm runner vdiff winring window-layout which-key warm-night-theme vline visual-regexp-steroids vim-empty-lines-mode tramp-term telephone-line tabbar-ruler symon stickyfunc-enhance srefactor spu smartscan sicp scratch-ext sane-term rpn-calc rpm-spec-mode roguel-ike relative-line-numbers register-list rats rainbow-delimiters quickref quelpa puppet-mode prodigy powerline-evil popwin plsense persistent-soft pdf-tools paradox pallet orgit org-table-comment org-projectile org-download org-dotemacs org-dashboard names miniedit menu-bar+ markdown-mode+ magit-svn magit-gitflow magit-gh-pulls magit-find-file magit-filenotify magic-filetype lively linum-relative ledger-mode judge-indent iregister intero insert-shebang init-loader indent-guide ido-vertical-mode idle-highlight-mode hl-spotlight hl-line+ hindent help+ helm-projectile helm-package helm-open-github helm-make helm-hoogle helm-helm-commands helm-hayoo helm-gtags helm-go-package helm-gitignore helm-git helm-ghc helm-fuzzy-find helm-flyspell helm-flycheck helm-descbinds helm-company helm-commandlinefu helm-cider-history helm-c-yasnippet helm-anything helm-ag hayoo haskell-snippets guru-mode govet gotham-theme gotest gore-mode golint golden-ratio go-snippets go-scratch go-projectile go-gopath go-errcheck go-dlv go-direx go-complete gnomenm git-messenger ghci-completion ghc-imported-from ggtags fzf fold-this flyspell-correct-helm flymd flylisp flycheck-stack flycheck-rust flycheck-pos-tip flycheck-ledger flycheck-hdevtools flycheck-haskell flycheck-gometalinter flycheck-ghcmod flycheck-color-mode-line flycheck-clojure flycheck-cask flycheck-bashate fish-mode firecode-theme expand-region exec-path-from-shell evil-visual-mark-mode evil-vimish-fold evil-tutor evil-tabs evil-surround evil-space evil-smartparens evil-search-highlight-persist evil-org evil-mc evil-matchit evil-god-state evil-exchange evil-cleverparens evil-args evil-anzu erefactor emamux el-sprunge ecb ebal dsvn dropbox dockerfile-mode docker discover-my-major discover dired-rainbow dired+ diminish diffview diff-hl decide cycle-quotes cus-edit+ crontab-mode counsel company-try-hard company-statistics company-shell company-quickhelp company-math company-irony-c-headers company-irony company-go company-ghci company-ghc company-flx company-cabal company-c-headers company-ansible common-lisp-snippets comment-dwim-2 commander clojure-snippets cfengine-code-style caskxy browse-kill-ring+ browse-at-remote bookmark+ bm better-registers benchmark-init bash-completion auto-yasnippet ansible-doc ansible airline-themes ag ack-menu ace-window ace-popup-menu ace-jump-helm-line ace-jump-buffer ace-isearch ace-flyspell)))
 
+;; install required
+(dolist (package package-selected-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+;; upgrade installed
+(save-window-excursion
+  (package-list-packages t)
+  (package-menu-mark-upgrades)
+  (package-menu-execute t))
+
+;;; The flames make it go faster.
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
 
@@ -23,13 +41,7 @@
 (scroll-bar-mode -1)
 (fringe-mode '(10 . 10))
 
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-(require 'pallet)
-(pallet-mode t)
 (require 'benchmark-init)
-
-(require 'caskxy)
 
 (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
@@ -42,7 +54,6 @@
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)
 
-
 (require 'exec-path-from-shell)
 (exec-path-from-shell-copy-env "SSH_AGENT_PID")
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
@@ -51,17 +62,12 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/site-start.d/")
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
-
 ;;;(setq max-specpdl-size 5000)  ; default is 1000, reduce the backtrace level
 ;;;(setq debug-on-error t)       ; now you should get a backtrace
 ;;; Not yet configured.
 ;;;(autoload 'wl "wl" "Wanderlust" t)
 
 (require 'scratch-ext)
-(require 'scratch-persist)
 
 (require 'airline-themes)
 (load-theme 'airline-serene)
