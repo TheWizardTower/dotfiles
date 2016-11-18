@@ -199,7 +199,7 @@ myKeys =
         , ("M-M1-r",            spawn "xmonad --restart")
         , ("M-S-r",             spawn "pkill dzen2 && xmonad --restart")
         , ("M-M1-q",            io exitSuccess)
-        , ("M-<Backspace>",     spawn "qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock")
+        , ("M-<Backspace>",     spawn "i3lock")
 
 
     -- Windows
