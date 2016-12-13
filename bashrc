@@ -34,13 +34,16 @@ function start_agent {
 
 # Source SSH settings, if applicable
 
-if [ -f "${SSH_ENV}" ]; then
-  . ${SSH_ENV} > /dev/null
-  ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
+hostname=$(hostname)
+if [ ${hostname} != "linp-sandbox" ]; then 
+    if [ -f "${SSH_ENV}" ]; then
+        . ${SSH_ENV} > /dev/null
+        ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+    else
+        start_agent;
+    fi
 fi
 
 export REPOS="svn+ssh://amccullough@svn.corp.imvu.com/home/svnrepos/trunk/operations/"
@@ -91,6 +94,7 @@ fi
 
 alias ..='cd ..'
 source ~/.shellrc
+source ~/.alias
 
 function mymytop() {
     echo $0
