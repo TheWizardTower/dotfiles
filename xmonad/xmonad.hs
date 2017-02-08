@@ -80,7 +80,6 @@ import           XMonad.Layout.BoringWindows         (boringWindows)
 import           XMonad.Layout.LimitWindows          (decreaseLimit,
                                                       increaseLimit,
                                                       limitWindows)
-import           XMonad.Layout.Magnifier
 import           XMonad.Layout.Maximize
 import           XMonad.Layout.Minimize
 import           XMonad.Layout.MultiToggle           (EOT (EOT), Toggle (..),
@@ -119,8 +118,6 @@ import           XMonad.Layout.WindowArranger
 import           XMonad.Layout.ZoomRow               (ZoomMessage (ZoomFullToggle),
                                                       zoomIn, zoomOut,
                                                       zoomReset, zoomRow)
-
-import qualified XMonad.Layout.Magnifier             as Mag
 
     -- Prompts
 import           XMonad.Prompt                       (Direction1D (..),
@@ -185,6 +182,7 @@ myScratchpads =
               , NS "google-music"    "seamonkey 'http://music.google.com/'"         (className =? "Seamonkey")      myPosition
               , NS "rtorrent"        "urxvtc_mod -name rtorrent -e rtorrent"        (resource =? "rtorrent")        myPosition
               , NS "calc"            "free42dec"                                    (role =? "Free42 Calculator")   myPosition
+              , NS "cairo"           "cairo-dock"                                   (resource =? "cairo-dock")      doFloat
               ] where
                 myPosition = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
                 role = stringProperty "WM_WINDOW_ROLE"
@@ -224,9 +222,6 @@ myKeys =
         , ("M-S-m",             sendMessage $ XMonad.Layout.MultiToggle.Toggle MIRROR)
         , ("M-S-b",             sendMessage $ XMonad.Layout.MultiToggle.Toggle NOBORDERS)
         , ("M-S-d",             sendMessage (XMonad.Layout.MultiToggle.Toggle NBFULL) >> sendMessage ToggleStruts)
-        , ("M-m",               sendMessage $ XMonad.Layout.Magnifier.Toggle)
-        , ("M--",               sendMessage $ XMonad.Layout.Magnifier.MagnifyLess)
-        , ("M-S-=",             sendMessage $ XMonad.Layout.Magnifier.MagnifyMore)
         , ("M-g",               withFocused toggleBorder)
 
     -- Workspaces
@@ -250,7 +245,6 @@ myKeys =
                   ,  ("6", sendMessage $ JumpToLayout "Accordion")
                   ,  ("7", sendMessage $ JumpToLayout "MirrorTiled")
                   ])
-          , ("m", sendMessage Mag.Toggle)
           , ("u", submap . mkKeymap myXConfig $
                  [("u", spawn "Xdialog --titlle  'Really, dude?' --screencenter --yesno 'Really, dude?' 10 30")
                 ])
@@ -277,10 +271,11 @@ myKeys =
 
     -- Scratchpads
         , ("M-M1-m",               namedScratchpadAction myScratchpads "music" )
-        , ("M-C-m",               namedScratchpadAction myScratchpads "google-music" )
+        , ("M-C-m",                namedScratchpadAction myScratchpads "google-music" )
         , ("M-M1-c",               namedScratchpadAction myScratchpads "calc" )
         , ("M-M1-<Return>",        namedScratchpadAction myScratchpads "terminal" )
         , ("<XF86Tools>",          namedScratchpadAction myScratchpads "music")
+        , ("M-S-b",                namedScratchpadAction myScratchpads "cairo")
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>",   spawn "ncmpcpp toggle")
@@ -318,7 +313,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
                (composeAll $
          [  className =? "Yakuake"           --> doFloat
           , className =? "Steam"             --> doFloat
-          ,  className =? "steam"            --> doFloat
+          , className =? "steam"             --> doFloat
           , className =? "Pidgin"            --> doShift "1.text"
           , className =? "Gimp"              --> doShift "5.misc"
          ]
@@ -326,6 +321,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
          [  className =? "Plasma-desktop" --> doFloat
           , className =? "plasmashell"    --> doFloat
           , className =? "plasma-desktop" --> makeMaster <+> doFloat
+          , resource  =? "cairo-dock"     --> makeMaster <+> doFloat
 --          , className =? "dzen"           --> makeMaster <+> doFloat <+> docksEventHook
 --          , className =? "dzen2"          --> makeMaster <+> doFloat <+> docksEventHook
          ]
@@ -350,7 +346,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---LAYOUTS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-mainLayout = avoidStruts $ magnifier $ rename "MirrorThree" (Mirror three)
+mainLayout = avoidStruts $ rename "MirrorThree" (Mirror three)
              ||| rename "MirrorTiled" ( Mirror tiled)
              ||| rename "Accordion" (Accordion)
              ||| rename "Column1.6" (Column 1.6)
@@ -359,7 +355,7 @@ mainLayout = avoidStruts $ magnifier $ rename "MirrorThree" (Mirror three)
              ||| rename "Three" (three)
              ||| rename "Full" Full
    where
-     rename s = renamed [Replace s] . Mag.magnifierOff
+     rename s = renamed [Replace s]
      -- Default tiling algorithm partitions the screen into two panes
      tiled = Tall nmaster delta ratio
 
@@ -437,7 +433,7 @@ myXConfig = kde4Config
         { modMask            = myModMask
         , terminal           = myTerminal
         , manageHook         = ((className =? "krunner" <||> className =?
- "Plasma-desktop") >>= return . not --> manageHook kde4Config) <+>
+ "Plasma-desktop" <||> className =? "cairo-dock") >>= return . not --> manageHook kde4Config) <+>
  (kdeOverride --> doFloat) <+> myManageHook
         , layoutHook         = myLayout
         , startupHook        = myStartupHook
