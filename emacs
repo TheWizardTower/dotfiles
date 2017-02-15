@@ -48,9 +48,10 @@
 (add-to-list 'auto-mode-alist '("bashrc" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
 
 (require 'diminish)
 
