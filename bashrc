@@ -35,7 +35,7 @@ function start_agent {
 # Source SSH settings, if applicable
 
 hostname=$(hostname)
-if [ ${hostname} != "linp-sandbox" ]; then 
+if [ ${hostname} != "lint-sandbox" ]; then
     if [ -f "${SSH_ENV}" ]; then
         . ${SSH_ENV} > /dev/null
         ps ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
@@ -132,3 +132,9 @@ alias ia=imvuasset.pl
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+
+
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
