@@ -5,16 +5,15 @@
             - ["mkdir -p ~/.stack/global-project", "Config directory for Stack."]
             - ["mkdir -p ~/.config/fisherman", "Fisherman config directory."]
             - ["mkdir -p ~/.ghc", "Haskell GHC Config directory."]
+            - ["mkdir -p ~/.config/fish/conf.d"]
 
         - "link":
+            ~/.alias: "alias"
             ~/.bash_profile:
               path: "bash_profile"
               force: true
             ~/.bashrc:
               path: "bashrc"
-              force: true
-            ~/.cask:
-              path: "cask"
               force: true
             ~/.cvsignore: "cvsignore"
             ~/.emacs:
@@ -25,12 +24,6 @@
               force: true
             ~/.config/systemd/user/emacs.service:
               path: "emacs.service"
-              force: true
-            ~/.config/fisherman/conf.d/theme:
-                path: "fish/theme"
-                force: true
-            ~/.config/fisherman/conf.d/bundle:
-              path: "fish/bundle"
               force: true
             ~/.config/fish/conf.d/init.fish:
               path: "fish/init.fish"
@@ -55,9 +48,7 @@
             ~/.zshrc: "zshrc"
 
         - shell:
-          -  ["fish -c 'fisher update' ||  curl -L install.fisherman.sh | fish", "Downloading oh-my-fish."]
+          -  ["fish -c 'fisher update' || curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher", "Downloading Fisherman."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installStackPackages.sh", "Installing Cabal Packages."]
-          -  ["~/.cask/bin/cask upgrade-cask", "Updating Cask."]
-          -  ["bash -c 'cd ~/.emacs.d; ~/.cask/bin/cask install", "Install Emacs Packages."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
