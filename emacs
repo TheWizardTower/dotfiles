@@ -96,5 +96,5 @@
 (require 'winring)
 (winring-initialize)
 
-(require 'spu)
-(spu-package-upgrade-daily)
+;;;(require 'spu)
+;;;(spu-package-upgrade-daily)
