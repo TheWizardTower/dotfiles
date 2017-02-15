@@ -76,7 +76,7 @@
 (require 'airline-themes)
 (load-theme 'airline-serene)
 
-(global-relative-line-numbers-mode)
+;;;(global-relative-line-numbers-mode)
 
 ;;; Set the color of the cursor depending on the evil mode you're in.
 (setq evil-normal-state-cursor '(box "red"))
