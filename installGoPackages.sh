@@ -10,6 +10,7 @@ fi
 export GOPATH="${HOMEDIR}/gocode"
 
 go get -u golang.org/x/tools/cmd/cover
+go get -u github.com/kbrgl/fu
 sudo -E go get -u golang.org/x/tools/cmd/godoc
 go get -u golang.org/x/tools/cmd/gorename
 go get -u golang.org/x/tools/cmd/guru
