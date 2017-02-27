@@ -50,5 +50,5 @@
         - shell:
           -  ["fish -c 'fisher update' || curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher", "Downloading Fisherman."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
-          -  ["bash installStackPackages.sh", "Installing Cabal Packages."]
+          -  ["bash installStackPackages.sh", "Installing Stack Packages."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
