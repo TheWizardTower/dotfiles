@@ -51,6 +51,7 @@
 ;;; (kdb "<escape>")
 (global-unset-key (kbd "<escape>"))
 (global-set-key (kbd "<escape>") 'evil-normal-state)
+(global-set-key (kbd "C-c n") 'evil-normal-state)
 
 
 ;;; Set the color of the cursor depending on the evil mode you're in.
