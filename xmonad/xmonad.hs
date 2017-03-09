@@ -2,7 +2,7 @@
 ---INFORMATIONS
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- informations = { Author   = Adam James McCullough
---                  Based on = Config by Graawr
+--                , Based on = Config by Graawr
 --                , Version  = XMonad 0.11 <+> ghc 7.8.4 <+> dzen2-0.8.5
 --                , Updated  = August 20 2015
 --                }
@@ -321,6 +321,7 @@ myManageHook = scratchpadManageHook (W.RationalRect l t w h) <+>
          [  className =? "Plasma-desktop" --> doFloat
           , className =? "plasmashell"    --> doFloat
           , className =? "plasma-desktop" --> makeMaster <+> doFloat
+	  , className =? "Plasma"         --> makeMaster <+> doFloat
           , resource  =? "cairo-dock"     --> makeMaster <+> doFloat
 --          , className =? "dzen"           --> makeMaster <+> doFloat <+> docksEventHook
 --          , className =? "dzen2"          --> makeMaster <+> doFloat <+> docksEventHook
