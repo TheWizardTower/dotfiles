@@ -197,7 +197,7 @@ myKeys =
         , ("M-M1-r",            spawn "xmonad --restart")
         , ("M-S-r",             spawn "pkill dzen2 && xmonad --restart")
         , ("M-M1-q",            io exitSuccess)
-        , ("M-<Backspace>",     spawn "i3lock")
+        , ("M-<Backspace>",     spawn "/usr/libexec/kscreenlocker_greet")
 
 
     -- Windows
