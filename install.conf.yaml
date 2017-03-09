@@ -6,6 +6,7 @@
             - ["mkdir -p ~/.config/fisherman", "Fisherman config directory."]
             - ["mkdir -p ~/.ghc", "Haskell GHC Config directory."]
             - ["mkdir -p ~/.config/fish/conf.d"]
+            - ["mkdir -p ~/.config/fish/paths.d"]
 
         - "link":
             ~/.alias: "alias"
@@ -24,6 +25,9 @@
               force: true
             ~/.config/systemd/user/emacs.service:
               path: "emacs.service"
+              force: true
+            ~/.config/fish/paths.d/PATH:
+              path: "fish/paths.d/PATH"
               force: true
             ~/.config/fish/conf.d/init.fish:
               path: "fish/init.fish"
@@ -49,6 +53,10 @@
 
         - shell:
           -  ["fish -c 'fisher update' || curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher", "Downloading Fisherman."]
+          -  ["fish -c 'for ii in (cat fish/bundle) ; echo $ii; fisher $ii; end", "Instaling Fisher plugins"]
+          -  ["fish -c 'fisher fisherman/metro'", "Setting Fish theme to Metro."]
+          -  ["emacs -q -nw -l emacs.d/install.el", "Installing Emacs libraries."]
           -  ["bash installGoPackages.sh", "Installing Go Packages."]
           -  ["bash installStackPackages.sh", "Installing Stack Packages."]
+          -  ["bash installCargoPackages.sh", "Installing Cargo Packages."]
           -  ["bash installTPM.sh", "Installing Tmux Plugin Manager."]
