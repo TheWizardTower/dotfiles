@@ -99,3 +99,6 @@
 
 ;;;(require 'spu)
 ;;;(spu-package-upgrade-daily)
+
+(highlight-symbol-mode)
+(yas-global-mode 1)
