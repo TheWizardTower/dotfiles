@@ -11,3 +11,5 @@
 (require 'auto-yasnippet)
 (global-set-key (kbd "C-c w") #'aya-create)
 (global-set-key (kbd "C-c M-y") #'aya-expand)
+
+(global-set-key (kbd "C-c y") 'company-yasnippet)
