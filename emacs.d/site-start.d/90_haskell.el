@@ -2,6 +2,8 @@
 (eval-after-load 'flycheck '(require 'flycheck-hdevtools))
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
+(require 'haskell-snippets)
+
 (add-to-list 'load-path "~/git/HaRe/elisp/")
 (require 'hare)
 (require 'flycheck-stack)
