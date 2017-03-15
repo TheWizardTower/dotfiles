@@ -13,8 +13,8 @@ fisherman/grc
 fisherman/host_info
 fisherman/humanize_duration
 fisherman/last_job_id
-fisherman/metro
-fisherman/paths
+TheWizardTower/metro
+TheWizardTower/paths
 oh-my-fish/plugin-peco
 oh-my-fish/plugin-php
 fisherman/pwd_info
