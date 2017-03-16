@@ -21,7 +21,7 @@ end
 
 
 set -l output (hostname | grep lin[[:alpha:]]-sandbox)
-if test -n "$SSH_AGENT_PID" -a -z $output
+if test -n "$SSH_AGENT_PID" -a -z "$output"
     ps -ef | grep $SSH_AGENT_PID | grep ssh-agent >/dev/null
     if [ $status -eq 0 ]
         test_identities
