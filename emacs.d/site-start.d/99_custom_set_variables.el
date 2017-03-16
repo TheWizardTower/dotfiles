@@ -20,11 +20,8 @@
  '(haskell-tags-on-save t)
  '(package-selected-packages
    (quote
-
-
-
-
-(ace-flyspell
+    (
+ace-flyspell
 ace-isearch
 ace-jump-buffer
 ace-jump-helm-line
@@ -36,6 +33,8 @@ ack-menu
 ag
 aggressive-fill-paragraph
 aggressive-indent
+ack-menu
+ag
 airline-themes
 ansible
 ansible-doc
@@ -262,6 +261,7 @@ telephone-line
 top-mode
 tramp-term
 trr
+tramp-term
 vdiff
 vim-empty-lines-mode
 visual-regexp-steroids
@@ -269,7 +269,8 @@ vline
 warm-night-theme
 which-key
 window-layout
-winring))))
+winring
+))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
