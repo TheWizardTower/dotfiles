@@ -20,7 +20,7 @@ function test_identities
 end
 
 
-hostname | grep lin[[:alpha:]]-sandbox
+hostname | grep lin[[:alpha:]]-sandbox >/dev/null
 if test -n "$SSH_AGENT_PID" -a $status
     ps -ef | grep $SSH_AGENT_PID | grep ssh-agent >/dev/null
     if [ $status -eq 0 ]
@@ -28,7 +28,7 @@ if test -n "$SSH_AGENT_PID" -a $status
     end
 else
     if test -f $SSH_ENV
-        . $SSH_ENV >/dev/null
+        source $SSH_ENV >/dev/null
     end
     ps -ef | grep $SSH_AGENT_PID | grep [s]sh-agent >/dev/null
     if test $status -eq 0
