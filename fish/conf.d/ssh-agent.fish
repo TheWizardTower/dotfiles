@@ -1,3 +1,4 @@
+# These are set here, rather than in paths.d/ because they weren't reliably getting created before this was run.
 set -gx SSH_ENV $HOME/.ssh/environment
 set -gx SSH_SOCK_LINK $HOME/.ssh/auth_sock_symlink
 
