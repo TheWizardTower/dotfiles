@@ -23,21 +23,23 @@ function test_identities
 end
 
 
-set -l output (hostname | grep lin[[:alpha:]]-sandbox)
-if test -n "$SSH_AGENT_PID" -a -z "$output"
-    ps -ef | grep $SSH_AGENT_PID | grep ssh-agent >/dev/null
-    if [ $status -eq 0 ]
-        test_identities
-    end
-else
-    if test -f $SSH_ENV
-        source $SSH_ENV >/dev/null
-    end
-    ps -ef | grep $SSH_AGENT_PID | grep [s]sh-agent >/dev/null
-    if test $status -eq 0
-        test_identities
+set -l output
+if test -z "(hostname | grep lin[[:alpha:]]-sandbox)"
+    if test -n "$SSH_AGENT_PID"
+        echo "Passed ssh-agent-pid guard."
+        ps -ef | grep $SSH_AGENT_PID | grep ssh-agent >/dev/null
+        if [ $status -eq 0 ]
+            test_identities
+        end
     else
-        start_agent
+        if test -f $SSH_ENV
+            source $SSH_ENV >/dev/null
+        end
+        ps -ef | grep $SSH_AGENT_PID | grep [s]sh-agent >/dev/null
+        if test $status -eq 0
+            test_identities
+        else
+            start_agent
+        end
     end
 end
-
