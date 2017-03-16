@@ -1,3 +1,6 @@
+set -gx SSH_ENV $HOME/.ssh/environment
+set -gx SSH_SOCK_LINK $HOME/.ssh/auth_sock_symlink
+
 function start_agent
     fish echo "Initializing new SSH agent ..."
     set -l ssh_eval (/usr/bin/ssh-agent -c | sed 's/setenv/set -gx/g')
