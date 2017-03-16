@@ -49,10 +49,12 @@
 (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tml\\'" . twig-mode))
+(add-to-list 'auto-mode-alist '("\\.twig\\'" . twig-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-to-list 'auto-mode-alist '("\\.fish\\'" . fish-mode))
 
 (require 'diminish)
 
@@ -96,9 +98,6 @@
 
 (require 'winring)
 (winring-initialize)
-
-;;;(require 'spu)
-;;;(spu-package-upgrade-daily)
 
 (highlight-symbol-mode)
 (yas-global-mode 1)
