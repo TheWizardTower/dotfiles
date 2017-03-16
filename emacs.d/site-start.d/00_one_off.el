@@ -12,16 +12,12 @@
 (eval-after-load "menu-bar" '(require 'menu-bar+))
 
 (setq-default indent-tabs-mode nil)
+(setq tab-width 4)
 
 ;; Highlight matching parenthesis.
 (show-paren-mode 1)
 
 (magic-filetype-enable-vim-filetype)
-
-
-(require 'judge-indent)
-(global-judge-indent-mode 1)
-(setq judge-indent-major-modes '(c-mode python-mode sh-mode))
 
 (global-visual-line-mode)
 (diminish 'visual-line-minor-mode)
