@@ -1,6 +1,6 @@
 function start_agent
     fish echo "Initializing new SSH agent ..."
-    set -l ssh_eval (/usr/bin/ssh-agent -c)
+    set -l ssh_eval (/usr/bin/ssh-agent -c | sed 's/setenv/set -gx/g')
     echo $ssh_eval >$SSH_ENV
     echo "succeeded"
     chmod 600 $SSH_ENV
