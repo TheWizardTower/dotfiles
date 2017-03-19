@@ -55,6 +55,7 @@
 (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.fish\\'" . fish-mode))
+(add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
 
 (require 'diminish)
 
