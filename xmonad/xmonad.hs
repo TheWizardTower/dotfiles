@@ -417,7 +417,7 @@ myStartupHook = do
           spawnOnce "pidgin &"
           spawnOnce "yakuake &"
           spawnOnce "xcompmgr -c &"
-          spawnOnce "redshift -l manual &"
+          spawnOnce "redshift -l geoclue2 &"
           spawnOnce "xmodmap ~/.Xmodmap &"
           spawnOnce "systemctl --user start emacs"
 
